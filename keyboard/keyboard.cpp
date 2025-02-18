@@ -64,16 +64,21 @@ uint8_t kb_brightness_duty = KB_BRIGHTNESS_BOOT_DUTY;
 */
 uint8_t kb_brightness_setting_duty = KB_BRIGHTNESS_DEFAULT_DUTY;    //Alt+B default duty , is duty is zero , use setting duty
 
-
+// TODO: Refactor to use Wire.write() instead of Wire.print() and the key_info array
 void onRequest()
 {
     if (comdata_flag) {
-        Wire.print(comdata);
+        Wire.write(comdata, sizeof(comdata));
         comdata_flag = false;
-        Serial.print("comdata :");
-        Serial.println(comdata);
+        Serial.print("comdata : ");
+        for (int i = 0; i < 4; i++) {
+            Serial.print(comdata[i]);
+            Serial.print(" ");
+        }
+        Serial.println();
     } else {
-        Wire.print((char)0x00);
+        uint8_t emptyData[4] = {0x00, 0x00, 0x00, 0x00}; // Create a temporary array
+        Wire.write(emptyData, sizeof(emptyData)); // Use the temporary array
     }
 }
 
