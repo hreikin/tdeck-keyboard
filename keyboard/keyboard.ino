@@ -46,42 +46,7 @@ void loop()
 {
     readKeyMatrix();
     sendKeyInfo();
-
-    // key 3,3 is the enter key
-    if (keyPressed(3, 3)) {
-        Serial.println();
-        comdata = (char)0x0D;
-        comdata_flag = true;
-    }
-    if (keyPressed(4, 3)) {
-        Serial.println("backspace");
-        comdata = (char)0x08;
-        comdata_flag = true;
-    }
-    if (keyHeld(0, 4) && keyPressed(3, 4)) { //Alt+B
-        Serial.println("Alt+B");
-        // If the software sets the duty cycle to 0, then the value set
-        // by the ATL+B register is used to ensure that ALT+B can normally light up the backlight.
-        if (BL_state) {
-            BL_state = false;
-            ledcWrite(KB_BRIGHTNESS_CH, 0); //turn off
-        } else {
-            BL_state = true;
-            if (kb_brightness_duty == 0) {
-                Serial.println("User set bl duty is zero,use setting duty");
-                ledcWrite(KB_BRIGHTNESS_CH, kb_brightness_setting_duty);
-            } else {
-                Serial.println("Duty is not zero ,use user setting bl value");
-                ledcWrite(KB_BRIGHTNESS_CH, kb_brightness_duty);
-            }
-        }
-        comdata_flag = false;   //Don't send char
-    }
-    if (keyHeld(0, 4) && keyPressed(2, 5)) { //Alt+C
-        Serial.println("Alt+C");
-        comdata = (char)0x0C;
-        comdata_flag = true;
-    }
+    // TODO: Should i add a delay after sending the key_info ?
 }
 
 #else
