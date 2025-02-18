@@ -37,7 +37,7 @@ extern bool speaker_key;
 extern uint8_t key_info[4];
 extern bool BL_state;
 extern bool comdata_flag;
-extern char comdata;
+extern uint8_t comdata[4];
 extern uint8_t kb_brightness_duty;
 extern uint8_t kb_brightness_setting_duty;
 
