@@ -47,7 +47,7 @@ bool speaker_key = false;
 uint8_t key_info[4] = {0x00, alt_key, mic_key, speaker_key};    // key_value, alt, mic, speaker
 bool BL_state = false;
 bool comdata_flag = false;
-char comdata;
+uint8_t comdata[4] = {0x00, 0x00, 0x00, 0x00};
 
 /*
 * Dynamically modify backlight brightness at runtime
