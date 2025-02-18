@@ -1,0 +1,8 @@
+{
+    "configuration": "JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=40,FlashMode=dio,FlashFreq=40,FlashSize=4M,UploadSpeed=115200,DebugLevel=none,EraseFlash=none",
+    "board": "esp32:esp32:esp32c3",
+    "programmer": "esptool",
+    "sketch": "keyboard/keyboard.ino",
+    "port": "/dev/ttyACM0",
+    "output": "build/"
+}
