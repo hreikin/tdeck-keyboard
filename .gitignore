@@ -1,0 +1,5 @@
+# Build folders
+build/
+
+# VSCode files
+c_cpp_properties.json
