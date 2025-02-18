@@ -8,11 +8,11 @@
 #define keyboard_BL_PIN                     9
 #define SDA                                 2
 #define SCL                                 10
-#define KB_BRIGHTNESS_CH                    0
-#define KB_BRIGHTNESS_FREQ                  1000
-#define KB_BRIGHTNESS_RES                   8     //Resolution_bits
+#define KB_BRIGHTNESS_CH                    0     // ledc channel
+#define KB_BRIGHTNESS_FREQ                  1000  // ledc Frequency
+#define KB_BRIGHTNESS_RES                   8     // ledc Resolution_bits
 #define KB_BRIGHTNESS_BOOT_DUTY             0
-#define KB_BRIGHTNESS_DEFAULT_DUTY          127   //Alt+B default duty , is duty is zero , use setting duty
+#define KB_BRIGHTNESS_DEFAULT_DUTY          127   // Alt+B default duty , is duty is zero , use setting duty
 
 #define LILYGO_KB_BRIGHTNESS_CMD            0x01
 #define LILYGO_KB_ALT_B_BRIGHTNESS_CMD      0x02
