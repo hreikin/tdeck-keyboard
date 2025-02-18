@@ -127,7 +127,7 @@ bool keyHeld(int colIndex, int rowIndex)
 
 bool isPrintableKey(int colIndex, int rowIndex)
 {
-    return symbol_keymap1[colIndex][rowIndex] != NULL || default_keymap[colIndex][rowIndex] != NULL;
+    return symbol_keymap1[colIndex][rowIndex] != NULL || caps_keymap[colIndex][rowIndex] != NULL || default_keymap[colIndex][rowIndex] != NULL;
 }
 
 void readKeyMatrix()
