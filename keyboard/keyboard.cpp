@@ -1,15 +1,3 @@
-/**
- * @file      Keyboard_ESP32C3.ino
- * @author    Koby Hale
- * @license   MIT
- * @copyright Copyright (c) 2023  Shenzhen Xin Yuan Electronic Technology Co., Ltd
- * @date      2023-04-11
- * @Revision  : 
- * * 2024-12-16 : Fixed issue https://github.com/Xinyuan-LilyGO/T-Deck/issues/69
- * * 2024-12-24 : Fixed issue https://github.com/Xinyuan-LilyGO/T-Deck/issues/70
- * * 2024-12-25   Added keyboard backlight control
- */
-// holds the methods (readKeyMatrix, sendKeyInfo), callbacks (onRequest, onReceive) and helpers (isPressed, isHeld) definitions
 #include "keyboard.hpp"
 
 uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};
