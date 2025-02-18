@@ -167,26 +167,100 @@ void sendKeyInfo()
 {
     for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
         for (int colIndex = 0; colIndex < colCount; colIndex++) {
+            // key 3,3 is the enter key
+            if (keyPressed(3, 3)) {
+                Serial.println("enter (enter)");
+                key_info[0] = 0x0D;
+                comdata_flag = true;
+            }
+            // key 4,3 is the backspace key
+            if (keyPressed(4, 3)) {
+                Serial.println("backspace (backspace)");
+                key_info[0] = 0x08;
+                comdata_flag = true;
+            }
+            // if both shifts are pressed, set keymap_index to 1, reset to 0 if pressed a second time
+            if (keyPressed(1, 6) && keyPressed(2, 3)) {
+                Serial.println("caps (lshift+rshift)");
+                if (keymap_index == 1) {
+                    keymap_index = 0;
+                } else {
+                    keymap_index = 1;
+                }
+            }
+            // if `alt+c` set keymap_index to 2, reset to 0 if pressed a second time
+            if (keyHeld(0, 4) && keyPressed(2, 5)) { //Alt+C
+                Serial.println("ctrl (alt+c)");
+                if (keymap_index == 2) {
+                    keymap_index = 0;
+                } else {
+                    keymap_index = 2;
+                }
+            }
+            // if `sym` is pressed, set keymap_index to 3, reset to 0 if pressed a second time
+            // TODO: when extra symbol_keymaps are added in the future add a check of the 
+            // TODO: keymap_index's value to see if you should increase by one or set to 3 or 
+            // TODO: cycle back to 0
+            if (keyHeld(0, 2)) {
+                Serial.println("sym (sym)");
+                if (keymap_index == 3) {
+                    keymap_index = 0;
+                } else {
+                    keymap_index = 3;
+                }
+            }
+            // if `alt+b` is pressed, toggle the backlight on and off
+            if (keyHeld(0, 4) && keyPressed(3, 4)) { //Alt+B
+                Serial.println("Alt+B");
+                // If the software sets the duty cycle to 0, then the value set
+                // by the ATL+B register is used to ensure that ALT+B can normally light up the backlight.
+                if (BL_state) {
+                    BL_state = false;
+                    ledcWrite(KB_BRIGHTNESS_CH, 0); //turn off
+                } else {
+                    BL_state = true;
+                    if (kb_brightness_duty == 0) {
+                        Serial.println("User set bl duty is zero,use setting duty");
+                        ledcWrite(KB_BRIGHTNESS_CH, kb_brightness_setting_duty);
+                    } else {
+                        Serial.println("Duty is not zero ,use user setting bl value");
+                        ledcWrite(KB_BRIGHTNESS_CH, kb_brightness_duty);
+                    }
+                }
+                comdata_flag = false;   //Don't send char
+            }
             // we only want to print if the key is pressed and it is a printable character
             if (keyPressed(colIndex, rowIndex) && isPrintableKey(colIndex, rowIndex)) {
-                char toPrint;
-
-                if (keyHeld(0, 2)) {
-                    toPrint = char(symbol_keymap1[colIndex][rowIndex]);
-                } else {
-                    toPrint = char(default_keymap[colIndex][rowIndex]);
+                // if keymap_index is 0, use default_keymap,
+                if (keymap_index == 0) {
+                    // keys 1,6 and 2,3 are Shift keys, so we want to upper case if either is held down while selecting the key
+                    if (keyHeld(1, 6) || keyHeld(2, 3)) {
+                        key_info[0] = caps_keymap[colIndex][rowIndex];
+                    } else {
+                        key_info[0] = default_keymap[colIndex][rowIndex];
+                    }
                 }
-
-                // keys 1,6 and 2,3 are Shift keys, so we want to upper case
-                if (keyHeld(1, 6) || keyHeld(2, 3)) {
-                    toPrint = (char)((int)toPrint - 32);
+                // if keymap_index is 1, use caps_keymap
+                else if (keymap_index == 1) {
+                    key_info[0] = caps_keymap[colIndex][rowIndex];
                 }
-
-                Serial.print(toPrint);
-
-                comdata = toPrint;
+                // if keymap_index is 2, use ctrl_keymap
+                else if (keymap_index == 2) {
+                    key_info[0] = ctrl_keymap[colIndex][rowIndex];
+                }
+                // if keymap_index is 3, use symbol_keymap1
+                else if (keymap_index == 3) {
+                    key_info[0] = symbol_keymap1[colIndex][rowIndex];
+                }
+                // print all the key_info array values
+                for (int i = 0; i < 4; i++) {
+                    Serial.print(key_info[i]);
+                    Serial.print(" ");
+                }
+                Serial.println();
+                memcpy(comdata, key_info, sizeof(key_info));
                 comdata_flag = true;
-
+                // TODO: Should i reset the keymap_index to 0 after sending the key_info ?
             }
         }
     }
