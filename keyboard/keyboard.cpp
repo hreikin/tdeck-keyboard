@@ -131,9 +131,10 @@ bool keyHeld(int colIndex, int rowIndex)
     return keys[colIndex][rowIndex] == true;
 }
 
-bool isPrintableKey(int colIndex, int rowIndex)
+// // TODO: Does this need an argument adding (keymap or keymapIndex) so it knows which keymap to check or use ?
+bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7])
 {
-    return symbol_keymap1[colIndex][rowIndex] != NULL || caps_keymap[colIndex][rowIndex] != NULL || default_keymap[colIndex][rowIndex] != NULL;
+    return keymap[colIndex][rowIndex] != NULL;
 }
 
 void readKeyMatrix()
