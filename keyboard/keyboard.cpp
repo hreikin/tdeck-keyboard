@@ -16,24 +16,24 @@ char default_keymap[5][7] = {       // index = 0
     {0x75, 0x68, 0x79, NULL, 0x62, 0x6E, 0x6A},   // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }
     {0x6F, 0x6C, 0x69, NULL, 0x24, 0x6D, 0x6B}    // { 'o', 'l', 'i', NULL, '$', 'm', 'k' }
 };
-// TODO: Should space be NULL or tab ?
-char caps_keymap[5][7] = {          // index = 1
-    {0x51, 0x57, NULL, 0x41, NULL, 0x20, NULL},   // { 'Q', 'W', NULL, 'A', NULL, ' ', NULL }
+// // TODO: Should space be NULL or tab ? should $ be NULL ?
+char capsKeymap[5][7] = {
+    {0x51, 0x57, NULL, 0x41, NULL, 0x09, NULL},   // { 'Q', 'W', NULL, 'A', NULL, '[tab]', NULL }
     {0x45, 0x53, 0x44, 0x50, 0x58, 0x5A, NULL},   // { 'E', 'S', 'D', 'P', 'X', 'Z', NULL }
     {0x52, 0x47, 0x54, NULL, 0x56, 0x43, 0x46},   // { 'R', 'G', 'T', NULL, 'V', 'C', 'F' }
     {0x55, 0x48, 0x59, NULL, 0x42, 0x4E, 0x4A},   // { 'U', 'H', 'Y', NULL, 'B', 'N', 'J' }
-    {0x4F, 0x4C, 0x49, NULL, 0x24, 0x4D, 0x4B}    // { 'O', 'L', 'I', NULL, '$', 'M', 'K' }
+    {0x4F, 0x4C, 0x49, NULL, NULL, 0x4D, 0x4B}    // { 'O', 'L', 'I', NULL, NULL, 'M', 'K' }
 };
-// TODO: Should space be NULL or work as `ctrl + space` ?
-char ctrl_keymap[5][7] = {           // index = 2
-    {0x11, 0x17, NULL, 0x01, NULL, 0x20, NULL},    // { 'q', 'w', NULL, 'a', NULL, ' ', NULL }
+// // TODO: Should space be NULL or work as `ctrl + space` ? should $ be NULL ?
+char ctrlKeymap[5][7] = {
+    {0x11, 0x17, NULL, 0x01, NULL, NULL, NULL},    // { 'q', 'w', NULL, 'a', NULL, NULL, NULL }
     {0x05, 0x13, 0x04, 0x10, 0x18, 0x1A, NULL},    // { 'e', 's', 'd', 'p', 'x', 'z', NULL }
     {0x12, 0x07, 0x14, NULL, 0x16, 0x03, 0x06},    // { 'r', 'g', 't', NULL, 'v', 'c', 'f' }
     {0x15, 0x08, 0x19, NULL, 0x02, 0x0E, 0x0A},    // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }
-    {0x0F, 0x0C, 0x09, NULL, 0x24, 0x0D, 0x0B}     // { 'o', 'l', 'i', NULL, '$', 'm', 'k' }
+    {0x0F, 0x0C, 0x09, NULL, NULL, 0x0D, 0x0B}     // { 'o', 'l', 'i', NULL, NULL, 'm', 'k' }
 };
 // TODO: Add other symbol keymaps as needed
-char symbol_keymap1[5][7] = {        // index = 3
+char symbolKeymap1[5][7] = {       // index = 1
     {0x23, 0x31, NULL, 0x2A, NULL, NULL, 0x30},    // { '#', '1', NULL, '*', NULL, NULL, '0' },
     {0x32, 0x34, 0x35, 0x40, 0x38, 0x37, NULL},    // { '2', '4', '5', '@', '8', '7', NULL },
     {0x33, 0x2F, 0x28, NULL, 0x3F, 0x39, 0x36},    // { '3', '/', '(', NULL, '?', '9', '6' },
