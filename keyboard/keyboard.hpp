@@ -27,25 +27,31 @@ extern bool keys[5][7];
 extern bool lastValue[5][7];
 extern bool changedValue[5][7];
 extern char default_keymap[5][7];
-extern char caps_keymap[5][7];
-extern char ctrl_keymap[5][7];
-extern char symbol_keymap1[5][7];
-extern uint8_t keymap_index;
-extern bool alt_key;
-extern bool mic_key;
-extern bool speaker_key;
-extern uint8_t key_info[4];
-extern bool BL_state;
-extern bool comdata_flag;
-extern uint8_t comdata[4];
-extern uint8_t kb_brightness_duty;
-extern uint8_t kb_brightness_setting_duty;
+extern char capsKeymap[5][7];
+extern char ctrlKeymap[5][7];
+extern char symbolKeymap1[5][7];
+extern uint8_t keymapIndex;
+extern bool capsToggle;
+extern bool ctrlToggle;
+extern bool symbolToggle;
+extern bool altToggle;
+extern bool micToggle;
+extern bool speakerToggle;
+extern bool symbolLock;
+extern bool backlightState;
+extern bool sendFlag;
+// TODO: change to char ?
+extern uint8_t keyInfo[4];
+// TODO: change to char ?
+extern uint8_t sendData[4];
+extern uint8_t kbBrightnessDuty;
+extern uint8_t kbBrightnessSettingDuty;
 
 void onRequest();
 void onReceive(int len);
 bool keyPressed(int colIndex, int rowIndex);
 bool keyHeld(int colIndex, int rowIndex);
-bool isPrintableKey(int colIndex, int rowIndex);
+bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7]);
 void readKeyMatrix();
 void sendKeyInfo();
 
