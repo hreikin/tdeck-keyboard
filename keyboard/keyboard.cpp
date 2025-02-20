@@ -97,20 +97,20 @@ void onReceive(int len)
         case LILYGO_KB_BRIGHTNESS_CMD: {
             int duty = Wire.read();
             if (duty >= 0) {
-                kb_brightness_duty = duty;
+                kbBrightnessDuty = duty;
                 // Serial.printf("B:%d", duty);
                 ledcWrite(KB_BRIGHTNESS_CH, duty);
                 if (duty > 0) {
-                    BL_state = true;
+                    backlightState = true;
                 } else if (duty == 0) {
-                    BL_state = false;
+                    backlightState = false;
                 }
             }
         }
         case LILYGO_KB_ALT_B_BRIGHTNESS_CMD: {
             int duty = Wire.read();
             if (duty > 30) {
-                kb_brightness_setting_duty = duty;
+                kbBrightnessSettingDuty = duty;
             }
         }
         break;
