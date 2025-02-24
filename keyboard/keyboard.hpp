@@ -17,6 +17,8 @@
 #define LILYGO_KB_BRIGHTNESS_CMD            0x01
 #define LILYGO_KB_ALT_B_BRIGHTNESS_CMD      0x02
 
+#define DEBOUNCE_DELAY 50 // 50 milliseconds debounce delay
+
 extern uint8_t rows[];
 extern const int rowCount;
 
