@@ -9,43 +9,35 @@ const int colCount = sizeof(cols) / sizeof(cols[0]);
 bool keys[5][7];
 bool lastValue[5][7];
 bool changedValue[5][7];
-char default_keymap[5][7] = {       // index = 0
-    {0x71, 0x77, NULL, 0x61, NULL, 0x20, NULL},   // { 'q', 'w', NULL, 'a', NULL, ' ', NULL }
-    {0x65, 0x73, 0x64, 0x70, 0x78, 0x7A, NULL},   // { 'e', 's', 'd', 'p', 'x', 'z', NULL }
-    {0x72, 0x67, 0x74, NULL, 0x76, 0x63, 0x66},   // { 'r', 'g', 't', NULL, 'v', 'c', 'f' }
-    {0x75, 0x68, 0x79, NULL, 0x62, 0x6E, 0x6A},   // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }
-    {0x6F, 0x6C, 0x69, NULL, 0x24, 0x6D, 0x6B}    // { 'o', 'l', 'i', NULL, '$', 'm', 'k' }
+char default_keymap[5][7] = {       // index = 0  // keys                                           // null
+    {0x71, 0x77, NULL, 0x61, NULL, 0x20, NULL},   // { 'q', 'w', NULL, 'a', NULL, ' ', NULL }       // sym, alt, mic
+    {0x65, 0x73, 0x64, 0x70, 0x78, 0x7A, NULL},   // { 'e', 's', 'd', 'p', 'x', 'z', NULL }         // lshift
+    {0x72, 0x67, 0x74, NULL, 0x76, 0x63, 0x66},   // { 'r', 'g', 't', NULL, 'v', 'c', 'f' }         // rshift
+    {0x75, 0x68, 0x79, NULL, 0x62, 0x6E, 0x6A},   // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }         // enter
+    {0x6F, 0x6C, 0x69, NULL, 0x24, 0x6D, 0x6B}    // { 'o', 'l', 'i', NULL, '$', 'm', 'k' }         // backspace
 };
-// // TODO: Should space be NULL or tab ? should $ be NULL ?
-char capsKeymap[5][7] = {
-    {0x51, 0x57, NULL, 0x41, NULL, 0x09, NULL},   // { 'Q', 'W', NULL, 'A', NULL, '[tab]', NULL }
-    {0x45, 0x53, 0x44, 0x50, 0x58, 0x5A, NULL},   // { 'E', 'S', 'D', 'P', 'X', 'Z', NULL }
-    {0x52, 0x47, 0x54, NULL, 0x56, 0x43, 0x46},   // { 'R', 'G', 'T', NULL, 'V', 'C', 'F' }
-    {0x55, 0x48, 0x59, NULL, 0x42, 0x4E, 0x4A},   // { 'U', 'H', 'Y', NULL, 'B', 'N', 'J' }
-    {0x4F, 0x4C, 0x49, NULL, NULL, 0x4D, 0x4B}    // { 'O', 'L', 'I', NULL, NULL, 'M', 'K' }
+char capsKeymap[5][7] = {                         // keys                                           // null
+    {0x51, 0x57, NULL, 0x41, NULL, 0x09, NULL},   // { 'Q', 'W', NULL, 'A', NULL, '[tab]', NULL }   // sym, alt, mic
+    {0x45, 0x53, 0x44, 0x50, 0x58, 0x5A, NULL},   // { 'E', 'S', 'D', 'P', 'X', 'Z', NULL }         // lshift
+    {0x52, 0x47, 0x54, NULL, 0x56, 0x43, 0x46},   // { 'R', 'G', 'T', NULL, 'V', 'C', 'F' }         // rshift
+    {0x55, 0x48, 0x59, NULL, 0x42, 0x4E, 0x4A},   // { 'U', 'H', 'Y', NULL, 'B', 'N', 'J' }         // enter
+    {0x4F, 0x4C, 0x49, NULL, NULL, 0x4D, 0x4B}    // { 'O', 'L', 'I', NULL, NULL, 'M', 'K' }        // backspace, $ (speaker)
 };
-// // TODO: Should space be NULL or work as `ctrl + space` ? should $ be NULL ?
-char ctrlKeymap[5][7] = {
-    {0x11, 0x17, NULL, 0x01, NULL, NULL, NULL},    // { 'q', 'w', NULL, 'a', NULL, NULL, NULL }
-    {0x05, 0x13, 0x04, 0x10, 0x18, 0x1A, NULL},    // { 'e', 's', 'd', 'p', 'x', 'z', NULL }
-    {0x12, 0x07, 0x14, NULL, 0x16, 0x03, 0x06},    // { 'r', 'g', 't', NULL, 'v', 'c', 'f' }
-    {0x15, 0x08, 0x19, NULL, 0x02, 0x0E, 0x0A},    // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }
-    {0x0F, 0x0C, 0x09, NULL, NULL, 0x0D, 0x0B}     // { 'o', 'l', 'i', NULL, NULL, 'm', 'k' }
+char ctrlKeymap[5][7] = {                          // keys                                          // null
+    {0x11, 0x17, NULL, 0x01, NULL, NULL, NULL},    // { 'q', 'w', NULL, 'a', NULL, NULL, NULL }     // sym, alt, space, mic
+    {0x05, 0x13, 0x04, 0x10, 0x18, 0x1A, NULL},    // { 'e', 's', 'd', 'p', 'x', 'z', NULL }        // lshift
+    {0x12, 0x07, 0x14, NULL, 0x16, 0x03, 0x06},    // { 'r', 'g', 't', NULL, 'v', 'c', 'f' }        // rshift
+    {0x15, 0x08, 0x19, NULL, 0x02, 0x0E, 0x0A},    // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }        // enter
+    {0x0F, 0x0C, 0x09, NULL, NULL, 0x0D, 0x0B}     // { 'o', 'l', 'i', NULL, NULL, 'm', 'k' }       // backspace, $ (speaker)
 };
 // TODO: Add other symbol keymaps as needed
-char symbolKeymap1[5][7] = {       // index = 1
-    {0x23, 0x31, NULL, 0x2A, NULL, NULL, 0x30},    // { '#', '1', NULL, '*', NULL, NULL, '0' },
-    {0x32, 0x34, 0x35, 0x40, 0x38, 0x37, NULL},    // { '2', '4', '5', '@', '8', '7', NULL },
-    {0x33, 0x2F, 0x28, NULL, 0x3F, 0x39, 0x36},    // { '3', '/', '(', NULL, '?', '9', '6' },
-    {0x5F, 0x3A, 0x29, NULL, 0x21, 0x2C, 0x3B},    // { '_', ':', ')', NULL, '!', ',', ';' },
-    {0x2B, 0x22, 0x2D, NULL, NULL, 0x2E, 0x27}     // { '+', '"', '-', NULL, NULL, '.', '\'' }
+char symbolKeymap1[5][7] = {        // index = 1   // keys                                          //null
+    {0x23, 0x31, NULL, 0x2A, NULL, NULL, 0x30},    // { '#', '1', NULL, '*', NULL, NULL, '0' },     // sym, alt, space
+    {0x32, 0x34, 0x35, 0x40, 0x38, 0x37, NULL},    // { '2', '4', '5', '@', '8', '7', NULL },       // lshift
+    {0x33, 0x2F, 0x28, NULL, 0x3F, 0x39, 0x36},    // { '3', '/', '(', NULL, '?', '9', '6' },       // rshift
+    {0x5F, 0x3A, 0x29, NULL, 0x21, 0x2C, 0x3B},    // { '_', ':', ')', NULL, '!', ',', ';' },       // enter
+    {0x2B, 0x22, 0x2D, NULL, NULL, 0x2E, 0x27}     // { '+', '"', '-', NULL, NULL, '.', '\'' }      // backspace, $ (speaker)
 };
-bool altToggle = false;
-bool micToggle = false;
-bool speakerToggle = false;
-bool capsToggle = false;
-bool ctrlToggle = false;
-bool symbolToggle = false;
 bool symbolLock = false;
 bool backlightState = false;
 bool sendFlag = false;
