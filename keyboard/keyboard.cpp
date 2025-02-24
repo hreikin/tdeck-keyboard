@@ -127,6 +127,17 @@ bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7])
     return keymap[colIndex][rowIndex] != NULL;
 }
 
+void printKeyInfo(uint8_t data[5])
+{
+    // print all the keyInfo array values
+    Serial.print("keyInfo: ");
+    for (int i = 0; i < 5; i++) {
+        Serial.print(data[i]);
+        Serial.print(" ");
+    }
+    Serial.println();
+}
+
 void readKeyMatrix()
 {
     int delayTime = 0;
