@@ -144,20 +144,26 @@ void readKeyMatrix()
     // iterate the columns
     for (int colIndex = 0; colIndex < colCount; colIndex++) {
         // col: set to output to low
-        uint8_t  curCol = cols[colIndex];
+        uint8_t curCol = cols[colIndex];
         pinMode(curCol, OUTPUT);
         digitalWrite(curCol, LOW);
 
-        // row: interate through the rows
+        // row: iterate through the rows
         for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-            uint8_t  rowCol = rows[rowIndex];
+            uint8_t rowCol = rows[rowIndex];
             pinMode(rowCol, INPUT_PULLUP);
-            delay(1); // arduino is not fast enought to switch input/output modes so wait 1 ms
+            delay(1); // arduino is not fast enough to switch input/output modes so wait 1 ms
 
             bool buttonPressed = (digitalRead(rowCol) == LOW);
 
+            // Debounce logic so keys don't trigger multiple times
+            if (buttonPressed != lastValue[colIndex][rowIndex]) {
+                delay(DEBOUNCE_DELAY); // Wait for debounce delay
+                buttonPressed = (digitalRead(rowCol) == LOW); // Read the button state again
+            }
+
             keys[colIndex][rowIndex] = buttonPressed;
-            if ((lastValue[colIndex][rowIndex] != buttonPressed)) {
+            if (lastValue[colIndex][rowIndex] != buttonPressed) {
                 changedValue[colIndex][rowIndex] = true;
             } else {
                 changedValue[colIndex][rowIndex] = false;
