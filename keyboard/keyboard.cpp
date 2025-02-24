@@ -177,55 +177,37 @@ void readKeyMatrix()
 }
 
 // Key Combos
-// alt + key = alt + [a-z]
-// ctrl + key = rshift + [a-z]
-// caps = lshift + rshift
-// del = l-shift + backspace
-// tab = l-shift + enter
-// backspace = backspace
-// enter = enter
-// mic = mic
-// speaker = l-shift + $
-// backlight (up) = alt + backspace
-// backlight (down) = alt + enter
-// symbol (forward) = sym
-// lock symbol table = alt + sym
-// symbol (backward) = l-shift + sym
-// symbol (forward) = sym
-// normal key = [a-z]
-// shift + key = l-shift + [a-z]
-// TODO: new control flow for key combos
 // - alt:
-//      - alt + key = alt + [a-z]
-//      - backlight (up) = alt + backspace     // TODO: needs refactoring to actually change the backlight
-//      - backlight (down) = alt + enter       // TODO: needs refactoring to actually change the backlight
-//      - lock symbol table = alt + sym
+//   - alt + key = alt + [a-z]
 // - ctrl:
-//      - ctrl + key = rshift + [a-z]
-// - caps
-//      - caps = lshift + rshift
+//   - ctrl + key = rshift + [a-z]
+// - caps:
+//   - caps = lshift + rshift
 // - del:
-//      - del = l-shift + backspace
+//   - del = l-shift + backspace
 // - tab:
-//      - tab = l-shift + enter
-// - speaker:
-//      - speaker = l-shift + $    // TODO: use as enable/disable, then use alt + $ for volume down and ctrl + $ for volume up ?
-// - symbol:
-//      - symbol (backward) = l-shift + sym
-// - mic:
-//      - mic = mic    // TODO: change to l-shift + mic ? use as enable/disable, then use alt + mic for volume down and ctrl + mic for volume up ?
+//   - tab = l-shift + enter                // TODO: Change to escape ?
+// - backlight:
+//   - backlight (up) = alt + backspace     // TODO: needs refactoring to actually change the backlight
+//   - backlight (down) = alt + enter       // TODO: needs refactoring to actually change the backlight
 // - backspace:
-//      - backspace = backspace
+//   - backspace = backspace
 // - enter:
-//      - enter = enter
-// - normal key:
-//      - shift + key = l-shift + [a-z]
-//      - symbol key = [a-z] with keymapIndex > 1
-//      - normal key = [a-z]
+//   - enter = enter
+// - mic:
+//   - mic = l-shift + mic
+// - speaker:
+//   - speaker = l-shift + $
+// - symbol:
+//   - lock symbol table = alt + sym
+//   - symbol (backward) = l-shift + sym
+//   - symbol (forward) = sym
+// - printable key:
+//   - shift/caps = l-shift + [a-z]
+//   - symbol key = [a-z] with keymapIndex > 1
+//   - normal key = [a-z]
 //
 // Other possible key combos that aren't used yet:
-// l-shift + mic
-// l-shift + alt
 // alt + r-shift
 // alt + mic
 // alt + $
@@ -235,88 +217,96 @@ void readKeyMatrix()
 // r-shift + mic
 // r-shift + $
 // r-shift + sym
+// l-shift + alt
+// mic
 void sendKeyInfo()
 {
     uint8_t keyInfo[5]= {0x00, false, false, false, false};
     for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
         for (int colIndex = 0; colIndex < colCount; colIndex++) {
-            // alt + key = alt + [a-z]
-            if (keyHeld(0, 4) && keyPressed(colIndex, rowIndex) && doesKeyExistInKeymap(colIndex, rowIndex, ctrlKeymap)) {
-                keyInfo[0] = ctrlKeymap[colIndex][rowIndex];
-                keyInfo[1] = true;
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
+            if (keyPressed(2, 3)) {
+                // caps = lshift + rshift
+                if (keyHeld(1, 6)) {
+                    caps = !caps;                           // handle in normal key section with shift
+                }
             }
-            // ctrl + key = rshift + [a-z]
-            else if (keyHeld(2, 3) && keyPressed(colIndex, rowIndex) && doesKeyExistInKeymap(colIndex, rowIndex, ctrlKeymap)) {
-                keyInfo[0] = ctrlKeymap[colIndex][rowIndex];
-                keyInfo[2] = true;
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            // caps = lshift + rshift
-            else if (keyHeld(1, 6) && keyPressed(2, 3)) {
-                caps = !caps;                           // handle in normal key section with shift
-            }
-            // del = l-shift + backspace
-            else if (keyHeld(1, 6) && keyPressed(4, 3)) {
-                keyInfo[0] = 0x7F;
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            // TODO: This could be something else as tab is also provided by shift+space in the last else if statement
-            // tab = l-shift + enter
-            else if (keyHeld(1, 6) && keyPressed(3, 3)) {
-                keyInfo[0] = 0x09;
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            // TODO: This needs to be fixed so it changes the backlight brightness, it shouldnt send any key info ?
-            // backlight (up) = alt + backspace
-            else if (keyHeld(0, 4) && keyPressed(4, 3)) {
-                keyInfo[0] = 0x01;
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                printKeyInfo(keyInfo);
-                sendFlag = true;
-            }
-            // TODO: This needs to be fixed so it changes the backlight brightness, it shouldnt send any key info ?
-            // backlight (down) = alt + enter
-            else if (keyHeld(0, 4) && keyPressed(3, 3)) {
-                keyInfo[0] = 0x02;
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                printKeyInfo(keyInfo);
-                sendFlag = true;
-            }
-            // backspace = backspace
-            else if (keyPressed(4, 3)) {
-                keyInfo[0] = 0x08;
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            // enter = enter
             else if (keyPressed(3, 3)) {
-                keyInfo[0] = 0x0D;
+                // TODO: This could be something else as tab is also provided by shift+space in the last else if statement, maybe this should be ESC ?
+                // tab = l-shift + enter
+                if (keyHeld(1, 6)) {
+                    keyInfo[0] = 0x09;
+                }
+                // TODO: This needs to be fixed so it changes the backlight brightness, it shouldnt send any key info ?
+                // backlight (down) = alt + enter
+                else if (keyHeld(0, 4)) {
+                    keyInfo[0] = 0x02;
+                }
+                // enter = enter
+                else {
+                    keyInfo[0] = 0x0D;
+                }
                 printKeyInfo(keyInfo);
                 memcpy(sendData, keyInfo, sizeof(keyInfo));
                 sendFlag = true;
             }
-            // mic = mic
-            else if (keyPressed(0, 6)){
-                keyInfo[0] = 0x01;
-                keyInfo[3] = true;
+            else if (keyPressed(4, 3)) {
+                // del = l-shift + backspace
+                if (keyHeld(1, 6)) {
+                    keyInfo[0] = 0x7F;
+                }
+                // TODO: This needs to be fixed so it changes the backlight brightness, it shouldnt send any key info ?
+                // backlight (up) = alt + backspace
+                else if (keyHeld(0, 4)) {
+                    keyInfo[0] = 0x01;
+                }
+                // backspace = backspace
+                else {
+                    keyInfo[0] = 0x08;
+                }
                 printKeyInfo(keyInfo);
                 memcpy(sendData, keyInfo, sizeof(keyInfo));
                 sendFlag = true;
             }
-            // speaker = l-shift + $
-            else if (keyHeld(1, 6) && keyPressed(4, 4)) {
-                keyInfo[0] = 0x01;
-                keyInfo[4] = true;
+            else if (keyPressed(0, 6)) {
+                // mic (enable/disable) = l-shift + mic
+                if (keyHeld(1, 6)){
+                    keyInfo[0] = 0x01;
+                    keyInfo[3] = true;
+                }
+                // mic (up) = r-shift + mic
+                else if (keyHeld(2, 3)){
+                    keyInfo[0] = 0x02;
+                    keyInfo[3] = true;
+                }
+                // mic (down) = alt + mic
+                else if (keyHeld(0, 4)){
+                    keyInfo[0] = 0x03;
+                    keyInfo[3] = true;
+                }
+                printKeyInfo(keyInfo);
+                memcpy(sendData, keyInfo, sizeof(keyInfo));
+                sendFlag = true;
+            }
+            else if (keyPressed(4, 4)) {
+                // speaker (enable/disable) = l-shift + $
+                if (keyHeld(1, 6)) {
+                    keyInfo[0] = 0x01;
+                    keyInfo[4] = true;
+                }
+                // speaker (up) = r-shift + $
+                else if (keyHeld(2, 3)) {
+                    keyInfo[0] = 0x02;
+                    keyInfo[4] = true;
+                }
+                // speaker (down) = alt + $
+                else if (keyHeld(0, 4)) {
+                    keyInfo[0] = 0x03;
+                    keyInfo[4] = true;
+                }
+                // special handling for dollar key, it is also in the defaultKeymap but does not trigger due to this else/if block
+                else {
+                    keyInfo[0] = 0x24;
+                }
                 printKeyInfo(keyInfo);
                 memcpy(sendData, keyInfo, sizeof(keyInfo));
                 sendFlag = true;
@@ -346,14 +336,27 @@ void sendKeyInfo()
             }
             // normal key = [a-z]
             else if (keyPressed(colIndex, rowIndex)) {
+                // alt + key = alt + [a-z]
+                if (keyHeld(0, 4) && doesKeyExistInKeymap(colIndex, rowIndex, ctrlKeymap)) {
+                    keyInfo[0] = ctrlKeymap[colIndex][rowIndex];
+                    keyInfo[1] = true;
+                }
+                // ctrl + key = rshift + [a-z]
+                else if (keyHeld(2, 3) && doesKeyExistInKeymap(colIndex, rowIndex, ctrlKeymap)) {
+                    keyInfo[0] = ctrlKeymap[colIndex][rowIndex];
+                    keyInfo[2] = true;
+                }
                 // shift + key = l-shift + [a-z]
-                if (caps || (keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, capsKeymap)) {
+                else if (caps || (keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, capsKeymap)) {
                     keyInfo[0] = capsKeymap[colIndex][rowIndex];
+                // symbol keymaps
                 } else if (keymapIndex == 1 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
                     keyInfo[0] = symbolKeymap1[colIndex][rowIndex];
+                // default keymaps
                 } else if (keymapIndex == 0 && doesKeyExistInKeymap(colIndex, rowIndex, default_keymap)) {
                     keyInfo[0] = default_keymap[colIndex][rowIndex];
                 }
+                // auto reset keymapIndex to defaultKeymap unless symbolLock is true
                 if (symbolLock == false) {
                     keymapIndex = 0;
                 }
