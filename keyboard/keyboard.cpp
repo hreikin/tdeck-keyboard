@@ -60,22 +60,20 @@ uint8_t kbBrightnessDuty = KB_BRIGHTNESS_BOOT_DUTY;
 */
 uint8_t kbBrightnessSettingDuty = KB_BRIGHTNESS_DEFAULT_DUTY;    //Alt+B default duty , is duty is zero , use setting duty
 
-// // TODO: Refactor to use Wire.write() instead of Wire.print() and the keyInfo array
-// // TODO: should this send keyInfo or sendData ? (sendData)
 void onRequest()
 {
     if (sendFlag) {
         Wire.write(sendData, sizeof(sendData));
         sendFlag = false;
         Serial.print("sendData : ");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             Serial.print(sendData[i]);
             Serial.print(" ");
         }
         Serial.println();
     } else {
         // TODO: Make this a global variable and use it here ?
-        uint8_t emptyData[4] = {0x00, 0x00, 0x00, 0x00}; // Create a temporary array
+        uint8_t emptyData[5] = {0x00, 0x00, 0x00, 0x00, 0x00}; // Create a temporary array
         Wire.write(emptyData, sizeof(emptyData)); // Use the temporary array
     }
 }
