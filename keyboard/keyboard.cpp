@@ -38,12 +38,12 @@ char symbolKeymap1[5][7] = {        // index = 1   // keys                      
     {0x5F, 0x3A, 0x29, NULL, 0x21, 0x2C, 0x3B},    // { '_', ':', ')', NULL, '!', ',', ';' },       // enter
     {0x2B, 0x22, 0x2D, NULL, NULL, 0x2E, 0x27}     // { '+', '"', '-', NULL, NULL, '.', '\'' }      // backspace, $ (speaker)
 };
+bool caps = false;
 bool symbolLock = false;
 bool backlightState = false;
 bool sendFlag = false;
-uint8_t keymapIndex = 0;   // default_keymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
-uint8_t keyInfo[4] = {0x00, false, false, false};    // key_value, alt, mic, speaker
-uint8_t sendData[4] = {0x00, false, false, false};
+uint8_t keymapIndex = 0;                                     // default_keymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
+uint8_t sendData[5] = {0x00, false, false, false, false};    // key_value, alt, ctrl, mic, speaker
 
 /*
 * Dynamically modify backlight brightness at runtime
