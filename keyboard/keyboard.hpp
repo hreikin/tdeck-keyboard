@@ -33,19 +33,12 @@ extern char capsKeymap[5][7];
 extern char ctrlKeymap[5][7];
 extern char symbolKeymap1[5][7];
 extern uint8_t keymapIndex;
-extern bool capsToggle;
-extern bool ctrlToggle;
-extern bool symbolToggle;
-extern bool altToggle;
-extern bool micToggle;
-extern bool speakerToggle;
+extern bool caps;
 extern bool symbolLock;
 extern bool backlightState;
 extern bool sendFlag;
 // TODO: change to char ?
-extern uint8_t keyInfo[4];
-// TODO: change to char ?
-extern uint8_t sendData[4];
+extern uint8_t sendData[5];    // keyValue, alt, ctrl, mic, speaker
 extern uint8_t kbBrightnessDuty;
 extern uint8_t kbBrightnessSettingDuty;
 
