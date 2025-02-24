@@ -17,7 +17,7 @@
 #define BOARD_I2C_SDA       18
 #define BOARD_I2C_SCL       8
 
-uint8_t keyInfo[4] = {0x00, 0x00, 0x00, 0x00};    // key_value, alt, mic, speaker
+uint8_t keyInfo[5] = {0x00, 0x00, 0x00, 0x00, 0x00};    // key_value, alt, ctrl, mic, speaker
 
 /*
 * Dynamically modify backlight brightness at runtime
@@ -78,19 +78,21 @@ bool test_bl_done = false;
 void loop()
 {
     // Read key value from esp32c3
-    Wire.requestFrom(LILYGO_KB_SLAVE_ADDRESS, 4);
-    for (int i = 0; i < 4 && Wire.available() > 0; i++) {
-        // // TODO: Refactor to use an array to store the keyInfo values
+    Wire.requestFrom(LILYGO_KB_SLAVE_ADDRESS, 5);
+    for (int i = 0; i < 5 && Wire.available() > 0; i++) {
         keyInfo[i] = Wire.read();
-        // // TODO: Refactor to print each value from keyInfo array
-        // TODO: Move out of the loop
-        if (keyInfo[i] != (char)0x00) {
-            Serial.print("keyValue [");
-            Serial.print(i);
-            Serial.print("]: ");
-            Serial.println(keyInfo[i]);
-        }
-        // TODO: Add check for when keyInfo[1] is 0x01 or 0x02 or 0x03 and bools are true ?
+    }
+    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00) {
+        Serial.print("char: ");
+        Serial.println(keyInfo[0]);
+        Serial.print("alt: ");
+        Serial.println(keyInfo[1]);
+        Serial.print("ctrl: ");
+        Serial.println(keyInfo[2]);
+        Serial.print("mic: ");
+        Serial.println(keyInfo[3]);
+        Serial.print("speaker: ");
+        Serial.println(keyInfo[4]);
     }
 
     // Test brightness
