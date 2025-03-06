@@ -1,4 +1,4 @@
-#define CONFIG_IDF_TARGET_ESP32C3
+#define CONFIG_IDF_TARGET_ESP32C3       // This can be removed if using esp.idf and setting a build flag instead
 
 #ifdef CONFIG_IDF_TARGET_ESP32C3
 #include <Arduino.h>
@@ -46,7 +46,6 @@ void loop()
 {
     readKeyMatrix();
     sendKeyInfo();
-    // TODO: Should i add a delay after sending the key_info ?
 }
 
 #else
