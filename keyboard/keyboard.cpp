@@ -232,7 +232,7 @@ void sendKeyInfo()
             if (keyReleased(colIndex, rowIndex) && keyReleased(3, 3)) {
                 // backlight down (alt + enter)
                 if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x03;      // TODO: Change this to decrease the backlight brightness
+                    keyInfo[0] = 0x03;      // TODO: Change this to decrease the backlight brightness, decrement by 17
                     dataToSend = true;
                 }
                 // tab (lshift + enter)
@@ -298,7 +298,7 @@ void sendKeyInfo()
             else if (keyReleased(colIndex, rowIndex) && keyReleased(4, 3)) {
                 // backlight up (alt + backspace)
                 if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x02;      // TODO: Change this to increase the backlight brightness
+                    keyInfo[0] = 0x02;      // TODO: Change this to increase the backlight brightness, increment by 17
                     dataToSend = true;
                 }
                 // del (lshift + backspace)
@@ -335,7 +335,7 @@ void sendKeyInfo()
             else if (keyReleased(colIndex, rowIndex) && keyReleased(2, 3)) {
                 // backlight toggle (alt + rshift)
                 if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x01;      // TODO: Change this to toggle the backlight
+                    keyInfo[0] = 0x01;      // TODO: Change this to toggle the backlight, turn off if on, turn on at a set value if off
                     dataToSend = true;
                 }
                 // mic toggle (mic + rshift)
@@ -357,28 +357,16 @@ void sendKeyInfo()
                 if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
                     keyInfo[0] = symbolKeymap1[colIndex][rowIndex];
                     dataToSend = true;
-                    // auto reset keymapIndex to defaultKeymap unless symbolLock is true
-                    // if (symbolLock == false) {
-                    //     keymapIndex = 0;
-                    // }
                 }
                 // symbol 2
                 else if (keymapIndex == 2 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap2)) {
                     keyInfo[0] = symbolKeymap2[colIndex][rowIndex];
                     dataToSend = true;
-                    // auto reset keymapIndex to defaultKeymap unless symbolLock is true
-                    // if (symbolLock == false) {
-                    //     keymapIndex = 0;
-                    // }
                 }
                 // symbol 3
                 else if (keymapIndex == 3 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap3)) {
                     keyInfo[0] = symbolKeymap3[colIndex][rowIndex];
                     dataToSend = true;
-                    // auto reset keymapIndex to defaultKeymap unless symbolLock is true
-                    // if (symbolLock == false) {
-                    //     keymapIndex = 0;
-                    // }
                 }
                 // // symbol 4
                 // else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
