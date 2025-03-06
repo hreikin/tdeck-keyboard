@@ -9,13 +9,13 @@
 - [x] create modifiers (bools) for alt, mic, speaker (may need to create bools for different tables or order the if statements in sendKeyInfo() ?)
 - [x] create keyInfo array with key_value and modifiers and implement in sendKeyInfo()
 - [x] callbacks for onRequest() and onReceive()
-- [x] helpers for isKeyPressed(), isKeyHeld()
+- [x] helpers for iskeyReleased(), isKeyHeld()
 - [x] readKeyMatrix() to read the key matrix and update the key values
 - [x] sendKeyInfo() to get the key from the appropriate table using the helpers, send all modifiers and the key value in KeyInfo format
     - [x] default keymap is (0)
     - [x] use both shift keys for caps lock, single key for normal shift, if normal shift take from the caps table as well
     - [x] use alt + c for ctrl
-    - [ ] symbol cycles through the others (1 to n)
+    - [x] symbol + backspace cycles forward through the others (1 to n)
     - [x] caps
     - [x] alt
     - [x] alt toggle
@@ -37,5 +37,33 @@
     - [x] backspace
     - [x] enter
     - [x] normal key
+    - [x] refactor combos
+        - [x] [a-z]             
+        - [x] ENTER             
+        - [x] SPACE             
+        - [x] BACKSPACE         
+        - [x] ALT + [a-z]       
+        - [x] ALT + ENTER       
+        - [x] ALT + SPACE       
+        - [x] ALT + BACKSPACE   
+        - [x] ALT + RSHIFT      
+        - [x] LSHIFT (held)     
+        - [x] LSHIFT + ENTER    
+        - [x] LSHIFT + SPACE    
+        - [x] LSHIFT + BACKSPACE
+        - [x] MIC + ENTER       
+        - [x] MIC + BACKSPACE   
+        - [x] MIC + RSHIFT      
+        - [x] $ + ENTER         
+        - [x] $ + BACKSPACE     
+        - [x] $ + RSHIFT        
+        - [x] SYM (held)        
+        - [x] SYM + ENTER       
+        - [x] SYM + SPACE       
+        - [x] SYM + BACKSPACE   
+        - [x] RSHIFT (held)     
+        - [x] RSHIFT + SPACE    
+    - [ ] test the functionality
+    - [ ] test edge cases
 - [ ] Basic usage documentation
-- [ ] Refactor T-Deck test firmware to use for testing the library
+- [x] Refactor T-Deck test firmware to use for testing the library
