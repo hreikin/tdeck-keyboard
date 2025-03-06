@@ -19,6 +19,13 @@
 
 #define DEBOUNCE_DELAY 50 // 50 milliseconds debounce delay
 
+enum KeyState {
+    NOT_PRESSED,
+    PRESSED,
+    HELD,
+    RELEASED
+};
+
 extern uint8_t rows[];
 extern const int rowCount;
 
@@ -28,24 +35,34 @@ extern const int colCount;
 extern bool keys[5][7];
 extern bool lastValue[5][7];
 extern bool changedValue[5][7];
-extern char default_keymap[5][7];
-extern char capsKeymap[5][7];
-extern char ctrlKeymap[5][7];
+extern char defaultKeymap[5][7];
 extern char symbolKeymap1[5][7];
+extern char symbolKeymap2[5][7];
+extern char symbolKeymap3[5][7];
+extern char symbolKeymap4[5][7];
+extern char symbolKeymap5[5][7];
+extern char symbolKeymap6[5][7];
+extern char symbolKeymap7[5][7];
 extern uint8_t keymapIndex;
-extern bool caps;
+extern bool altLock;
+extern bool ctrlLock;
+extern bool capsLock;
 extern bool symbolLock;
 extern bool backlightState;
-extern bool sendFlag;
+extern bool sendDataFlag;
 // TODO: change to char ?
 extern uint8_t sendData[5];    // keyValue, alt, ctrl, mic, speaker
 extern uint8_t kbBrightnessDuty;
 extern uint8_t kbBrightnessSettingDuty;
 
+extern KeyState keyStates[5][7];
+
 void onRequest();
 void onReceive(int len);
-bool keyPressed(int colIndex, int rowIndex);
+bool keyReleased(int colIndex, int rowIndex);
 bool keyHeld(int colIndex, int rowIndex);
+bool keyPressed(int colIndex, int rowIndex);
+bool keyNotPressed(int colIndex, int rowIndex);
 bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7]);
 void printKeyInfo(uint8_t data[5]);
 void readKeyMatrix();
