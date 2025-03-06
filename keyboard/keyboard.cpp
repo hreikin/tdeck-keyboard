@@ -9,40 +9,64 @@ const int colCount = sizeof(cols) / sizeof(cols[0]);
 bool keys[5][7];
 bool lastValue[5][7];
 bool changedValue[5][7];
-char default_keymap[5][7] = {       // index = 0  // keys                                           // null
-    {0x71, 0x77, NULL, 0x61, NULL, 0x20, NULL},   // { 'q', 'w', NULL, 'a', NULL, ' ', NULL }       // sym, alt, mic
-    {0x65, 0x73, 0x64, 0x70, 0x78, 0x7A, NULL},   // { 'e', 's', 'd', 'p', 'x', 'z', NULL }         // lshift
-    {0x72, 0x67, 0x74, NULL, 0x76, 0x63, 0x66},   // { 'r', 'g', 't', NULL, 'v', 'c', 'f' }         // rshift
-    {0x75, 0x68, 0x79, NULL, 0x62, 0x6E, 0x6A},   // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }         // enter
-    {0x6F, 0x6C, 0x69, NULL, 0x24, 0x6D, 0x6B}    // { 'o', 'l', 'i', NULL, '$', 'm', 'k' }         // backspace
-};
-char capsKeymap[5][7] = {                         // keys                                           // null
-    {0x51, 0x57, NULL, 0x41, NULL, 0x09, NULL},   // { 'Q', 'W', NULL, 'A', NULL, '[tab]', NULL }   // sym, alt, mic
-    {0x45, 0x53, 0x44, 0x50, 0x58, 0x5A, NULL},   // { 'E', 'S', 'D', 'P', 'X', 'Z', NULL }         // lshift
-    {0x52, 0x47, 0x54, NULL, 0x56, 0x43, 0x46},   // { 'R', 'G', 'T', NULL, 'V', 'C', 'F' }         // rshift
-    {0x55, 0x48, 0x59, NULL, 0x42, 0x4E, 0x4A},   // { 'U', 'H', 'Y', NULL, 'B', 'N', 'J' }         // enter
-    {0x4F, 0x4C, 0x49, NULL, NULL, 0x4D, 0x4B}    // { 'O', 'L', 'I', NULL, NULL, 'M', 'K' }        // backspace, $ (speaker)
-};
-char ctrlKeymap[5][7] = {                          // keys                                          // null
-    {0x11, 0x17, NULL, 0x01, NULL, NULL, NULL},    // { 'q', 'w', NULL, 'a', NULL, NULL, NULL }     // sym, alt, space, mic
-    {0x05, 0x13, 0x04, 0x10, 0x18, 0x1A, NULL},    // { 'e', 's', 'd', 'p', 'x', 'z', NULL }        // lshift
-    {0x12, 0x07, 0x14, NULL, 0x16, 0x03, 0x06},    // { 'r', 'g', 't', NULL, 'v', 'c', 'f' }        // rshift
-    {0x15, 0x08, 0x19, NULL, 0x02, 0x0E, 0x0A},    // { 'u', 'h', 'y', NULL, 'b', 'n', 'j' }        // enter
-    {0x0F, 0x0C, 0x09, NULL, NULL, 0x0D, 0x0B}     // { 'o', 'l', 'i', NULL, NULL, 'm', 'k' }       // backspace, $ (speaker)
+KeyState keyStates[5][7];
+// TODO: Ensure the keymaps match the tables in keyboard.md
+// Keys wrapped in square brackets require special handling due to mic/speaker functionality and other key combinations.
+char defaultKeymap[5][7] = {                      // index = 0
+    {0x71, 0x77, NULL, 0x61, NULL, NULL, NULL},   // { q, w, [sym],           a, [alt], [space],    [mic] }
+    {0x65, 0x73, 0x64, 0x70, 0x78, 0x7A, NULL},   // { e, s,     d,           p,     x,       z, [lshift] }
+    {0x72, 0x67, 0x74, NULL, 0x76, 0x63, 0x66},   // { r, g,     t,    [rshift],     v,       c,        f }
+    {0x75, 0x68, 0x79, NULL, 0x62, 0x6E, 0x6A},   // { u, h,     y,     [enter],     b,       n,        j }
+    {0x6F, 0x6C, 0x69, NULL, NULL, 0x6D, 0x6B}    // { o, l,     i, [backspace],   [$],       m,        k }
 };
 // TODO: Add other symbol keymaps as needed
-char symbolKeymap1[5][7] = {        // index = 1   // keys                                          //null
-    {0x23, 0x31, NULL, 0x2A, NULL, NULL, 0x30},    // { '#', '1', NULL, '*', NULL, NULL, '0' },     // sym, alt, space
-    {0x32, 0x34, 0x35, 0x40, 0x38, 0x37, NULL},    // { '2', '4', '5', '@', '8', '7', NULL },       // lshift
-    {0x33, 0x2F, 0x28, NULL, 0x3F, 0x39, 0x36},    // { '3', '/', '(', NULL, '?', '9', '6' },       // rshift
-    {0x5F, 0x3A, 0x29, NULL, 0x21, 0x2C, 0x3B},    // { '_', ':', ')', NULL, '!', ',', ';' },       // enter
-    {0x2B, 0x22, 0x2D, NULL, NULL, 0x2E, 0x27}     // { '+', '"', '-', NULL, NULL, '.', '\'' }      // backspace, $ (speaker)
+char symbolKeymap1[5][7] = {                      // index = 1
+    {0x23, 0x31, NULL, 0x2A, NULL, NULL, NULL},   // { #, 1, [sym],           *, [alt], [space],      [0] }
+    {0x32, 0x34, 0x35, 0x40, 0x38, 0x37, NULL},   // { 2, 4,     5,           @,     8,       7, [lshift] }
+    {0x33, 0x2F, 0x28, NULL, 0x3F, 0x39, 0x36},   // { 3, /,     (,    [rshift],     ?,       9,        6 }
+    {0x5F, 0x3A, 0x29, NULL, 0x21, 0x2C, 0x3B},   // { _, :,     ),     [enter],     !,       ,,        ; }
+    {0x2B, 0x22, 0x2D, NULL, NULL, 0x2E, 0x27}    // { +, ",     -, [backspace],   [¢],       .,        ' }
 };
-bool caps = false;
+char symbolKeymap2[5][7] = {                      // index = 2
+    {0x60, 0x25, NULL, 0xA6, NULL, NULL, NULL},   // { `, %, [sym],           ª, [alt], [space],   [NBSP] }
+    {0xDB, 0xA7, 0xA9, 0x3D, 0xEC, 0xE6, NULL},   // { &, º,     ⌐,           =,     ∞,       µ, [lshift] }
+    {0x9C, 0x5C, 0x7B, NULL, 0xA8, 0xFD, 0xAA},   // { £, \,     {,    [rshift],     ¿,       ²,        ¬ }
+    {0x5E, 0xAB, 0x7C, NULL, 0xAD, 0xEF, 0xAC},   // { ^, ½,     },     [enter],     ¡,       ∩,        ¼ }
+    {0x3E, 0xAF, 0x3C, NULL, NULL, 0x7E, 0xAE}    // { >, »,     <, [backspace],   [₧],       ~,        « }
+};
+char symbolKeymap3[5][7] = {                      // index = 3
+    {0xDA, 0xD9, NULL, 0xF7, NULL, NULL, NULL},   // { ⌠,    ⌡, [sym],           ≈,  [alt], [space],    [mic] }
+    {0xF6, 0xF8, 0xF9, 0xF0, NULL, NULL, NULL},   // { ÷,    °,     ∙,           ≡,   NULL,    NULL, [lshift] }
+    {0xA5, 0xFB, 0x5B, NULL, NULL, 0xFC, 0xFA},   // { ¥,    √,     [,    [rshift],   NULL,       ⁿ,        · }
+    {0xB1, 0x5C, 0x5D, NULL, NULL, NULL, 0x9F},   // { ±,    \,     ],     [enter],   NULL,    NULL,        ƒ }
+    {0xF2, NULL, 0xF3, NULL, NULL, NULL, NULL}    // { ≥, NULL,     ≤, [backspace], [NULL],    NULL,     NULL }
+};
+/*
+Character List (CP437):
+0x00: NUL, 0x01: SOH, 0x02: STX, 0x03: ETX, 0x04: EOT, 0x05: ENQ, 0x06: ACK, 0x07: BEL, 0x08: BS,  0x09: HT,  0x0A: LF,  0x0B: VT,  0x0C: FF,  0x0D: CR,  0x0E: SO,  0x0F: SI,
+0x10: DLE, 0x11: DC1, 0x12: DC2, 0x13: DC3, 0x14: DC4, 0x15: NAK, 0x16: SYN, 0x17: ETB, 0x18: CAN, 0x19: EM,  0x1A: SUB, 0x1B: ESC, 0x1C: FS,  0x1D: GS,  0x1E: RS,  0x1F: US,
+0x20: SP,  0x21: !,   0x22: ",   0x23: #,   0x24: $,   0x25: %,   0x26: &,   0x27: ',   0x28: (,   0x29: ),   0x2A: *,   0x2B: +,   0x2C: ,,   0x2D: -,   0x2E: .,   0x2F: /,
+0x30: 0,   0x31: 1,   0x32: 2,   0x33: 3,   0x34: 4,   0x35: 5,   0x36: 6,   0x37: 7,   0x38: 8,   0x39: 9,   0x3A: :,   0x3B: ;,   0x3C: <,   0x3D: =,   0x3E: >,   0x3F: ?,
+0x40: @,   0x41: A,   0x42: B,   0x43: C,   0x44: D,   0x45: E,   0x46: F,   0x47: G,   0x48: H,   0x49: I,   0x4A: J,   0x4B: K,   0x4C: L,   0x4D: M,   0x4E: N,   0x4F: O,
+0x50: P,   0x51: Q,   0x52: R,   0x53: S,   0x54: T,   0x55: U,   0x56: V,   0x57: W,   0x58: X,   0x59: Y,   0x5A: Z,   0x5B: [,   0x5C: \,   0x5D: ],   0x5E: ^,   0x5F: _,
+0x60: `,   0x61: a,   0x62: b,   0x63: c,   0x64: d,   0x65: e,   0x66: f,   0x67: g,   0x68: h,   0x69: i,   0x6A: j,   0x6B: k,   0x6C: l,   0x6D: m,   0x6E: n,   0x6F: o,
+0x70: p,   0x71: q,   0x72: r,   0x73: s,   0x74: t,   0x75: u,   0x76: v,   0x77: w,   0x78: x,   0x79: y,   0x7A: z,   0x7B: {,   0x7C: |,   0x7D: },   0x7E: ~,   0x7F: DEL,
+0x80: Ç,   0x81: ü,   0x82: é,   0x83: â,   0x84: ä,   0x85: à,   0x86: å,   0x87: ç,   0x88: ê,   0x89: ë,   0x8A: è,   0x8B: ï,   0x8C: î,   0x8D: ì,   0x8E: Ä,   0x8F: Å,
+0x90: É,   0x91: æ,   0x92: Æ,   0x93: ô,   0x94: ö,   0x95: ò,   0x96: û,   0x97: ù,   0x98: ÿ,   0x99: Ö,   0x9A: Ü,   0x9B: ¢,   0x9C: £,   0x9D: ¥,   0x9E: ₧,   0x9F: ƒ,
+0xA0: á,   0xA1: í,   0xA2: ó,   0xA3: ú,   0xA4: ñ,   0xA5: Ñ,   0xA6: ª,   0xA7: º,   0xA8: ¿,   0xA9: ⌐,   0xAA: ¬,   0xAB: ½,   0xAC: ¼,   0xAD: ¡,   0xAE: «,   0xAF: »,
+0xB0: ░,   0xB1: ▒,   0xB2: ▓,   0xB3: │,   0xB4: ┤,   0xB5: ╡,   0xB6: ╢,   0xB7: ╖,   0xB8: ╕,   0xB9: ╣,   0xBA: ║,   0xBB: ╗,   0xBC: ╝,   0xBD: ╜,   0xBE: ╛,   0xBF: ┐,
+0xC0: └,   0xC1: ┴,   0xC2: ┬,   0xC3: ├,   0xC4: ─,   0xC5: ┼,   0xC6: ╞,   0xC7: ╟,   0xC8: ╚,   0xC9: ╔,   0xCA: ╩,   0xCB: ╦,   0xCC: ╠,   0xCD: ═,   0xCE: ╬,   0xCF: ╧,
+0xD0: ╨,   0xD1: ╤,   0xD2: ╥,   0xD3: ╙,   0xD4: ╘,   0xD5: ╒,   0xD6: ╓,   0xD7: ╫,   0xD8: ╪,   0xD9: ┘,   0xDA: ┌,   0xDB: █,   0xDC: ▄,   0xDD: ▌,   0xDE: ▐,   0xDF: ▀,
+0xE0: α,   0xE1: ß,   0xE2: Γ,   0xE3: π,   0xE4: Σ,   0xE5: σ,   0xE6: µ,   0xE7: τ,   0xE8: Φ,   0xE9: Θ,   0xEA: Ω,   0xEB: δ,   0xEC: ∞,   0xED: φ,   0xEE: ε,   0xEF: ∩,
+0xF0: ≡,   0xF1: ±,   0xF2: ≥,   0xF3: ≤,   0xF4: ⌠,   0xF5: ⌡,   0xF6: ÷,   0xF7: ≈,   0xF8: °,   0xF9: ∙,   0xFA: ·,   0xFB: √,   0xFC: ⁿ,   0xFD: ²,   0xFE: ■,   0xFF: NBSP
+*/
+bool altLock = false;
+bool ctrlLock = false;
+bool capsLock = false;
 bool symbolLock = false;
 bool backlightState = false;
-bool sendFlag = false;
-uint8_t keymapIndex = 0;                                     // default_keymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
+bool sendDataFlag = false;
+uint8_t keymapIndex = 0;                                     // defaultKeymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
 uint8_t sendData[5] = {0x00, false, false, false, false};    // key_value, alt, ctrl, mic, speaker
 
 /*
@@ -62,9 +86,9 @@ uint8_t kbBrightnessSettingDuty = KB_BRIGHTNESS_DEFAULT_DUTY;    //Alt+B default
 
 void onRequest()
 {
-    if (sendFlag) {
+    if (sendDataFlag) {
         Wire.write(sendData, sizeof(sendData));
-        sendFlag = false;
+        sendDataFlag = false;
         Serial.print("sendData : ");
         for (int i = 0; i < 5; i++) {
             Serial.print(sendData[i]);
@@ -111,14 +135,24 @@ void onReceive(int len)
     // Serial.println();
 }
 
-bool keyPressed(int colIndex, int rowIndex)
+bool keyReleased(int colIndex, int rowIndex)
 {
-    return changedValue[colIndex][rowIndex] && keys[colIndex][rowIndex] == true;
+    return keyStates[colIndex][rowIndex] == RELEASED;
 }
 
 bool keyHeld(int colIndex, int rowIndex)
 {
-    return keys[colIndex][rowIndex] == true;
+    return keyStates[colIndex][rowIndex] == HELD;
+}
+
+bool keyPressed(int colIndex, int rowIndex)
+{
+    return keyStates[colIndex][rowIndex] == PRESSED;
+}
+
+bool keyNotPressed(int colIndex, int rowIndex)
+{
+    return keyStates[colIndex][rowIndex] == NOT_PRESSED;
 }
 
 bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7])
@@ -139,7 +173,6 @@ void printKeyInfo(uint8_t data[5])
 
 void readKeyMatrix()
 {
-    int delayTime = 0;
     // iterate the columns
     for (int colIndex = 0; colIndex < colCount; colIndex++) {
         // col: set to output to low
@@ -161,11 +194,18 @@ void readKeyMatrix()
                 buttonPressed = (digitalRead(rowCol) == LOW); // Read the button state again
             }
 
-            keys[colIndex][rowIndex] = buttonPressed;
-            if (lastValue[colIndex][rowIndex] != buttonPressed) {
-                changedValue[colIndex][rowIndex] = true;
+            if (buttonPressed) {
+                if (keyStates[colIndex][rowIndex] == NOT_PRESSED || keyStates[colIndex][rowIndex] == RELEASED) {
+                    keyStates[colIndex][rowIndex] = PRESSED;
+                } else {
+                    keyStates[colIndex][rowIndex] = HELD;
+                }
             } else {
-                changedValue[colIndex][rowIndex] = false;
+                if (keyStates[colIndex][rowIndex] == PRESSED || keyStates[colIndex][rowIndex] == HELD) {
+                    keyStates[colIndex][rowIndex] = RELEASED;
+                } else {
+                    keyStates[colIndex][rowIndex] = NOT_PRESSED;
+                }
             }
 
             lastValue[colIndex][rowIndex] = buttonPressed;
@@ -176,194 +216,221 @@ void readKeyMatrix()
     }
 }
 
-// Key Combos
-// - alt:
-//   - alt + key = alt + [a-z]
-// - ctrl:
-//   - ctrl + key = rshift + [a-z]
-// - caps:
-//   - caps = lshift + rshift
-// - del:
-//   - del = l-shift + backspace
-// - tab:
-//   - tab = l-shift + enter                // TODO: Change to escape ?
-// - backlight:
-//   - backlight (up) = alt + backspace     // TODO: needs refactoring to actually change the backlight
-//   - backlight (down) = alt + enter       // TODO: needs refactoring to actually change the backlight
-// - backspace:
-//   - backspace = backspace
-// - enter:
-//   - enter = enter
-// - mic:
-//   - mic = l-shift + mic
-// - speaker:
-//   - speaker = l-shift + $
-// - symbol:
-//   - lock symbol table = alt + sym
-//   - symbol (backward) = l-shift + sym
-//   - symbol (forward) = sym
-// - printable key:
-//   - shift/caps = l-shift + [a-z]
-//   - symbol key = [a-z] with keymapIndex > 1
-//   - normal key = [a-z]
-//
-// Other possible key combos that aren't used yet:
-// alt + r-shift
-// alt + mic
-// alt + $
-// r-shift + alt
-// r-shift + backspace
-// r-shift + enter
-// r-shift + mic
-// r-shift + $
-// r-shift + sym
-// l-shift + alt
-// mic
+// TODO: add combos to a table in keyboard.md
+// TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
+// TODO: add cent, peseta, 0 and NBSP back into the keymaps or add special handling for the mic/$ keys ?
+// TODO: add an extra item to keyInfo/sendData for the backlight state like mic/speaker ?
+// TODO: update tdeck.ino with new keyInfo size
+// TODO: backlight toggle, up, down need to be implemented
 void sendKeyInfo()
 {
+    bool dataToSend = false;
     uint8_t keyInfo[5]= {0x00, false, false, false, false};
     for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
         for (int colIndex = 0; colIndex < colCount; colIndex++) {
-            if (keyPressed(2, 3)) {
-                // caps = lshift + rshift
-                if (keyHeld(1, 6)) {
-                    caps = !caps;                           // handle in normal key section with shift
+            // enter
+            if (keyReleased(colIndex, rowIndex) && keyReleased(3, 3)) {
+                // backlight down (alt + enter)
+                if (keyHeld(0, 4)) {
+                    keyInfo[0] = 0x03;      // TODO: Change this to decrease the backlight brightness
+                    dataToSend = true;
                 }
-            }
-            else if (keyPressed(3, 3)) {
-                // TODO: This could be something else as tab is also provided by shift+space in the last else if statement, maybe this should be ESC ?
-                // tab = l-shift + enter
-                if (keyHeld(1, 6)) {
+                // tab (lshift + enter)
+                else if (keyHeld(1, 6)) {
                     keyInfo[0] = 0x09;
+                    dataToSend = true;
                 }
-                // TODO: This needs to be fixed so it changes the backlight brightness, it shouldnt send any key info ?
-                // backlight (down) = alt + enter
-                else if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x02;
-                }
-                // enter = enter
-                else {
-                    keyInfo[0] = 0x0D;
-                }
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            else if (keyPressed(4, 3)) {
-                // del = l-shift + backspace
-                if (keyHeld(1, 6)) {
-                    keyInfo[0] = 0x7F;
-                }
-                // TODO: This needs to be fixed so it changes the backlight brightness, it shouldnt send any key info ?
-                // backlight (up) = alt + backspace
-                else if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x01;
-                }
-                // backspace = backspace
-                else {
-                    keyInfo[0] = 0x08;
-                }
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            else if (keyPressed(0, 6)) {
-                // mic (enable/disable) = l-shift + mic
-                if (keyHeld(1, 6)){
-                    keyInfo[0] = 0x01;
-                    keyInfo[3] = true;
-                }
-                // mic (up) = r-shift + mic
-                else if (keyHeld(2, 3)){
-                    keyInfo[0] = 0x02;
-                    keyInfo[3] = true;
-                }
-                // mic (down) = alt + mic
-                else if (keyHeld(0, 4)){
+                // mic volume down (mic + enter)
+                else if (keyHeld(0, 6)) {
                     keyInfo[0] = 0x03;
                     keyInfo[3] = true;
+                    dataToSend = true;
                 }
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            else if (keyPressed(4, 4)) {
-                // speaker (enable/disable) = l-shift + $
-                if (keyHeld(1, 6)) {
-                    keyInfo[0] = 0x01;
-                    keyInfo[4] = true;
-                }
-                // speaker (up) = r-shift + $
-                else if (keyHeld(2, 3)) {
-                    keyInfo[0] = 0x02;
-                    keyInfo[4] = true;
-                }
-                // speaker (down) = alt + $
-                else if (keyHeld(0, 4)) {
+                // $/speaker volume down ($ + enter)
+                else if (keyHeld(4, 4)) {
                     keyInfo[0] = 0x03;
                     keyInfo[4] = true;
+                    dataToSend = true;
                 }
-                // special handling for dollar key, it is also in the defaultKeymap but does not trigger due to this else/if block
-                else {
-                    keyInfo[0] = 0x24;
-                }
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
-            }
-            // symbol
-            else if (keyPressed(0, 2)) {
-                // lock symbol table = alt + sym
-                if (keyHeld(0, 4)){
-                    symbolLock = !symbolLock;
-                }
-                // symbol (backward) = l-shift + sym
-                if (keyHeld(1, 6)) {
-                    if (keymapIndex == 0) {          // cycle back round to the last symbol table
-                        keymapIndex = 1;
-                    } 
+                // cycle symbol backward (sym + enter)
+                else if (keyHeld(0, 2)) {
+                    if (keymapIndex == 0) {
+                        keymapIndex = 3;
+                    }
                     else {
                         keymapIndex--;
                     }
                 }
-                // symbol (forward) = sym
+                // enter
                 else {
-                    keymapIndex++;
-                    if (keymapIndex > 1) {             // cycle back round to the first symbol table
+                    keyInfo[0] = 0x0D;
+                    dataToSend = true;
+                }
+            }
+            // space
+            else if (keyReleased(colIndex, rowIndex) && keyReleased(0, 5)) {
+                // alt lock (alt + space)
+                if (keyHeld(0, 4)) {
+                    altLock = !altLock;
+                }
+                // ctrl lock (rshift + space)
+                else if (keyHeld(2, 3)) {
+                    ctrlLock = !ctrlLock;
+                }
+                // caps lock (lshift + space)
+                else if (keyHeld(1, 6)) {
+                    capsLock = !capsLock;
+                }
+                // symbol lock (sym + space)
+                else if (keyHeld(0, 2)) {
+                    symbolLock = !symbolLock;
+                    if (keymapIndex > 0 && symbolLock == false) {
                         keymapIndex = 0;
                     }
                 }
+                // space
+                else {
+                    keyInfo[0] = 0x20;
+                    dataToSend = true;
+                }
             }
-            // normal key = [a-z]
-            else if (keyPressed(colIndex, rowIndex)) {
-                // alt + key = alt + [a-z]
-                if (keyHeld(0, 4) && doesKeyExistInKeymap(colIndex, rowIndex, ctrlKeymap)) {
-                    keyInfo[0] = ctrlKeymap[colIndex][rowIndex];
-                    keyInfo[1] = true;
+            // backspace
+            else if (keyReleased(colIndex, rowIndex) && keyReleased(4, 3)) {
+                // backlight up (alt + backspace)
+                if (keyHeld(0, 4)) {
+                    keyInfo[0] = 0x02;      // TODO: Change this to increase the backlight brightness
+                    dataToSend = true;
                 }
-                // ctrl + key = rshift + [a-z]
-                else if (keyHeld(2, 3) && doesKeyExistInKeymap(colIndex, rowIndex, ctrlKeymap)) {
-                    keyInfo[0] = ctrlKeymap[colIndex][rowIndex];
-                    keyInfo[2] = true;
+                // del (lshift + backspace)
+                else if (keyHeld(1, 6)) {
+                    keyInfo[0] = 0x7F;
+                    dataToSend = true;
                 }
-                // shift + key = l-shift + [a-z]
-                else if (caps || (keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, capsKeymap)) {
-                    keyInfo[0] = capsKeymap[colIndex][rowIndex];
-                // symbol keymaps
-                } else if (keymapIndex == 1 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
+                // mic volume up (mic + backspace)
+                else if (keyHeld(0, 6)) {
+                    keyInfo[0] = 0x02;
+                    keyInfo[3] = true;
+                    dataToSend = true;
+                }
+                // $/speaker volume up ($ + backspace)
+                else if (keyHeld(4, 4)) {
+                    keyInfo[0] = 0x02;
+                    keyInfo[4] = true;
+                    dataToSend = true;
+                }
+                // cycle symbol forward (sym + backspace)
+                else if (keyHeld(0, 2)) {
+                    keymapIndex++;
+                    if (keymapIndex > 3) {
+                        keymapIndex = 0;
+                    }
+                }
+                // backspace
+                else {
+                    keyInfo[0] = 0x08;
+                    dataToSend = true;
+                }
+            }
+            // rshift
+            else if (keyReleased(colIndex, rowIndex) && keyReleased(2, 3)) {
+                // backlight toggle (alt + rshift)
+                if (keyHeld(0, 4)) {
+                    keyInfo[0] = 0x01;      // TODO: Change this to toggle the backlight
+                    dataToSend = true;
+                }
+                // mic toggle (mic + rshift)
+                else if (keyHeld(0, 6)) {
+                    keyInfo[0] = 0x01;
+                    keyInfo[3] = true;
+                    dataToSend = true;
+                }
+                // $/speaker toggle ($ + rshift)
+                else if (keyHeld(4, 4)) {
+                    keyInfo[0] = 0x01;
+                    keyInfo[4] = true;
+                    dataToSend = true;
+                }
+            }
+            // normal key
+            else if (keyReleased(colIndex, rowIndex)) {
+                // symbol 1
+                if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
                     keyInfo[0] = symbolKeymap1[colIndex][rowIndex];
-                // default keymaps
-                } else if (keymapIndex == 0 && doesKeyExistInKeymap(colIndex, rowIndex, default_keymap)) {
-                    keyInfo[0] = default_keymap[colIndex][rowIndex];
+                    dataToSend = true;
+                    // auto reset keymapIndex to defaultKeymap unless symbolLock is true
+                    // if (symbolLock == false) {
+                    //     keymapIndex = 0;
+                    // }
                 }
-                // auto reset keymapIndex to defaultKeymap unless symbolLock is true
-                if (symbolLock == false) {
+                // symbol 2
+                else if (keymapIndex == 2 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap2)) {
+                    keyInfo[0] = symbolKeymap2[colIndex][rowIndex];
+                    dataToSend = true;
+                    // auto reset keymapIndex to defaultKeymap unless symbolLock is true
+                    // if (symbolLock == false) {
+                    //     keymapIndex = 0;
+                    // }
+                }
+                // symbol 3
+                else if (keymapIndex == 3 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap3)) {
+                    keyInfo[0] = symbolKeymap3[colIndex][rowIndex];
+                    dataToSend = true;
+                    // auto reset keymapIndex to defaultKeymap unless symbolLock is true
+                    // if (symbolLock == false) {
+                    //     keymapIndex = 0;
+                    // }
+                }
+                // // symbol 4
+                // else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
+                //     keyInfo[0] = symbolKeymap4[colIndex][rowIndex];
+                //     dataToSend = true;
+                // }
+                // // symbol 5
+                // else if (keymapIndex == 5 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap5)) {
+                //     keyInfo[0] = symbolKeymap5[colIndex][rowIndex];
+                //     dataToSend = true;
+                // }
+                // // symbol 6
+                // else if (keymapIndex == 6 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap6)) {
+                //     keyInfo[0] = symbolKeymap6[colIndex][rowIndex];
+                //     dataToSend = true;
+                // }
+                // // symbol 7
+                // else if (keymapIndex == 7 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap7)) {
+                //     keyInfo[0] = symbolKeymap7[colIndex][rowIndex];
+                //     dataToSend = true;
+                // }
+                // alt lock or alt (alt) held
+                else if ((altLock || keyHeld(0, 4)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
+                    keyInfo[0] = defaultKeymap[colIndex][rowIndex];
+                    keyInfo[1] = true;
+                    dataToSend = true;
+                }
+                // ctrl lock or ctrl (rshift) held
+                else if ((ctrlLock || keyHeld(2, 3)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
+                    keyInfo[0] = defaultKeymap[colIndex][rowIndex];
+                    keyInfo[2] = true;
+                    dataToSend = true;
+                }
+                // caps lock or shift (lshift) held
+                else if ((capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
+                    keyInfo[0] = defaultKeymap[colIndex][rowIndex] - 32;
+                    dataToSend = true;
+                }
+                // a-z (normal key)
+                else if (keymapIndex == 0 && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
+                    keyInfo[0] = defaultKeymap[colIndex][rowIndex];
+                    dataToSend = true;
+                }
+                if (keymapIndex > 0 && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap) && symbolLock == false) {
                     keymapIndex = 0;
                 }
-                printKeyInfo(keyInfo);
-                memcpy(sendData, keyInfo, sizeof(keyInfo));
-                sendFlag = true;
             }
         }
+    }
+    printKeyInfo(keyInfo);
+    sendDataFlag = dataToSend;
+    if (sendDataFlag) {
+        memcpy(sendData, keyInfo, sizeof(keyInfo));
     }
 }
