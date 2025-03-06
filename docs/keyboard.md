@@ -11,33 +11,33 @@ The keyboard supports multiple keymaps and special key combinations to enhance i
 
 ## Key Combinations
 
-| KEY/COMBINATION      | FUNCTIONALITY           |
-|----------------------|-------------------------|
-| [a-z]                | [a-z]                   |
-| ENTER                | Enter                   |
-| SPACE                | Space                   |
-| BACKSPACE            | Backspace               |
-| ALT + [a-z]          | Alt + [a-z]             |
-| ALT + ENTER          | Decrease backlight      |
-| ALT + SPACE          | Toggle alt lock         |
-| ALT + BACKSPACE      | Increase backlight      |
-| ALT + RSHIFT         | Toggle backlight        |
-| LSHIFT (held)        | Shift + [a-z]           |
-| LSHIFT + ENTER       | Tab                     |
-| LSHIFT + SPACE       | Toggle caps lock        |
-| LSHIFT + BACKSPACE   | Delete                  |
-| MIC + ENTER          | Mic volume down         |
-| MIC + BACKSPACE      | Mic volume up           |
-| MIC + RSHIFT         | Toggle mic              |
-| $ + ENTER            | Speaker volume down     |
-| $ + BACKSPACE        | Speaker volume up       |
-| $ + RSHIFT           | Toggle speaker          |
-| SYM (held)           | Symbol                  |
-| SYM + ENTER          | Cycle symbol backward   |
-| SYM + SPACE          | Toggle symbol lock      |
-| SYM + BACKSPACE      | Cycle symbol forward    |
-| RSHIFT (held)        | Ctrl + [a-z]            |
-| RSHIFT + SPACE       | Toggle ctrl lock        |
+| KEY/COMBINATION      | FUNCTIONALITY             |
+|----------------------|---------------------------|
+| [a-z]                | [a-z]                     |
+| ENTER                | Enter                     |
+| SPACE                | Space                     |
+| BACKSPACE            | Backspace                 |
+| ALT + [a-z]          | Alt + [a-z]               |
+| ALT + ENTER          | Decrease backlight        |
+| ALT + SPACE          | Toggle alt lock           |
+| ALT + BACKSPACE      | Increase backlight        |
+| ALT + RSHIFT         | Toggle backlight          |
+| LSHIFT (held)        | Shift + [a-z]             |
+| LSHIFT + ENTER       | Tab                       |
+| LSHIFT + SPACE       | Toggle caps lock          |
+| LSHIFT + BACKSPACE   | Delete                    |
+| MIC + ENTER          | Mic volume down           |
+| MIC + BACKSPACE      | Mic volume up             |
+| MIC + RSHIFT         | Toggle mic                |
+| $ + ENTER            | Speaker volume down       |
+| $ + BACKSPACE        | Speaker volume up         |
+| $ + RSHIFT           | Toggle speaker            |
+| SYM + [a-z]          | Symbol + [a-z] (Symbol 1) |
+| SYM + ENTER          | Cycle symbol backward     |
+| SYM + SPACE          | Toggle symbol lock        |
+| SYM + BACKSPACE      | Cycle symbol forward      |
+| RSHIFT (held)        | Ctrl + [a-z]              |
+| RSHIFT + SPACE       | Toggle ctrl lock          |
 
 ## Available Characters
 
