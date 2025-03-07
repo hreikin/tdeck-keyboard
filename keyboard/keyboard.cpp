@@ -71,25 +71,11 @@ bool altLock = false;
 bool ctrlLock = false;
 bool capsLock = false;
 bool symbolLock = false;
-bool backlightState = false;
+bool backlightState = true;
 bool sendDataFlag = false;
 uint8_t keymapIndex = 0;                                     // defaultKeymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
 uint8_t sendData[5] = {0x00, false, false, false, false};    // key_value, alt, ctrl, mic, speaker
-
-/*
-* Dynamically modify backlight brightness at runtime
-* Brightness Range: 0 ~ 255
-*/
-uint8_t kbBrightnessDuty = KB_BRIGHTNESS_BOOT_DUTY;
-
-/*
-* Set the default backlight brightness level. If the user sets the backlight to 0
-* via setKeyboardBrightness, the default brightness is used when pressing ALT+B,
-* rather than the backlight brightness level set by the user. This ensures that
-* pressing ALT+B can respond to the backlight being turned on and off normally.
-* Brightness Range: 30 ~ 255
-*/
-uint8_t kbBrightnessSettingDuty = KB_BRIGHTNESS_DEFAULT_DUTY;    //Alt+B default duty , is duty is zero , use setting duty
+uint8_t currentBrightness = 119;                             // Default brightness level
 
 void onRequest()
 {
