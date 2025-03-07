@@ -1,3 +1,10 @@
+/**
+* @file      keyboard.cpp
+* @author    hreikin (hreikin@gmail.com)
+* @license   MIT
+* @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
+* @date      2025-03-07
+*/
 #include "keyboard.hpp"
 
 uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};

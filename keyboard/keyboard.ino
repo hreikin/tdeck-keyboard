@@ -1,3 +1,11 @@
+/**
+* @file      keyboard.ino
+* @author    hreikin (hreikin@gmail.com)
+* @license   MIT
+* @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
+* @date      2025-03-07
+*/
+
 #define CONFIG_IDF_TARGET_ESP32C3       // This can be removed if using esp.idf and setting a build flag instead
 
 #ifdef CONFIG_IDF_TARGET_ESP32C3
