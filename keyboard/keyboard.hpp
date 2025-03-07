@@ -64,7 +64,6 @@ extern uint8_t sendData[5];    // keyValue, alt, ctrl, mic, speaker
 extern KeyState keyStates[5][7];
 
 void onRequest();
-void onReceive(int len);
 bool keyReleased(int colIndex, int rowIndex);
 bool keyHeld(int colIndex, int rowIndex);
 bool keyPressed(int colIndex, int rowIndex);
@@ -73,5 +72,6 @@ bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7]);
 void printKeyInfo(uint8_t data[5]);
 void readKeyMatrix();
 void sendKeyInfo();
+void setKeyboardBrightness(uint8_t command);
 
 #endif // KEYBOARD_HPP
