@@ -45,7 +45,6 @@ void setup()
     }
 }
 
-bool test_bl_done = false;
 void loop()
 {
     // Read key value from esp32c3
