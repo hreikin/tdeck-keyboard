@@ -1,10 +1,9 @@
 /**
- * @file      Keyboard_T_Deck_Master.ino
- * @author    Lewis He (lewishe@outlook.com)
+* @file      tdeck.ino
+* @author    hreikin (hreikin@gmail.com)
  * @license   MIT
- * @copyright Copyright (c) 2023  Shenzhen Xin Yuan Electronic Technology Co., Ltd
- * @date      2023-05-30
- *
+* @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
+* @date      2025-03-07
  */
 #include <Arduino.h>
 #include <Wire.h>
