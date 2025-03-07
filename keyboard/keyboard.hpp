@@ -12,17 +12,19 @@
 #include <Wire.h>
 
 #define I2C_DEV_ADDR                        0x55
-#define keyboard_BL_PIN                     9
+#define KEYBOARD_BACKLIGHT_PIN              9
 #define SDA                                 2
 #define SCL                                 10
-#define KB_BRIGHTNESS_CH                    0     // ledc channel
-#define KB_BRIGHTNESS_FREQ                  1000  // ledc Frequency
-#define KB_BRIGHTNESS_RES                   8     // ledc Resolution_bits
-#define KB_BRIGHTNESS_BOOT_DUTY             0
-#define KB_BRIGHTNESS_DEFAULT_DUTY          127   // Alt+B default duty , is duty is zero , use setting duty
-
-#define LILYGO_KB_BRIGHTNESS_CMD            0x01
-#define LILYGO_KB_ALT_B_BRIGHTNESS_CMD      0x02
+#define KEYBOARD_BRIGHTNESS_CH              0     // ledc channel
+#define KEYBOARD_BRIGHTNESS_FREQ            1000  // ledc Frequency
+#define KEYBOARD_BRIGHTNESS_RES             8     // ledc Resolution_bits
+#define KEYBOARD_BRIGHTNESS_MAX             255
+#define KEYBOARD_BRIGHTNESS_MIN             0
+#define KEYBOARD_BRIGHTNESS_DEFAULT         119
+#define KEYBOARD_BRIGHTNESS_STEP            17
+#define FUNCTION_TOGGLE                     0x01
+#define FUNCTION_UP                         0x02
+#define FUNCTION_DOWN                       0x03
 
 #define DEBOUNCE_DELAY 50 // 50 milliseconds debounce delay
 
