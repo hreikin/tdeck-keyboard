@@ -352,61 +352,79 @@ void sendKeyInfo()
                 if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
                     keyInfo[0] = symbolKeymap1[colIndex][rowIndex];
                     dataToSend = true;
+                    if (symbolLock == false) {
+                        keymapIndex = 0;
+                    }
                 }
                 // symbol 2
                 else if (keymapIndex == 2 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap2)) {
                     keyInfo[0] = symbolKeymap2[colIndex][rowIndex];
                     dataToSend = true;
+                    if (symbolLock == false) {
+                        keymapIndex = 0;
+                    }
                 }
                 // symbol 3
                 else if (keymapIndex == 3 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap3)) {
                     keyInfo[0] = symbolKeymap3[colIndex][rowIndex];
                     dataToSend = true;
+                    if (symbolLock == false) {
+                        keymapIndex = 0;
+                    }
                 }
                 // // symbol 4
                 // else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
                 //     keyInfo[0] = symbolKeymap4[colIndex][rowIndex];
                 //     dataToSend = true;
+                //     if (symbolLock == false) {
+                //         keymapIndex = 0;
+                //     }
                 // }
                 // // symbol 5
                 // else if (keymapIndex == 5 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap5)) {
                 //     keyInfo[0] = symbolKeymap5[colIndex][rowIndex];
                 //     dataToSend = true;
+                //     if (symbolLock == false) {
+                //         keymapIndex = 0;
+                //     }
                 // }
                 // // symbol 6
                 // else if (keymapIndex == 6 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap6)) {
                 //     keyInfo[0] = symbolKeymap6[colIndex][rowIndex];
                 //     dataToSend = true;
+                //     if (symbolLock == false) {
+                //         keymapIndex = 0;
+                //     }
                 // }
                 // // symbol 7
                 // else if (keymapIndex == 7 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap7)) {
                 //     keyInfo[0] = symbolKeymap7[colIndex][rowIndex];
                 //     dataToSend = true;
+                //     if (symbolLock == false) {
+                //         keymapIndex = 0;
+                //     }
                 // }
-                // alt lock or alt (alt) held
+                // alt lock or alt (alt) held   // TODO: Move up
                 else if ((altLock || keyHeld(0, 4)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
                     keyInfo[0] = defaultKeymap[colIndex][rowIndex];
                     keyInfo[1] = true;
                     dataToSend = true;
                 }
-                // ctrl lock or ctrl (rshift) held
+                // ctrl lock or ctrl (rshift) held   // TODO: Move up
                 else if ((ctrlLock || keyHeld(2, 3)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
                     keyInfo[0] = defaultKeymap[colIndex][rowIndex];
                     keyInfo[2] = true;
                     dataToSend = true;
                 }
-                // caps lock or shift (lshift) held
+                // caps lock or shift (lshift) held   // TODO: Move up
                 else if ((capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
                     keyInfo[0] = defaultKeymap[colIndex][rowIndex] - 32;
                     dataToSend = true;
                 }
-                // a-z (normal key)
+                // a-z (normal key)   // TODO: Move up or keep at the end ?
                 else if (keymapIndex == 0 && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
                     keyInfo[0] = defaultKeymap[colIndex][rowIndex];
                     dataToSend = true;
-                }
-                if (keymapIndex > 0 && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap) && symbolLock == false) {
-                    keymapIndex = 0;
                 }
             }
         }
