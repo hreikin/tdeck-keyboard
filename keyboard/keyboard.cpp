@@ -95,37 +95,39 @@ void onRequest()
     }
 }
 
-void onReceive(int len)
+void setKeyboardBrightness(uint8_t command)
 {
-    // Serial.printf("onReceive[%d]: ", len);
-    while (Wire.available()) {
-        int cmd = Wire.read();
-        switch (cmd) {
-        case LILYGO_KB_BRIGHTNESS_CMD: {
-            int duty = Wire.read();
-            if (duty >= 0) {
-                kbBrightnessDuty = duty;
-                // Serial.printf("B:%d", duty);
-                ledcWrite(KB_BRIGHTNESS_CH, duty);
-                if (duty > 0) {
-                    backlightState = true;
-                } else if (duty == 0) {
-                    backlightState = false;
-                }
+    if (command == FUNCTION_TOGGLE) {
+        if (backlightState) {
+            currentBrightness = 0;
+        } else {
+            currentBrightness = KEYBOARD_BRIGHTNESS_DEFAULT;
+        }
+    } else if (command == FUNCTION_UP) {
+        if (currentBrightness < KEYBOARD_BRIGHTNESS_MAX) {
+            if (currentBrightness >= KEYBOARD_BRIGHTNESS_MAX - KEYBOARD_BRIGHTNESS_STEP) {
+                currentBrightness = KEYBOARD_BRIGHTNESS_MAX;
+            } else {
+                currentBrightness += KEYBOARD_BRIGHTNESS_STEP;
             }
         }
-        case LILYGO_KB_ALT_B_BRIGHTNESS_CMD: {
-            int duty = Wire.read();
-            if (duty > 30) {
-                kbBrightnessSettingDuty = duty;
+    } else if (command == FUNCTION_DOWN) {
+        if (currentBrightness > KEYBOARD_BRIGHTNESS_MIN) {
+            if (currentBrightness <= KEYBOARD_BRIGHTNESS_MIN + KEYBOARD_BRIGHTNESS_STEP) {
+                currentBrightness = KEYBOARD_BRIGHTNESS_MIN;
+            } else {
+                currentBrightness -= KEYBOARD_BRIGHTNESS_STEP;
             }
-        }
-        break;
-        default:
-            break;
         }
     }
-    // Serial.println();
+    // If the toggle is on/off and the user increments/decrements the brightness then ensure 
+    // the backlight state is set correctly
+    if (currentBrightness > KEYBOARD_BRIGHTNESS_MIN) {
+        backlightState = true;
+    } else {
+        backlightState = false;
+        }
+    ledcWrite(KEYBOARD_BRIGHTNESS_CH, currentBrightness);
 }
 
 bool keyReleased(int colIndex, int rowIndex)
