@@ -35,6 +35,7 @@ enum KeyState {
     RELEASED
 };
 
+extern uint8_t currentBrightness;
 extern uint8_t rows[];
 extern const int rowCount;
 
@@ -59,11 +60,7 @@ extern bool capsLock;
 extern bool symbolLock;
 extern bool backlightState;
 extern bool sendDataFlag;
-// TODO: change to char ?
 extern uint8_t sendData[5];    // keyValue, alt, ctrl, mic, speaker
-extern uint8_t kbBrightnessDuty;
-extern uint8_t kbBrightnessSettingDuty;
-
 extern KeyState keyStates[5][7];
 
 void onRequest();
