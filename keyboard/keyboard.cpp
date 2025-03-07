@@ -126,7 +126,7 @@ void setKeyboardBrightness(uint8_t command)
         backlightState = true;
     } else {
         backlightState = false;
-        }
+    }
     ledcWrite(KEYBOARD_BRIGHTNESS_CH, currentBrightness);
 }
 
@@ -211,24 +211,19 @@ void readKeyMatrix()
     }
 }
 
-// TODO: add combos to a table in keyboard.md
 // TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
-// TODO: add cent, peseta, 0 and NBSP back into the keymaps or add special handling for the mic/$ keys ?
-// TODO: add an extra item to keyInfo/sendData for the backlight state like mic/speaker ?
-// TODO: update tdeck.ino with new keyInfo size
-// TODO: backlight toggle, up, down need to be implemented
+// TODO: add cent, peseta, 0 and NBSP back into the keymaps
 void sendKeyInfo()
 {
     bool dataToSend = false;
-    uint8_t keyInfo[5]= {0x00, false, false, false, false};
+    uint8_t keyInfo[5]= {0x00, false, false, false, false}; // key_value, alt, ctrl, mic, speaker
     for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
         for (int colIndex = 0; colIndex < colCount; colIndex++) {
             // enter
             if (keyReleased(colIndex, rowIndex) && keyReleased(3, 3)) {
                 // backlight down (alt + enter)
                 if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x03;      // TODO: Change this to decrease the backlight brightness, decrement by 17
-                    dataToSend = true;
+                    setKeyboardBrightness(FUNCTION_DOWN);
                 }
                 // tab (lshift + enter)
                 else if (keyHeld(1, 6)) {
@@ -237,13 +232,13 @@ void sendKeyInfo()
                 }
                 // mic volume down (mic + enter)
                 else if (keyHeld(0, 6)) {
-                    keyInfo[0] = 0x03;
+                    keyInfo[0] = FUNCTION_DOWN;
                     keyInfo[3] = true;
                     dataToSend = true;
                 }
                 // $/speaker volume down ($ + enter)
                 else if (keyHeld(4, 4)) {
-                    keyInfo[0] = 0x03;
+                    keyInfo[0] = FUNCTION_DOWN;
                     keyInfo[4] = true;
                     dataToSend = true;
                 }
@@ -293,8 +288,7 @@ void sendKeyInfo()
             else if (keyReleased(colIndex, rowIndex) && keyReleased(4, 3)) {
                 // backlight up (alt + backspace)
                 if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x02;      // TODO: Change this to increase the backlight brightness, increment by 17
-                    dataToSend = true;
+                    setKeyboardBrightness(FUNCTION_UP);
                 }
                 // del (lshift + backspace)
                 else if (keyHeld(1, 6)) {
@@ -303,13 +297,13 @@ void sendKeyInfo()
                 }
                 // mic volume up (mic + backspace)
                 else if (keyHeld(0, 6)) {
-                    keyInfo[0] = 0x02;
+                    keyInfo[0] = FUNCTION_UP;
                     keyInfo[3] = true;
                     dataToSend = true;
                 }
                 // $/speaker volume up ($ + backspace)
                 else if (keyHeld(4, 4)) {
-                    keyInfo[0] = 0x02;
+                    keyInfo[0] = FUNCTION_UP;
                     keyInfo[4] = true;
                     dataToSend = true;
                 }
@@ -330,18 +324,17 @@ void sendKeyInfo()
             else if (keyReleased(colIndex, rowIndex) && keyReleased(2, 3)) {
                 // backlight toggle (alt + rshift)
                 if (keyHeld(0, 4)) {
-                    keyInfo[0] = 0x01;      // TODO: Change this to toggle the backlight, turn off if on, turn on at a set value if off
-                    dataToSend = true;
+                    setKeyboardBrightness(FUNCTION_TOGGLE);
                 }
                 // mic toggle (mic + rshift)
                 else if (keyHeld(0, 6)) {
-                    keyInfo[0] = 0x01;
+                    keyInfo[0] = FUNCTION_TOGGLE;
                     keyInfo[3] = true;
                     dataToSend = true;
                 }
                 // $/speaker toggle ($ + rshift)
                 else if (keyHeld(4, 4)) {
-                    keyInfo[0] = 0x01;
+                    keyInfo[0] = FUNCTION_TOGGLE;
                     keyInfo[4] = true;
                     dataToSend = true;
                 }
