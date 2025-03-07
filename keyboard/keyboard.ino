@@ -27,15 +27,14 @@ void setup()
 
     Serial.setDebugOutput(true);
     Wire.onRequest(onRequest);
-    Wire.onReceive(onReceive);
     Wire.begin((uint8_t)I2C_DEV_ADDR, SDA, SCL, 100000UL);
 
     Serial.println("Starting keyboard work!");
 
     // TODO: Upstream this change to fix the error reported over serial by the keyboard: E (229) ledc: ledc_get_duty(740): LEDC is not initialized
-    ledcSetup(KB_BRIGHTNESS_CH, KB_BRIGHTNESS_FREQ, KB_BRIGHTNESS_RES);
-    ledcAttachPin(keyboard_BL_PIN, KB_BRIGHTNESS_CH);
-    ledcWrite(KB_BRIGHTNESS_CH, KB_BRIGHTNESS_BOOT_DUTY);
+    ledcSetup(KEYBOARD_BRIGHTNESS_CH, KEYBOARD_BRIGHTNESS_FREQ, KEYBOARD_BRIGHTNESS_RES);
+    ledcAttachPin(KEYBOARD_BACKLIGHT_PIN, KEYBOARD_BRIGHTNESS_CH);
+    ledcWrite(KEYBOARD_BRIGHTNESS_CH, KEYBOARD_BRIGHTNESS_DEFAULT);
 
     Serial.println("4");
     for (int x = 0; x < rowCount; x++) {
