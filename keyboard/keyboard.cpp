@@ -1,10 +1,11 @@
 /**
-* @file      keyboard.cpp
-* @author    hreikin (hreikin@gmail.com)
-* @license   MIT
-* @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
-* @date      2025-03-07
-*/
+ * @file      keyboard.cpp
+ * @brief     Implementation of keyboard functions and keymaps.
+ * @author    hreikin (hreikin@gmail.com)
+ * @license   MIT
+ * @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
+ * @date      2025-03-07
+ */
 #include "keyboard.hpp"
 
 uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};
@@ -76,6 +77,11 @@ uint8_t sendData[6] = {0x00, false, false, false, false, false};    // key_value
 uint8_t emptyData[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};        // empty array to send when no key is pressed
 uint8_t currentBrightness = 119;                                    // Default brightness level
 
+/**
+ * @brief Handles I2C requests.
+ * 
+ * Sends the key data over I2C when requested.
+ */
 void onRequest()
 {
     if (sendDataFlag) {
@@ -92,6 +98,11 @@ void onRequest()
     }
 }
 
+/**
+ * @brief Sets the keyboard backlight brightness.
+ * 
+ * @param command The command to set the brightness (toggle, up, down).
+ */
 void setKeyboardBrightness(uint8_t command)
 {
     if (command == FUNCTION_TOGGLE) {
@@ -127,31 +138,72 @@ void setKeyboardBrightness(uint8_t command)
     ledcWrite(KEYBOARD_BRIGHTNESS_CH, currentBrightness);
 }
 
+/**
+ * @brief Checks if a key was released.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key was released, false otherwise.
+ */
 bool keyReleased(int colIndex, int rowIndex)
 {
     return keyStates[colIndex][rowIndex] == RELEASED;
 }
 
+/**
+ * @brief Checks if a key is being held.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key is being held, false otherwise.
+ */
 bool keyHeld(int colIndex, int rowIndex)
 {
     return keyStates[colIndex][rowIndex] == HELD;
 }
 
+/**
+ * @brief Checks if a key was pressed.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key was pressed, false otherwise.
+ */
 bool keyPressed(int colIndex, int rowIndex)
 {
     return keyStates[colIndex][rowIndex] == PRESSED;
 }
 
+/**
+ * @brief Checks if a key is not pressed.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key is not pressed, false otherwise.
+ */
 bool keyNotPressed(int colIndex, int rowIndex)
 {
     return keyStates[colIndex][rowIndex] == NOT_PRESSED;
 }
 
+/**
+ * @brief Checks if a key exists in the keymap.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @param keymap The keymap to check.
+ * @return true if the key exists in the keymap, false otherwise.
+ */
 bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7])
 {
     return keymap[colIndex][rowIndex] != NULL;
 }
 
+/**
+ * @brief Prints the key information.
+ * 
+ * @param data The key data array.
+ */
 void printKeyInfo(uint8_t data[6])
 {
     // print all the keyInfo array values
@@ -171,6 +223,9 @@ void printKeyInfo(uint8_t data[6])
     Serial.println("************************************");
 }
 
+/**
+ * @brief Reads the key matrix and updates the key states.
+ */
 void readKeyMatrix()
 {
     // iterate the columns
@@ -216,10 +271,13 @@ void readKeyMatrix()
     }
 }
 
-// TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
-// TODO: add cent, peseta, 0 and NBSP back into the keymaps
+/**
+ * @brief Sends the key information over I2C.
+ */
 void sendKeyInfo()
 {
+    // TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
+    // TODO: add cent, peseta, 0 and NBSP back into the keymaps
     bool dataToSend = false;
     uint8_t keyInfo[6]= {0x00, false, false, false, false, false}; // key_value, alt, ctrl, shift, mic, speaker
     for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
