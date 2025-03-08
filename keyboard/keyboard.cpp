@@ -221,11 +221,13 @@ void readKeyMatrix()
 void sendKeyInfo()
 {
     bool dataToSend = false;
-    uint8_t keyInfo[5]= {0x00, false, false, false, false}; // key_value, alt, ctrl, mic, speaker
+    uint8_t keyInfo[6]= {0x00, false, false, false, false, false}; // key_value, alt, ctrl, shift, mic, speaker
     for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
         for (int colIndex = 0; colIndex < colCount; colIndex++) {
+            // any key released
+            if (keyReleased(colIndex, rowIndex)) {
             // enter
-            if (keyReleased(colIndex, rowIndex) && keyReleased(3, 3)) {
+                if (keyReleased(3, 3)) {
                 // backlight down (alt + enter)
                 if (keyHeld(0, 4)) {
                     setKeyboardBrightness(FUNCTION_DOWN);
@@ -238,13 +240,13 @@ void sendKeyInfo()
                 // mic volume down (mic + enter)
                 else if (keyHeld(0, 6)) {
                     keyInfo[0] = FUNCTION_DOWN;
-                    keyInfo[3] = true;
+                        keyInfo[4] = true;
                     dataToSend = true;
                 }
                 // $/speaker volume down ($ + enter)
                 else if (keyHeld(4, 4)) {
                     keyInfo[0] = FUNCTION_DOWN;
-                    keyInfo[4] = true;
+                        keyInfo[5] = true;
                     dataToSend = true;
                 }
                 // cycle symbol backward (sym + enter)
@@ -263,7 +265,7 @@ void sendKeyInfo()
                 }
             }
             // space
-            else if (keyReleased(colIndex, rowIndex) && keyReleased(0, 5)) {
+                else if (keyReleased(0, 5)) {
                 // alt lock (alt + space)
                 if (keyHeld(0, 4)) {
                     altLock = !altLock;
@@ -290,7 +292,7 @@ void sendKeyInfo()
                 }
             }
             // backspace
-            else if (keyReleased(colIndex, rowIndex) && keyReleased(4, 3)) {
+                else if (keyReleased(4, 3)) {
                 // backlight up (alt + backspace)
                 if (keyHeld(0, 4)) {
                     setKeyboardBrightness(FUNCTION_UP);
@@ -303,13 +305,13 @@ void sendKeyInfo()
                 // mic volume up (mic + backspace)
                 else if (keyHeld(0, 6)) {
                     keyInfo[0] = FUNCTION_UP;
-                    keyInfo[3] = true;
+                        keyInfo[4] = true;
                     dataToSend = true;
                 }
                 // $/speaker volume up ($ + backspace)
                 else if (keyHeld(4, 4)) {
                     keyInfo[0] = FUNCTION_UP;
-                    keyInfo[4] = true;
+                        keyInfo[5] = true;
                     dataToSend = true;
                 }
                 // cycle symbol forward (sym + backspace)
@@ -326,7 +328,7 @@ void sendKeyInfo()
                 }
             }
             // rshift
-            else if (keyReleased(colIndex, rowIndex) && keyReleased(2, 3)) {
+                else if (keyReleased(2, 3)) {
                 // backlight toggle (alt + rshift)
                 if (keyHeld(0, 4)) {
                     setKeyboardBrightness(FUNCTION_TOGGLE);
@@ -334,13 +336,16 @@ void sendKeyInfo()
                 // mic toggle (mic + rshift)
                 else if (keyHeld(0, 6)) {
                     keyInfo[0] = FUNCTION_TOGGLE;
-                    keyInfo[3] = true;
+                        keyInfo[4] = true;
                     dataToSend = true;
                 }
                 // $/speaker toggle ($ + rshift)
                 else if (keyHeld(4, 4)) {
                     keyInfo[0] = FUNCTION_TOGGLE;
-                    keyInfo[4] = true;
+                        keyInfo[5] = true;
+                        dataToSend = true;
+                    }
+                }
                     dataToSend = true;
                 }
             }
