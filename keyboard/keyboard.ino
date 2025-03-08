@@ -45,6 +45,7 @@ void setup()
         Serial.print(cols[x]); Serial.println(" as input-pullup");
         pinMode(cols[x], INPUT_PULLUP);
     }
+    Serial.println("************************************");
 }
 
 /**
