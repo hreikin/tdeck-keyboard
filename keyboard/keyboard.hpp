@@ -1,10 +1,11 @@
 /**
-* @file      keyboard.hpp
-* @author    hreikin (hreikin@gmail.com)
-* @license   MIT
-* @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
-* @date      2025-03-07
-*/
+ * @file      keyboard.hpp
+ * @brief     Header file for keyboard functions and keymaps.
+ * @author    hreikin (hreikin@gmail.com)
+ * @license   MIT
+ * @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
+ * @date      2025-03-07
+ */
 #ifndef KEYBOARD_HPP
 #define KEYBOARD_HPP
 
@@ -62,15 +63,79 @@ extern uint8_t sendData[6];    // keyValue, alt, ctrl, shift, mic, speaker
 extern uint8_t emptyData[6];   // empty array to send when no key is pressed
 extern KeyState keyStates[5][7];
 
+/**
+ * @brief Handles I2C requests.
+ */
 void onRequest();
+
+/**
+ * @brief Checks if a key was released.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key was released, false otherwise.
+ */
 bool keyReleased(int colIndex, int rowIndex);
+
+/**
+ * @brief Checks if a key is being held.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key is being held, false otherwise.
+ */
 bool keyHeld(int colIndex, int rowIndex);
+
+/**
+ * @brief Checks if a key was pressed.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key was pressed, false otherwise.
+ */
 bool keyPressed(int colIndex, int rowIndex);
+
+/**
+ * @brief Checks if a key is not pressed.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @return true if the key is not pressed, false otherwise.
+ */
 bool keyNotPressed(int colIndex, int rowIndex);
+
+/**
+ * @brief Checks if a key exists in the keymap.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ * @param keymap The keymap to check.
+ * @return true if the key exists in the keymap, false otherwise.
+ */
 bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7]);
+
+/**
+ * @brief Prints the key information.
+ * 
+ * @param data The key data array.
+ */
 void printKeyInfo(uint8_t data[6]);
+
+/**
+ * @brief Reads the key matrix and updates the key states.
+ */
 void readKeyMatrix();
+
+/**
+ * @brief Sends the key information over I2C.
+ */
 void sendKeyInfo();
+
+/**
+ * @brief Sets the keyboard backlight brightness.
+ * 
+ * @param command The command to set the brightness (toggle, up, down).
+ */
 void setKeyboardBrightness(uint8_t command);
 
 #endif // KEYBOARD_HPP
