@@ -13,9 +13,7 @@ const int rowCount = sizeof(rows) / sizeof(rows[0]);
 uint8_t cols[] = {1, 4, 5, 11, 13};
 const int colCount = sizeof(cols) / sizeof(cols[0]);
 
-bool keys[5][7];
 bool lastValue[5][7];
-bool changedValue[5][7];
 KeyState keyStates[5][7];
 // TODO: Ensure the keymaps match the tables in keyboard.md
 // Keys wrapped in square brackets require special handling due to mic/speaker functionality and other key combinations.
@@ -89,8 +87,6 @@ void onRequest()
         }
         Serial.println();
     } else {
-        // TODO: Make this a global variable and use it here ?
-        uint8_t emptyData[5] = {0x00, 0x00, 0x00, 0x00, 0x00}; // Create a temporary array
         Wire.write(emptyData, sizeof(emptyData)); // Use the temporary array
     }
 }
