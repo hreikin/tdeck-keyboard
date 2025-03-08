@@ -1,10 +1,8 @@
-# Keyboard
-
-## Functionality
+# Functionality
 
 The keyboard supports multiple keymaps and special key combinations to enhance its functionality. It includes default keymaps for regular typing and several symbol keymaps for special characters. The keyboard also supports key combinations for controlling the backlight, toggling locks (Alt, Ctrl, Caps, Symbol), and adjusting the volume for the mic and speaker.
 
-### Keymaps
+## Keymaps
 
 - **Default Keymap**: Contains the standard alphanumeric characters and some special keys.
 - **Symbol Keymaps**: Provide access to various symbols and special characters. There are multiple symbol keymaps that can be cycled through using specific key combinations.
