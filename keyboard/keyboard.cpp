@@ -152,15 +152,23 @@ bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7])
     return keymap[colIndex][rowIndex] != NULL;
 }
 
-void printKeyInfo(uint8_t data[5])
+void printKeyInfo(uint8_t data[6])
 {
     // print all the keyInfo array values
-    Serial.print("keyInfo: ");
-    for (int i = 0; i < 5; i++) {
-        Serial.print(data[i]);
-        Serial.print(" ");
-    }
-    Serial.println();
+    Serial.println("************************************");
+    Serial.print("char: ");
+    Serial.println(data[0]);
+    Serial.print("alt: ");
+    Serial.println(data[1]);
+    Serial.print("ctrl: ");
+    Serial.println(data[2]);
+    Serial.print("shift: ");
+    Serial.println(data[3]);
+    Serial.print("mic: ");
+    Serial.println(data[4]);
+    Serial.print("speaker: ");
+    Serial.println(data[5]);
+    Serial.println("************************************");
 }
 
 void readKeyMatrix()
