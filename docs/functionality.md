@@ -39,7 +39,7 @@ The keyboard supports multiple keymaps and special key combinations to enhance i
 
 ## Available Characters
 
-The following table shows the available characters for the keymaps, the characters shown are based on the CP437 font. Symbol tables 4-7 are not currently implemented in the firmware.
+The following table shows the available characters for the keymaps, the characters shown are based on the CP437 font used by `TFT_eSPI`. Symbol tables 4-7 are not currently implemented in the firmware.
 
 | DEFAULT               | CAPS                  | SYMBOL 1              | SYMBOL 2              | SYMBOL 3              |
 |-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
