@@ -66,4 +66,4 @@
     - [ ] test the functionality
     - [ ] test edge cases
 - [ ] Basic usage documentation
-- [x] Refactor T-Deck test firmware to use for testing the library
+- [x] Refactor T-Deck test firmware to use for testing the library (basic)

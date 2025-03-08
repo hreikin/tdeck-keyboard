@@ -17,6 +17,8 @@ const int colCount = sizeof(cols) / sizeof(cols[0]);
 bool lastValue[5][7];
 KeyState keyStates[5][7];
 // TODO: Ensure the keymaps match the tables in keyboard.md
+// TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
+// TODO: add cent, peseta, 0 and NBSP back into the keymaps
 // Keys wrapped in square brackets require special handling due to mic/speaker functionality and other key combinations.
 char defaultKeymap[5][7] = {                      // index = 0
     {0x71, 0x77, NULL, 0x61, NULL, NULL, NULL},   // { q, w, [sym],           a, [alt], [space],    [mic] }
@@ -275,8 +277,6 @@ void readKeyMatrix()
  */
 void sendKeyInfo()
 {
-    // TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
-    // TODO: add cent, peseta, 0 and NBSP back into the keymaps
     bool dataToSend = false;
     uint8_t keyInfo[6]= {0x00, false, false, false, false, false}; // key_value, alt, ctrl, shift, mic, speaker
     for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
