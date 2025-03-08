@@ -42,9 +42,7 @@ extern const int rowCount;
 extern uint8_t cols[];
 extern const int colCount;
 
-extern bool keys[5][7];
 extern bool lastValue[5][7];
-extern bool changedValue[5][7];
 extern char defaultKeymap[5][7];
 extern char symbolKeymap1[5][7];
 extern char symbolKeymap2[5][7];
