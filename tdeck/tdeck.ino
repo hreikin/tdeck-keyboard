@@ -61,10 +61,12 @@ void loop()
         Serial.println(keyInfo[1]);
         Serial.print("ctrl: ");
         Serial.println(keyInfo[2]);
-        Serial.print("mic: ");
+        Serial.print("shift: ");
         Serial.println(keyInfo[3]);
-        Serial.print("speaker: ");
+        Serial.print("mic: ");
         Serial.println(keyInfo[4]);
+        Serial.print("speaker: ");
+        Serial.println(keyInfo[5]);
     }
     delay(5);
 }
