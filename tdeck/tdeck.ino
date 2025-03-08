@@ -16,7 +16,7 @@
 #define BOARD_I2C_SDA 18
 #define BOARD_I2C_SCL 8
 
-uint8_t keyInfo[5] = {0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, mic, speaker
+uint8_t keyInfo[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, shift, mic, speaker
 
 void setup()
 {
@@ -48,12 +48,12 @@ void setup()
 void loop()
 {
     // Read key value from esp32c3
-    Wire.requestFrom(LILYGO_KB_SLAVE_ADDRESS, 5);
-    for (int i = 0; i < 5 && Wire.available() > 0; i++)
+    Wire.requestFrom(LILYGO_KB_SLAVE_ADDRESS, 6);
+    for (int i = 0; i < 6 && Wire.available() > 0; i++)
     {
         keyInfo[i] = Wire.read();
     }
-    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00)
+    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00 || keyInfo[5] != 0x00)
     {
         Serial.print("char: ");
         Serial.println(keyInfo[0]);
