@@ -1,5 +1,6 @@
 /**
 * @file      tdeck.ino
+* @brief     T-Deck host program that prints received keys over the serial connection.
 * @author    hreikin (hreikin@gmail.com)
 * @license   MIT
 * @copyright Copyright (c) 2025 hreikin (hreikin@gmail.com)
@@ -18,6 +19,9 @@
 
 uint8_t keyInfo[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, shift, mic, speaker
 
+/**
+ * @brief Setup function to initialize serial communication, power on the board, and check the keyboard.
+ */
 void setup()
 {
     Serial.begin(115200);
@@ -45,6 +49,9 @@ void setup()
     }
 }
 
+/**
+ * @brief Loop function to read key values from the keyboard and print them over the serial connection.
+ */
 void loop()
 {
     // Read key value from esp32c3
