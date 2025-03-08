@@ -207,7 +207,6 @@ bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7])
 void printKeyInfo(uint8_t data[6])
 {
     // print all the keyInfo array values
-    Serial.println("************************************");
     Serial.print("char: ");
     Serial.println(data[0]);
     Serial.print("alt: ");
