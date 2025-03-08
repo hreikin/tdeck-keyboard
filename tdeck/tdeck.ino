@@ -47,6 +47,12 @@ void setup()
             delay(1000);
         }
     }
+    else
+    {
+        Serial.println("LILYGO Keyboard online .");
+    }
+    Serial.println("Waiting for key press...");
+    Serial.println("************************************");
 }
 
 /**
@@ -74,6 +80,7 @@ void loop()
         Serial.println(keyInfo[4]);
         Serial.print("speaker: ");
         Serial.println(keyInfo[5]);
+        Serial.println("************************************");
     }
     delay(5);
 }
