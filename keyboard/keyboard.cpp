@@ -250,13 +250,13 @@ void readKeyMatrix()
             }
 
             if (buttonPressed) {
-                if (keyStates[colIndex][rowIndex] == NOT_PRESSED || keyStates[colIndex][rowIndex] == RELEASED) {
+                if (keyNotPressed(colIndex, rowIndex) || keyReleased(colIndex, rowIndex)) {
                     keyStates[colIndex][rowIndex] = PRESSED;
                 } else {
                     keyStates[colIndex][rowIndex] = HELD;
                 }
             } else {
-                if (keyStates[colIndex][rowIndex] == PRESSED || keyStates[colIndex][rowIndex] == HELD) {
+                if (keyPressed(colIndex, rowIndex) || keyHeld(colIndex, rowIndex)) {
                     keyStates[colIndex][rowIndex] = RELEASED;
                 } else {
                     keyStates[colIndex][rowIndex] = NOT_PRESSED;
