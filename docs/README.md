@@ -4,7 +4,7 @@ The T-Deck Keyboard project is an improved firmware for the T-Deck's keyboard. I
 
 ## Getting Started
 
-To get started with the T-Deck Keyboard project, visit the [Usage](usage.md) page for a quick installation and usage guide. For an in-depth overview of the firmware’s capabilities, consult the reference pages available at the [Documentation](https://hreikin.co.uk/tdeck-keyboard) site.
+To get started with the T-Deck Keyboard project, visit the [Usage](usage.md) page for a quick installation and usage guide. For an in-depth overview of the firmware’s capabilities, consult the [Functionality](functionality.md) page, reference pages are also available at the [Documentation](https://hreikin.co.uk/tdeck-keyboard) site.
 
 ## Features
 
