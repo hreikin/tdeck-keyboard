@@ -1,0 +1,978 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="keyboard_8hpp" kind="file" language="C++">
+    <compoundname>keyboard.hpp</compoundname>
+    <includes local="no">Arduino.h</includes>
+    <includes local="no">Wire.h</includes>
+    <includedby refid="keyboard_8cpp" local="yes">keyboard/keyboard.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>keyboard/keyboard.hpp</label>
+        <link refid="keyboard_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+      <node id="3">
+        <label>Wire.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>keyboard/keyboard.cpp</label>
+        <link refid="keyboard_8cpp"/>
+      </node>
+      <node id="1">
+        <label>keyboard/keyboard.hpp</label>
+        <link refid="keyboard_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="keyboard_8hpp_1ae84b0b9d4014905776556b40a736a06e" prot="public" static="no">
+        <name>I2C_DEV_ADDR</name>
+        <initializer>0x55</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="15" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1aff3afcfaf89e300a705e2ab7d0a4b8e7" prot="public" static="no">
+        <name>KEYBOARD_BACKLIGHT_PIN</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="16" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1a6890442e1cc24a0d61597a13576b8727" prot="public" static="no">
+        <name>SDA</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="17" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1ab5ffc4751921608954bb7a5687566b2d" prot="public" static="no">
+        <name>SCL</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="18" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1a811b4795037e36341cde23f606723201" prot="public" static="no">
+        <name>KEYBOARD_BRIGHTNESS_CH</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="19" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1a9a8be8d418a2ab633898da10eec266fc" prot="public" static="no">
+        <name>KEYBOARD_BRIGHTNESS_FREQ</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="20" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1ac028e1e334130deac8ed790369b84560" prot="public" static="no">
+        <name>KEYBOARD_BRIGHTNESS_RES</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="21" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1aad7c47e5f85a70ca17ab1f03e944ab68" prot="public" static="no">
+        <name>KEYBOARD_BRIGHTNESS_MAX</name>
+        <initializer>255</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="22" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1a4a5f35a6438451fe0c0d6c22ea4b6412" prot="public" static="no">
+        <name>KEYBOARD_BRIGHTNESS_MIN</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="23" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1ae078d59aad91cc9d86233958753a5fd4" prot="public" static="no">
+        <name>KEYBOARD_BRIGHTNESS_DEFAULT</name>
+        <initializer>119</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="24" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1aae85430de740c914c0591fe9cc6b7afb" prot="public" static="no">
+        <name>KEYBOARD_BRIGHTNESS_STEP</name>
+        <initializer>17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="25" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1a68527f091ad999bc3974e964c6cac9b9" prot="public" static="no">
+        <name>FUNCTION_TOGGLE</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="26" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1a4e058d7584aa3722ec048719b537107d" prot="public" static="no">
+        <name>FUNCTION_UP</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="27" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1ad0e43acaad87ad5a276179e4418004b0" prot="public" static="no">
+        <name>FUNCTION_DOWN</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="28" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="keyboard_8hpp_1adb75862f582a7d68347ceae4f4c003c9" prot="public" static="no">
+        <name>DEBOUNCE_DELAY</name>
+        <initializer>50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="30" column="9" bodyfile="keyboard/keyboard.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="keyboard_8hpp_1a7e51438e5f6bf556512ce7103cddac09" prot="public" static="no" strong="no">
+        <type></type>
+        <name>KeyState</name>
+        <enumvalue id="keyboard_8hpp_1a7e51438e5f6bf556512ce7103cddac09acdb8b9a398ffbd729218a27d00d8fa45" prot="public">
+          <name>NOT_PRESSED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8hpp_1a7e51438e5f6bf556512ce7103cddac09a5ef9a100ac8b4b8d6dec477c377b7901" prot="public">
+          <name>PRESSED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8hpp_1a7e51438e5f6bf556512ce7103cddac09ac0d64bfdd0f176c021eac3fca2be30af" prot="public">
+          <name>HELD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="keyboard_8hpp_1a7e51438e5f6bf556512ce7103cddac09aa38d18fe73a7fc82c112b6917d0b5cd0" prot="public">
+          <name>RELEASED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="32" column="1" bodyfile="keyboard/keyboard.hpp" bodystart="32" bodyend="37"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="keyboard_8hpp_1a38e18697772ce4b5e924e000280f715a" prot="public" static="no" extern="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t currentBrightness</definition>
+        <argsstring></argsstring>
+        <name>currentBrightness</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="39" column="16" bodyfile="keyboard/keyboard.cpp" bodystart="79" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="39" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a2a029d9e4eafd59d948bd67f92a59b14" prot="public" static="no" extern="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t rows[]</definition>
+        <argsstring>[]</argsstring>
+        <name>rows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="40" column="16" bodyfile="keyboard/keyboard.cpp" bodystart="11" bodyend="11" declfile="keyboard/keyboard.hpp" declline="40" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a40d21a7a6cd1bda4932ff1f1996fd6ec" prot="public" static="no" extern="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int rowCount</definition>
+        <argsstring></argsstring>
+        <name>rowCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="41" column="18" bodyfile="keyboard/keyboard.cpp" bodystart="12" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="41" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a35c25de519ed94d77e7eb11f81f67617" prot="public" static="no" extern="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cols[]</definition>
+        <argsstring>[]</argsstring>
+        <name>cols</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="43" column="16" bodyfile="keyboard/keyboard.cpp" bodystart="14" bodyend="14" declfile="keyboard/keyboard.hpp" declline="43" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a5f0f4e113502307f69b01e2f7d2e9dfd" prot="public" static="no" extern="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int colCount</definition>
+        <argsstring></argsstring>
+        <name>colCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="44" column="18" bodyfile="keyboard/keyboard.cpp" bodystart="15" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="44" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a393415a6eaabc5802d49a2b36db9a540" prot="public" static="no" extern="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool lastValue[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>lastValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="46" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="17" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="46" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a57e014e6debd3c53103bdc6e54e88069" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char defaultKeymap[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>defaultKeymap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="47" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="22" bodyend="28" declfile="keyboard/keyboard.hpp" declline="47" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1ad7e900a82d5d768fc5801d6d1de28c05" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char symbolKeymap1[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>symbolKeymap1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="48" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="30" bodyend="36" declfile="keyboard/keyboard.hpp" declline="48" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a7444f450580d78b051aa29fa425758cb" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char symbolKeymap2[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>symbolKeymap2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="49" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="37" bodyend="43" declfile="keyboard/keyboard.hpp" declline="49" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a3c40d35874385671983d9ab0ff3f4729" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char symbolKeymap3[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>symbolKeymap3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="50" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="44" bodyend="50" declfile="keyboard/keyboard.hpp" declline="50" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1ade86dbdd02642a37f5060fcfe66be956" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char symbolKeymap4[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>symbolKeymap4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="51" column="13" declfile="keyboard/keyboard.hpp" declline="51" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1adf83c85fb7944d35b93c13901abbd159" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char symbolKeymap5[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>symbolKeymap5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="52" column="13" declfile="keyboard/keyboard.hpp" declline="52" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a12c6fd0639262152921f93c71778b718" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char symbolKeymap6[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>symbolKeymap6</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="53" column="13" declfile="keyboard/keyboard.hpp" declline="53" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a67db3d094fadb72a465ddde79db93bb7" prot="public" static="no" extern="yes" mutable="no">
+        <type>char</type>
+        <definition>char symbolKeymap7[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>symbolKeymap7</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="54" column="13" declfile="keyboard/keyboard.hpp" declline="54" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a921d3b38d2a35c481efb872df0115fe6" prot="public" static="no" extern="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t keymapIndex</definition>
+        <argsstring></argsstring>
+        <name>keymapIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="55" column="16" bodyfile="keyboard/keyboard.cpp" bodystart="76" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="55" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a115635b66231a02e918697f104ec4083" prot="public" static="no" extern="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool altLock</definition>
+        <argsstring></argsstring>
+        <name>altLock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="56" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="70" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="56" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a6e5da0e9797a7fe99ba26a72a522eeb7" prot="public" static="no" extern="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool ctrlLock</definition>
+        <argsstring></argsstring>
+        <name>ctrlLock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="57" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="71" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="57" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a8f0007fdb70fed90488fac8be572f5f8" prot="public" static="no" extern="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool capsLock</definition>
+        <argsstring></argsstring>
+        <name>capsLock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="58" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="72" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="58" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a445daf51e65da10949746414714986cf" prot="public" static="no" extern="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool symbolLock</definition>
+        <argsstring></argsstring>
+        <name>symbolLock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="59" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="73" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="59" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a57e3529790c6021957f6e49b2bcaa894" prot="public" static="no" extern="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool backlightState</definition>
+        <argsstring></argsstring>
+        <name>backlightState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="60" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="74" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="60" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a8ea944aafa397d31ec524e3bab790823" prot="public" static="no" extern="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool sendDataFlag</definition>
+        <argsstring></argsstring>
+        <name>sendDataFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="61" column="13" bodyfile="keyboard/keyboard.cpp" bodystart="75" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="61" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a5340998f949d50781595ac2235d2a93d" prot="public" static="no" extern="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t sendData[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>sendData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="62" column="16" bodyfile="keyboard/keyboard.cpp" bodystart="77" bodyend="77" declfile="keyboard/keyboard.hpp" declline="62" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a01b596212339eff528dad9539400bdae" prot="public" static="no" extern="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t emptyData[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>emptyData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="63" column="16" bodyfile="keyboard/keyboard.cpp" bodystart="78" bodyend="78" declfile="keyboard/keyboard.hpp" declline="63" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="keyboard_8hpp_1a14b8ffe02655db675785ad1a5d89152a" prot="public" static="no" extern="yes" mutable="no">
+        <type>KeyState</type>
+        <definition>KeyState keyStates[5][7]</definition>
+        <argsstring>[5][7]</argsstring>
+        <name>keyStates</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="64" column="17" bodyfile="keyboard/keyboard.cpp" bodystart="18" bodyend="-1" declfile="keyboard/keyboard.hpp" declline="64" declcolumn="17"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="keyboard_8hpp_1ac6532b6359ec1083f0936a3a1c93bdce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void onRequest</definition>
+        <argsstring>()</argsstring>
+        <name>onRequest</name>
+        <briefdescription>
+<para>Handles I2C requests. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Sends the key data over I2C when requested. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="69" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="86" bodyend="100" declfile="keyboard/keyboard.hpp" declline="69" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1aad5984ced0bbae1a4323829c157aa89a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool keyReleased</definition>
+        <argsstring>(int colIndex, int rowIndex)</argsstring>
+        <name>keyReleased</name>
+        <param>
+          <type>int</type>
+          <declname>colIndex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rowIndex</declname>
+        </param>
+        <briefdescription>
+<para>Checks if a key was released. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>colIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The column index of the key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The row index of the key. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the key was released, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="78" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="149" bodyend="152" declfile="keyboard/keyboard.hpp" declline="78" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1a678862732b3aa5db2c3e3c6bca7ba5cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool keyHeld</definition>
+        <argsstring>(int colIndex, int rowIndex)</argsstring>
+        <name>keyHeld</name>
+        <param>
+          <type>int</type>
+          <declname>colIndex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rowIndex</declname>
+        </param>
+        <briefdescription>
+<para>Checks if a key is being held. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>colIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The column index of the key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The row index of the key. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the key is being held, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="87" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="161" bodyend="164" declfile="keyboard/keyboard.hpp" declline="87" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1abf9e684c4938cd2772db0b49a879e02f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool keyPressed</definition>
+        <argsstring>(int colIndex, int rowIndex)</argsstring>
+        <name>keyPressed</name>
+        <param>
+          <type>int</type>
+          <declname>colIndex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rowIndex</declname>
+        </param>
+        <briefdescription>
+<para>Checks if a key was pressed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>colIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The column index of the key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The row index of the key. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the key was pressed, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="96" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="173" bodyend="176" declfile="keyboard/keyboard.hpp" declline="96" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1ad811213c4b06e7992dc8571f929c3fa4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool keyNotPressed</definition>
+        <argsstring>(int colIndex, int rowIndex)</argsstring>
+        <name>keyNotPressed</name>
+        <param>
+          <type>int</type>
+          <declname>colIndex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rowIndex</declname>
+        </param>
+        <briefdescription>
+<para>Checks if a key is not pressed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>colIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The column index of the key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The row index of the key. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the key is not pressed, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="105" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="185" bodyend="188" declfile="keyboard/keyboard.hpp" declline="105" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1a5c2dd94ac4a548c4ba1d0e7524418c0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool doesKeyExistInKeymap</definition>
+        <argsstring>(int colIndex, int rowIndex, char keymap[5][7])</argsstring>
+        <name>doesKeyExistInKeymap</name>
+        <param>
+          <type>int</type>
+          <declname>colIndex</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>rowIndex</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>keymap</declname>
+          <array>[5][7]</array>
+        </param>
+        <briefdescription>
+<para>Checks if a key exists in the keymap. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>colIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The column index of the key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rowIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The row index of the key. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>keymap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The keymap to check. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the key exists in the keymap, false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="115" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="198" bodyend="201" declfile="keyboard/keyboard.hpp" declline="115" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1aa917d942276ea8109fedd99198a526b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void printKeyInfo</definition>
+        <argsstring>(uint8_t data[6])</argsstring>
+        <name>printKeyInfo</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>data</declname>
+          <array>[6]</array>
+        </param>
+        <briefdescription>
+<para>Prints the key information. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The key data array. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="122" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="208" bodyend="224" declfile="keyboard/keyboard.hpp" declline="122" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1a0e5199e98a5286602c42aea9fb99ee65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void readKeyMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>readKeyMatrix</name>
+        <briefdescription>
+<para>Reads the key matrix and updates the key states. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="127" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="229" bodyend="272" declfile="keyboard/keyboard.hpp" declline="127" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1ad932a802466e392e983bf2c9ca796f00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sendKeyInfo</definition>
+        <argsstring>()</argsstring>
+        <name>sendKeyInfo</name>
+        <briefdescription>
+<para>Sends the key information over I2C. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="132" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="277" bodyend="491" declfile="keyboard/keyboard.hpp" declline="132" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="keyboard_8hpp_1a82ceff7c692732aa22e2944ae4a9216c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setKeyboardBrightness</definition>
+        <argsstring>(uint8_t command)</argsstring>
+        <name>setKeyboardBrightness</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>command</declname>
+        </param>
+        <briefdescription>
+<para>Sets the keyboard backlight brightness. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>command</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The command to set the brightness (toggle, up, down). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="keyboard/keyboard.hpp" line="139" column="6" bodyfile="keyboard/keyboard.cpp" bodystart="107" bodyend="140" declfile="keyboard/keyboard.hpp" declline="139" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Header file for keyboard functions and keymaps. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>hreikin (<ulink url="mailto:hreikin@gmail.com">hreikin@gmail.com</ulink>) @license MIT </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2025 hreikin (<ulink url="mailto:hreikin@gmail.com">hreikin@gmail.com</ulink>) </para>
+</simplesect>
+<simplesect kind="date"><para>2025-03-07 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>KEYBOARD_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Arduino.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Wire.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>I2C_DEV_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BACKLIGHT_PIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SDA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SCL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BRIGHTNESS_CH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ledc<sp/>channel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BRIGHTNESS_FREQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000<sp/><sp/></highlight><highlight class="comment">//<sp/>ledc<sp/>Frequency</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BRIGHTNESS_RES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ledc<sp/>Resolution_bits</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BRIGHTNESS_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>255</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BRIGHTNESS_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BRIGHTNESS_DEFAULT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>119</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KEYBOARD_BRIGHTNESS_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FUNCTION_TOGGLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FUNCTION_UP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FUNCTION_DOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEBOUNCE_DELAY<sp/>50<sp/></highlight><highlight class="comment">//<sp/>50<sp/>milliseconds<sp/>debounce<sp/>delay</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>KeyState<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>NOT_PRESSED,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>PRESSED,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>HELD,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>RELEASED</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint8_t<sp/>currentBrightness;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint8_t<sp/>rows[];</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowCount;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint8_t<sp/>cols[];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>colCount;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>lastValue[5][7];</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>defaultKeymap[5][7];</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>symbolKeymap1[5][7];</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>symbolKeymap2[5][7];</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>symbolKeymap3[5][7];</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>symbolKeymap4[5][7];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>symbolKeymap5[5][7];</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>symbolKeymap6[5][7];</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>symbolKeymap7[5][7];</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint8_t<sp/>keymapIndex;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>altLock;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>ctrlLock;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>capsLock;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>symbolLock;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>backlightState;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendDataFlag;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint8_t<sp/>sendData[6];<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>keyValue,<sp/>alt,<sp/>ctrl,<sp/>shift,<sp/>mic,<sp/>speaker</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint8_t<sp/>emptyData[6];<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>empty<sp/>array<sp/>to<sp/>send<sp/>when<sp/>no<sp/>key<sp/>is<sp/>pressed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>KeyState<sp/>keyStates[5][7];</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1ac6532b6359ec1083f0936a3a1c93bdce" kindref="member">onRequest</ref>();</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1aad5984ced0bbae1a4323829c157aa89a" kindref="member">keyReleased</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>colIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowIndex);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1a678862732b3aa5db2c3e3c6bca7ba5cc" kindref="member">keyHeld</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>colIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowIndex);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1abf9e684c4938cd2772db0b49a879e02f" kindref="member">keyPressed</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>colIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowIndex);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1ad811213c4b06e7992dc8571f929c3fa4" kindref="member">keyNotPressed</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>colIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowIndex);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1a5c2dd94ac4a548c4ba1d0e7524418c0c" kindref="member">doesKeyExistInKeymap</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>colIndex,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rowIndex,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>keymap[5][7]);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1aa917d942276ea8109fedd99198a526b2" kindref="member">printKeyInfo</ref>(uint8_t<sp/>data[6]);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1a0e5199e98a5286602c42aea9fb99ee65" kindref="member">readKeyMatrix</ref>();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1ad932a802466e392e983bf2c9ca796f00" kindref="member">sendKeyInfo</ref>();</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="keyboard_8hpp_1a82ceff7c692732aa22e2944ae4a9216c" kindref="member">setKeyboardBrightness</ref>(uint8_t<sp/>command);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>KEYBOARD_HPP</highlight></codeline>
+    </programlisting>
+    <location file="keyboard/keyboard.hpp"/>
+  </compounddef>
+</doxygen>
