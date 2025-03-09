@@ -24,6 +24,6 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: apt-get update && apt-get install -y doxygen
+      - run: sudo apt-get update && sudo apt-get install -y doxygen
       - run: pip install mkdocs-material mkdoxy mkdocs-include-markdown-plugin
       - run: mkdocs gh-deploy --force
