@@ -56,4 +56,8 @@ The Arduino IDE configuration in the tools menu:
  - Partition Scheme -> Default 4Mb with spifs
  - Upload Speed -> 921600
 
-Select the COM/SERIAL port of the USB to serial cable. Once the controller is in programming mode (it'll print a message over the UART saying "waiting for download" when powered up with the BL pin shorted to ground) press download on the Arduino IDE and it should upload the firmware. Restart the device afterwards.
+Select the COM/SERIAL port of the USB to serial cable. Once the controller is in programming mode (it'll print a message over the UART saying "waiting for download" when powered up with the BOOT pin shorted to ground) press download on the Arduino IDE and it should upload the firmware. Restart the device afterwards.
+
+## Using The Keyboard On The T-Deck
+
+The keyboard is accessed using the I2C interface, the test program provided reads the values from the keyboard and prints them over the serial connection. The keyboard will send a keyInfo array over I2C when requested, this array contains the key value, and `bools` for modifiers and custom functions. For information on how to flash the test program to your T-Deck please refer to the official [T-Deck Github](https://github.com/Xinyuan-LilyGO/T-Deck) repository.
