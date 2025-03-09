@@ -1,0 +1,57 @@
+site_name: T-Deck Keyboard
+site_url: https://hreikin.github.io/tdeck-keyboard
+repo_name: hreikin/tdeck-keyboard
+repo_url: https://github.com/hreikin/tdeck-keyboard
+copyright: MIT License
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      primary: black
+      accent: deep orange
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      primary: black
+      accent: deep orange
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - content.code.copy
+nav:
+  - "Home": "README.md"
+  - "Usage": "usage.md"
+  - "Functionality": "functionality.md"
+  - "Reference":
+    - 'Functions': 't-deck-keyboard/functions.md'
+    - 'Variables': 't-deck-keyboard/variables.md'
+    - 'Macros': 't-deck-keyboard/macros.md'
+    - 'Files': 't-deck-keyboard/files.md'
+  - "Contributing": "CONTRIBUTING.md"
+
+plugins:
+  - search
+  - include-markdown
+  - mkdoxy:
+      projects:
+        t-deck-keyboard: # name of project must be alphanumeric + numbers (without spaces)
+          src-dirs: keyboard/ # path to source code (support multiple paths separated by space) => INPUT
+          full-doc: True # if you want to generate full documentation
+          doxy-cfg: # standard doxygen configuration (key: value)
+            RECURSIVE: True # recursive search in source directories
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
