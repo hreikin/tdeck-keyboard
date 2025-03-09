@@ -18,29 +18,28 @@ bool lastValue[5][7];
 KeyState keyStates[5][7];
 // TODO: Ensure the keymaps match the tables in keyboard.md
 // TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
-// TODO: add cent, peseta, 0 and NBSP back into the keymaps
-// Keys wrapped in square brackets require special handling due to mic/speaker functionality and other key combinations.
+// Keys wrapped in square brackets may require special handling due to mic/speaker functionality and other key combinations.
 char defaultKeymap[5][7] = {                      // index = 0
     {0x71, 0x77, NULL, 0x61, NULL, NULL, NULL},   // { q, w, [sym],           a, [alt], [space],    [mic] }
     {0x65, 0x73, 0x64, 0x70, 0x78, 0x7A, NULL},   // { e, s,     d,           p,     x,       z, [lshift] }
     {0x72, 0x67, 0x74, NULL, 0x76, 0x63, 0x66},   // { r, g,     t,    [rshift],     v,       c,        f }
     {0x75, 0x68, 0x79, NULL, 0x62, 0x6E, 0x6A},   // { u, h,     y,     [enter],     b,       n,        j }
-    {0x6F, 0x6C, 0x69, NULL, NULL, 0x6D, 0x6B}    // { o, l,     i, [backspace],   [$],       m,        k }
+    {0x6F, 0x6C, 0x69, NULL, 0x24, 0x6D, 0x6B}    // { o, l,     i, [backspace],     $,       m,        k }
 };
 // TODO: Add other symbol keymaps as needed
 char symbolKeymap1[5][7] = {                      // index = 1
-    {0x23, 0x31, NULL, 0x2A, NULL, NULL, NULL},   // { #, 1, [sym],           *, [alt], [space],      [0] }
+    {0x23, 0x31, NULL, 0x2A, NULL, NULL, 0x30},   // { #, 1, [sym],           *, [alt], [space],        0 }
     {0x32, 0x34, 0x35, 0x40, 0x38, 0x37, NULL},   // { 2, 4,     5,           @,     8,       7, [lshift] }
     {0x33, 0x2F, 0x28, NULL, 0x3F, 0x39, 0x36},   // { 3, /,     (,    [rshift],     ?,       9,        6 }
     {0x5F, 0x3A, 0x29, NULL, 0x21, 0x2C, 0x3B},   // { _, :,     ),     [enter],     !,       ,,        ; }
-    {0x2B, 0x22, 0x2D, NULL, NULL, 0x2E, 0x27}    // { +, ",     -, [backspace],   [¢],       .,        ' }
+    {0x2B, 0x22, 0x2D, NULL, 0x9B, 0x2E, 0x27}    // { +, ",     -, [backspace],     ¢,       .,        ' }
 };
 char symbolKeymap2[5][7] = {                      // index = 2
-    {0x60, 0x25, NULL, 0xA6, NULL, NULL, NULL},   // { `, %, [sym],           ª, [alt], [space],   [NBSP] }
+    {0x60, 0x25, NULL, 0xA6, NULL, NULL, 0xFF},   // { `, %, [sym],           ª, [alt], [space],     NBSP }
     {0xDB, 0xA7, 0xA9, 0x3D, 0xEC, 0xE6, NULL},   // { &, º,     ⌐,           =,     ∞,       µ, [lshift] }
     {0x9C, 0x5C, 0x7B, NULL, 0xA8, 0xFD, 0xAA},   // { £, \,     {,    [rshift],     ¿,       ²,        ¬ }
     {0x5E, 0xAB, 0x7C, NULL, 0xAD, 0xEF, 0xAC},   // { ^, ½,     },     [enter],     ¡,       ∩,        ¼ }
-    {0x3E, 0xAF, 0x3C, NULL, NULL, 0x7E, 0xAE}    // { >, »,     <, [backspace],   [₧],       ~,        « }
+    {0x3E, 0xAF, 0x3C, NULL, 0x9E, 0x7E, 0xAE}    // { >, »,     <, [backspace],     ₧,       ~,        « }
 };
 char symbolKeymap3[5][7] = {                      // index = 3
     {0xDA, 0xD9, NULL, 0xF7, NULL, NULL, NULL},   // { ⌠,    ⌡, [sym],           ≈,  [alt], [space],    [mic] }
