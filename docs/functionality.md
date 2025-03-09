@@ -39,7 +39,11 @@ The keyboard supports multiple keymaps and special key combinations to enhance i
 
 ## Available Characters
 
-The following table shows the available characters for the keymaps, the characters shown are based on the CP437 font used by `TFT_eSPI`. Symbol tables 4-7 are not currently implemented in the firmware.
+The following table shows the available characters for the keymaps. Symbol tables 4-7 are not currently implemented in the firmware. The characters are displayed in the following format:
+
+- `q` (113, 0x71) - where `q` is the character, `113` is the decimal value, and `0x71` is the hexadecimal value.
+
+The characters shown in the table are based on the CP437 font used by `TFT_eSPI` and correspond to the key values for those positions within the font, if another font is used then the characters may be different but they will relate to the character in the same position within the font.
 
 | DEFAULT               | CAPS                  | SYMBOL 1              | SYMBOL 2              | SYMBOL 3              |
 |-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
