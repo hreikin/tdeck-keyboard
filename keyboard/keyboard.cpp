@@ -430,10 +430,9 @@ void readKeyMatrix()
  */
 void sendKeyInfo()
 {
-    bool dataToSend = false;
-    uint8_t keyInfo[6]= {0x00, false, false, false, false, false}; // key_value, alt, ctrl, shift, mic, speaker
-    for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-        for (int colIndex = 0; colIndex < colCount; colIndex++) {
+    memcpy(keyInfo, emptyData, KEY_INFO_SIZE); // clear the keyInfo array
+    for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
+        for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
             // any key released
             if (keyReleased(colIndex, rowIndex)) {
                 // enter
