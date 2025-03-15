@@ -37,11 +37,11 @@ void setup()
     ledcAttachPin(KEYBOARD_BACKLIGHT_PIN, KEYBOARD_BRIGHTNESS_CH);
     ledcWrite(KEYBOARD_BRIGHTNESS_CH, KEYBOARD_BRIGHTNESS_DEFAULT);
     Serial.println("4");
-    for (int x = 0; x < rowCount; x++) {
+    for (int x = 0; x < ROW_COUNT; x++) {
         Serial.print(rows[x]); Serial.println(" as input");
         pinMode(rows[x], INPUT);
     }
-    for (int x = 0; x < colCount; x++) {
+    for (int x = 0; x < COL_COUNT; x++) {
         Serial.print(cols[x]); Serial.println(" as input-pullup");
         pinMode(cols[x], INPUT_PULLUP);
     }
