@@ -115,14 +115,14 @@ bool keyNotPressed(int colIndex, int rowIndex);
  * @param keymap The keymap to check.
  * @return true if the key exists in the keymap, false otherwise.
  */
-bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[5][7]);
+bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[COL_COUNT][ROW_COUNT]);
 
 /**
  * @brief Prints the key information.
  * 
  * @param data The key data array.
  */
-void printKeyInfo(uint8_t data[6]);
+void printKeyInfo(uint8_t data[KEY_INFO_SIZE]);
 
 /**
  * @brief Reads the key matrix and updates the key states.
