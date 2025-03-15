@@ -434,34 +434,22 @@ void sendKeyInfo()
     for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
         for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
             // any key released
-            if (keyReleased(colIndex, rowIndex)) {
+            if (keyPressed(colIndex, rowIndex)) {
+                keyRepeatStart = millis(); // Set the keyRepeatStart to the current time
                 // enter
-                if (keyReleased(3, 3)) {
+                if (keyPressed(3, 3)) {
                     // backlight down (alt + enter)
                     if (keyHeld(0, 4)) {
                         setKeyboardBrightness(FUNCTION_DOWN);
                     }
                     // tab (lshift + enter)
                     else if (keyHeld(1, 6)) {
-                        keyInfo[0] = 0x09;
-                        dataToSend = true;
-                    }
-                    // mic volume down (mic + enter)
-                    else if (keyHeld(0, 6)) {
-                        keyInfo[0] = FUNCTION_DOWN;
-                        keyInfo[4] = true;
-                        dataToSend = true;
-                    }
-                    // $/speaker volume down ($ + enter)
-                    else if (keyHeld(4, 4)) {
-                        keyInfo[0] = FUNCTION_DOWN;
-                        keyInfo[5] = true;
-                        dataToSend = true;
+                        keyInfo[0] = HORIZONTAL_TABULATION;
                     }
                     // cycle symbol backward (sym + enter)
                     else if (keyHeld(0, 2)) {
-                        if (keymapIndex == 0) {
-                            keymapIndex = 3;
+                        if (keymapIndex == MIN_KEYMAP_INDEX) {
+                            keymapIndex = MAX_KEYMAP_INDEX;        // TODO: change this when more keymaps are added
                         }
                         else {
                             keymapIndex--;
@@ -469,12 +457,11 @@ void sendKeyInfo()
                     }
                     // enter
                     else {
-                        keyInfo[0] = 0x0D;
-                        dataToSend = true;
+                        keyInfo[0] = CARRIAGE_RETURN;
                     }
                 }
                 // space
-                else if (keyReleased(0, 5)) {
+                else if (keyPressed(0, 5)) {
                     // alt lock (alt + space)
                     if (keyHeld(0, 4)) {
                         altLock = !altLock;
@@ -490,18 +477,17 @@ void sendKeyInfo()
                     // symbol lock (sym + space)
                     else if (keyHeld(0, 2)) {
                         symbolLock = !symbolLock;
-                        if (keymapIndex > 0 && symbolLock == false) {
-                            keymapIndex = 0;
+                        if (keymapIndex > MIN_KEYMAP_INDEX && symbolLock == false) {
+                            keymapIndex = MIN_KEYMAP_INDEX;
                         }
                     }
                     // space
                     else {
                         keyInfo[0] = 0x20;
-                        dataToSend = true;
                     }
                 }
                 // backspace
-                else if (keyReleased(4, 3)) {
+                else if (keyPressed(4, 3)) {
                     // backlight up (alt + backspace)
                     if (keyHeld(0, 4)) {
                         setKeyboardBrightness(FUNCTION_UP);
@@ -509,133 +495,98 @@ void sendKeyInfo()
                     // del (lshift + backspace)
                     else if (keyHeld(1, 6)) {
                         keyInfo[0] = 0x7F;
-                        dataToSend = true;
-                    }
-                    // mic volume up (mic + backspace)
-                    else if (keyHeld(0, 6)) {
-                        keyInfo[0] = FUNCTION_UP;
-                        keyInfo[4] = true;
-                        dataToSend = true;
-                    }
-                    // $/speaker volume up ($ + backspace)
-                    else if (keyHeld(4, 4)) {
-                        keyInfo[0] = FUNCTION_UP;
-                        keyInfo[5] = true;
-                        dataToSend = true;
                     }
                     // cycle symbol forward (sym + backspace)
                     else if (keyHeld(0, 2)) {
                         keymapIndex++;
-                        if (keymapIndex > 3) {
-                            keymapIndex = 0;
+                        if (keymapIndex > MAX_KEYMAP_INDEX) {      // TODO: change this when more keymaps are added
+                            keymapIndex = MIN_KEYMAP_INDEX;
+                            symbolLock = false;  // reset symbol lock when all symbol keymaps have been cycled through
                         }
                     }
                     // backspace
                     else {
-                        keyInfo[0] = 0x08;
-                        dataToSend = true;
+                        keyInfo[0] = BACKSPACE;
+                    }
+                }
+                // mic/0
+                else if (keyPressed(0, 6)) {
+                    // mic toggle (alt + mic)
+                    if (keyHeld(0, 4)) {
+                        keyInfo[0] = FUNCTION_TOGGLE;
+                        keyInfo[4] = true;
+                    }
+                    // mic volume down (lshift + mic)
+                    else if (keyHeld(1, 6)) {
+                        keyInfo[0] = FUNCTION_DOWN;
+                        keyInfo[4] = true;
+                    }
+                    // mic volume up (rshift + mic)
+                    else if (keyHeld(2, 3)) {
+                        keyInfo[0] = FUNCTION_UP;
+                        keyInfo[4] = true;
+                    }
+                    // the below items are contained within the keymaps but appear here as well due to key combination usage
+                    // 0
+                    else if (keymapIndex == 1) {
+                        keyInfo[0] = DIGIT_ZERO;
+                    }
+                    // nbsp
+                    else if (keymapIndex == 2) {
+                        keyInfo[0] = NO_BREAK_SPACE;
+                    }
+                }
+                // $/speaker
+                else if (keyPressed(4, 4)) {
+                    // speaker toggle (alt + $)
+                    if (keyHeld(0, 4)) {
+                        keyInfo[0] = FUNCTION_TOGGLE;
+                        keyInfo[5] = true;
+                }
+                    // speaker volume down (lshift + $)
+                    else if (keyHeld(1, 6)) {
+                        keyInfo[0] = FUNCTION_DOWN;
+                        keyInfo[5] = true;
+                    }
+                    // speaker volume up (rshift + $)
+                    else if (keyHeld(2, 3)) {
+                        keyInfo[0] = FUNCTION_UP;
+                        keyInfo[5] = true;
+                    }
+                    // the below items are contained within the keymaps but appear here as well due to key combination usage
+                    // $
+                    else if (keymapIndex == 0) {
+                        keyInfo[0] = DOLLAR_SIGN;
+                    }
+                    // ¢
+                    else if (keymapIndex == 2) {
+                        keyInfo[0] = CENT_SIGN;
+                    }
+                    // ₧
+                    else if (keymapIndex == 3) {
+                        keyInfo[0] = PESETA_SIGN;
+                }
+                    // ═
+                    else if (keymapIndex == 6) {
+                        keyInfo[0] = BOX_DRAWINGS_DOUBLE_HORIZONTAL;
                     }
                 }
                 // rshift
-                else if (keyReleased(2, 3)) {
+                else if (keyPressed(2, 3)) {
                     // backlight toggle (alt + rshift)
                     if (keyHeld(0, 4)) {
                         setKeyboardBrightness(FUNCTION_TOGGLE);
                     }
-                    // mic toggle (mic + rshift)
-                    else if (keyHeld(0, 6)) {
-                        keyInfo[0] = FUNCTION_TOGGLE;
-                        keyInfo[4] = true;
-                        dataToSend = true;
-                    }
-                    // $/speaker toggle ($ + rshift)
-                    else if (keyHeld(4, 4)) {
-                        keyInfo[0] = FUNCTION_TOGGLE;
-                        keyInfo[5] = true;
-                        dataToSend = true;
-                    }
                 }
                 // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock
-                else if ((keymapIndex == 0 || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
-                    // modifiers, alt, ctrl, shift
-                    if (altLock || keyHeld(0, 4)) {
-                        keyInfo[1] = true;
+                else if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
+                    setDefaultCharacter(colIndex, rowIndex);
                     }
-                    if (ctrlLock || keyHeld(2, 3)) {
-                        keyInfo[2] = true;
-                    }
-                    // shift is not applied when caps lock is on unlike the others, this is intended so the host can differentiate between the two
-                    if (keyHeld(1, 6)) {
-                        keyInfo[3] = true;
-                    }
-                    // key value
-                    if (capsLock || keyHeld(1, 6)) {
-                        keyInfo[0] = defaultKeymap[colIndex][rowIndex] - 32;
-                    }
-                    else {
-                        keyInfo[0] = defaultKeymap[colIndex][rowIndex];
-                    }
-                    dataToSend = true;
-                }
                 // symbol 1
-                else if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
-                    keyInfo[0] = symbolKeymap1[colIndex][rowIndex];
-                    dataToSend = true;
-                    if (symbolLock == false) {
-                        keymapIndex = 0;
-                    }
+                else if (keymapIndex > MIN_KEYMAP_INDEX) {
+                    setSymbolCharacter(colIndex, rowIndex);
                 }
-                // symbol 2
-                else if (keymapIndex == 2 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap2)) {
-                    keyInfo[0] = symbolKeymap2[colIndex][rowIndex];
-                    dataToSend = true;
-                    if (symbolLock == false) {
-                        keymapIndex = 0;
-                    }
-                }
-                // symbol 3
-                else if (keymapIndex == 3 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap3)) {
-                    keyInfo[0] = symbolKeymap3[colIndex][rowIndex];
-                    dataToSend = true;
-                    if (symbolLock == false) {
-                        keymapIndex = 0;
-                    }
-                }
-                // // symbol 4
-                // else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
-                //     keyInfo[0] = symbolKeymap4[colIndex][rowIndex];
-                //     dataToSend = true;
-                //     if (symbolLock == false) {
-                //         keymapIndex = 0;
-                //     }
-                // }
-                // // symbol 5
-                // else if (keymapIndex == 5 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap5)) {
-                //     keyInfo[0] = symbolKeymap5[colIndex][rowIndex];
-                //     dataToSend = true;
-                //     if (symbolLock == false) {
-                //         keymapIndex = 0;
-                //     }
-                // }
-                // // symbol 6
-                // else if (keymapIndex == 6 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap6)) {
-                //     keyInfo[0] = symbolKeymap6[colIndex][rowIndex];
-                //     dataToSend = true;
-                //     if (symbolLock == false) {
-                //         keymapIndex = 0;
-                //     }
-                // }
-                // // symbol 7
-                // else if (keymapIndex == 7 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap7)) {
-                //     keyInfo[0] = symbolKeymap7[colIndex][rowIndex];
-                //     dataToSend = true;
-                //     if (symbolLock == false) {
-                //         keymapIndex = 0;
-                //     }
-                // }
             }
-        }
-    }
     printKeyInfo(keyInfo);
     sendDataFlag = dataToSend;
     if (sendDataFlag) {
