@@ -306,6 +306,34 @@ void autoResetKeymapIndex()
 }
 
 /**
+ * @brief Sets the default character for a key.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ */
+void setDefaultCharacter(int colIndex, int rowIndex)
+{
+    // modifiers, alt, ctrl, shift
+    if (altLock || keyHeld(0, 4)) {
+        keyInfo[1] = true;
+    }
+    if (ctrlLock || keyHeld(2, 3)) {
+        keyInfo[2] = true;
+    }
+    // shift is not applied when caps lock is on unlike the others, this is intended so the host can differentiate between the two
+    if (keyHeld(1, 6)) {
+        keyInfo[3] = true;
+    }
+    // key value
+    if (capsLock || keyHeld(1, 6)) {
+        keyInfo[0] = defaultKeymap[colIndex][rowIndex] - 32;
+    }
+    else {
+        keyInfo[0] = defaultKeymap[colIndex][rowIndex];
+    }
+}
+
+/**
  * @brief Reads the key matrix and updates the key states.
  */
 void readKeyMatrix()
