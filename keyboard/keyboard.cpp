@@ -587,6 +587,19 @@ void sendKeyInfo()
                     setSymbolCharacter(colIndex, rowIndex);
                 }
             }
+            // any printable key held
+            else if (keyHeld(colIndex, rowIndex) && (millis() - keyRepeatStart > KEY_REPEAT_DELAY)) {
+                // a-z key
+                if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
+                    setDefaultCharacter(colIndex, rowIndex);
+                }
+                // symbol 1
+                else if (keymapIndex > MIN_KEYMAP_INDEX) {
+                    setSymbolCharacter(colIndex, rowIndex);
+                }
+            }
+        }
+    }
     printKeyInfo(keyInfo);
     sendDataFlag = dataToSend;
     if (sendDataFlag) {
