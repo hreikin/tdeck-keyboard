@@ -66,5 +66,7 @@
     - [x] held/repeated keys
     - [x] test the functionality
     - [ ] test edge cases
+    - [x] Update special handling for $ key (new keymaps)
+    - [ ] rows should be columns and columns should be rows
 - [x] Basic usage documentation
 - [x] Refactor T-Deck test firmware to use for testing the library (basic)
