@@ -355,26 +355,26 @@ void setSymbolCharacter(int colIndex, int rowIndex)
         keyInfo[0] = symbolKeymap3[colIndex][rowIndex];
         autoResetKeymapIndex();
     }
-    // // symbol 4
-    // else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
-    //     keyInfo[0] = symbolKeymap4[colIndex][rowIndex];
-    //     autoResetKeymapIndex();
-    // }
-    // // symbol 5
-    // else if (keymapIndex == 5 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap5)) {
-    //     keyInfo[0] = symbolKeymap5[colIndex][rowIndex];
-    //     autoResetKeymapIndex();
-    // }
-    // // symbol 6
-    // else if (keymapIndex == 6 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap6)) {
-    //     keyInfo[0] = symbolKeymap6[colIndex][rowIndex];
-    //     autoResetKeymapIndex();
-    // }
-    // // symbol 7
-    // else if (keymapIndex == 7 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap7)) {
-    //     keyInfo[0] = symbolKeymap7[colIndex][rowIndex];
-    //     autoResetKeymapIndex();
-    // }
+    // symbol 4
+    else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
+        keyInfo[0] = symbolKeymap4[colIndex][rowIndex];
+        autoResetKeymapIndex();
+    }
+    // symbol 5
+    else if (keymapIndex == 5 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap5)) {
+        keyInfo[0] = symbolKeymap5[colIndex][rowIndex];
+        autoResetKeymapIndex();
+    }
+    // symbol 6
+    else if (keymapIndex == 6 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap6)) {
+        keyInfo[0] = symbolKeymap6[colIndex][rowIndex];
+        autoResetKeymapIndex();
+    }
+    // symbol 7
+    else if (keymapIndex == 7 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap7)) {
+        keyInfo[0] = symbolKeymap7[colIndex][rowIndex];
+        autoResetKeymapIndex();
+    }
 }
 
 /**
