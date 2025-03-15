@@ -296,6 +296,16 @@ void printKeyInfo(uint8_t data[KEY_INFO_SIZE])
 }
 
 /**
+ * @brief Handles resetting the keymap index.
+ */
+void autoResetKeymapIndex()
+{
+    if (symbolLock == false) {
+        keymapIndex = MIN_KEYMAP_INDEX;
+    }
+}
+
+/**
  * @brief Reads the key matrix and updates the key states.
  */
 void readKeyMatrix()
