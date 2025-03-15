@@ -9,7 +9,7 @@ To get started with the T-Deck Keyboard project, visit the [Usage](usage.md) pag
 ## Features
 
 - **Extended Key Functionality**: Supports special key combinations for enhanced functionality.
-- **Keymaps**: Supports multiple keymaps including default and symbol keymaps.
+- **Keymaps**: Supports multiple keymaps including default and symbol keymaps (256 characters).
 - **Modifier Keys**: Handles modifier keys such as Alt, Ctrl, Shift, and special function keys for mic and speaker control.
 - **Backlight Control**: Allows for adjusting the keyboard backlight brightness with commands to toggle, increase, or decrease brightness.
 - **I2C Communication**: Sends key and modifier information over I2C when requested.
@@ -17,6 +17,7 @@ To get started with the T-Deck Keyboard project, visit the [Usage](usage.md) pag
 ## Files
 
 - **tdeck/tdeck.ino**: Basic test program that initializes the T-Deck, checks the keyboard, and reads key values.
+- **keyboard/kets.hpp**: Header file defining key values.
 - **keyboard/keyboard.hpp**: Header file defining keyboard functions, keymaps, and constants.
 - **keyboard/keyboard.cpp**: Implementation of keyboard functions, keymaps, and I2C request handling.
 - **keyboard/keyboard.ino**: Program to read the key matrix and send key information over I2C. This is the firmware for the keyboard.
