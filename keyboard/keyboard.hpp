@@ -41,6 +41,7 @@ enum KeyState {
     RELEASED
 };
 
+extern unsigned long keyRepeatStart;
 extern uint8_t currentBrightness;
 extern uint8_t rows[];
 extern const int rowCount;
