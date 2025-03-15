@@ -542,7 +542,7 @@ void sendKeyInfo()
                     if (keyHeld(0, 4)) {
                         keyInfo[0] = FUNCTION_TOGGLE;
                         keyInfo[5] = true;
-                }
+                    }
                     // speaker volume down (lshift + $)
                     else if (keyHeld(1, 6)) {
                         keyInfo[0] = FUNCTION_DOWN;
@@ -565,7 +565,7 @@ void sendKeyInfo()
                     // ₧
                     else if (keymapIndex == 3) {
                         keyInfo[0] = PESETA_SIGN;
-                }
+                    }
                     // ═
                     else if (keymapIndex == 6) {
                         keyInfo[0] = BOX_DRAWINGS_DOUBLE_HORIZONTAL;
@@ -581,7 +581,7 @@ void sendKeyInfo()
                 // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock
                 else if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
                     setDefaultCharacter(colIndex, rowIndex);
-                    }
+                }
                 // symbol 1
                 else if (keymapIndex > MIN_KEYMAP_INDEX) {
                     setSymbolCharacter(colIndex, rowIndex);
