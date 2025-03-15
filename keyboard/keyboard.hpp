@@ -47,17 +47,16 @@ extern uint8_t rows[];
 extern const int rowCount;
 
 extern uint8_t cols[];
-extern const int colCount;
-
-extern bool lastValue[5][7];
-extern char defaultKeymap[5][7];
-extern char symbolKeymap1[5][7];
-extern char symbolKeymap2[5][7];
-extern char symbolKeymap3[5][7];
-extern char symbolKeymap4[5][7];
-extern char symbolKeymap5[5][7];
-extern char symbolKeymap6[5][7];
-extern char symbolKeymap7[5][7];
+extern bool lastValue[COL_COUNT][ROW_COUNT];
+extern char defaultKeymap[COL_COUNT][ROW_COUNT];
+extern char symbolKeymap1[COL_COUNT][ROW_COUNT];
+extern char symbolKeymap2[COL_COUNT][ROW_COUNT];
+extern char symbolKeymap3[COL_COUNT][ROW_COUNT];
+extern char symbolKeymap4[COL_COUNT][ROW_COUNT];
+extern char symbolKeymap5[COL_COUNT][ROW_COUNT];
+extern char symbolKeymap6[COL_COUNT][ROW_COUNT];
+extern char symbolKeymap7[COL_COUNT][ROW_COUNT];
+extern KeyState keyStates[COL_COUNT][ROW_COUNT];
 extern uint8_t keymapIndex;
 extern bool altLock;
 extern bool ctrlLock;
@@ -65,9 +64,9 @@ extern bool capsLock;
 extern bool symbolLock;
 extern bool backlightState;
 extern bool sendDataFlag;
-extern uint8_t sendData[6];    // keyValue, alt, ctrl, shift, mic, speaker
-extern uint8_t emptyData[6];   // empty array to send when no key is pressed
-extern KeyState keyStates[5][7];
+extern uint8_t keyInfo[KEY_INFO_SIZE];     // keyValue, alt, ctrl, shift, mic, speaker
+extern uint8_t sendData[KEY_INFO_SIZE];    // keyValue, alt, ctrl, shift, mic, speaker
+extern uint8_t emptyData[KEY_INFO_SIZE];   // empty array to send when no key is pressed
 
 /**
  * @brief Handles I2C requests.
