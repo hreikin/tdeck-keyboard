@@ -180,7 +180,7 @@ void setKeyboardBrightness(uint8_t command)
 {
     if (command == FUNCTION_TOGGLE) {
         if (backlightState) {
-            currentBrightness = 0;
+            currentBrightness = KEYBOARD_BRIGHTNESS_MIN;
         } else {
             currentBrightness = KEYBOARD_BRIGHTNESS_DEFAULT;
         }
