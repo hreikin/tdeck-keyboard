@@ -600,9 +600,18 @@ void sendKeyInfo()
             }
         }
     }
+    // if keyInfo array is not empty, print the data over serial
+    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00 || keyInfo[5] != 0x00)
+    {
     printKeyInfo(keyInfo);
-    sendDataFlag = dataToSend;
+    }
+    // if keyInfo contains a character to send then set the send flag to true
+    if (keyInfo[0] != 0x00) 
+    {
+        sendDataFlag = true;
+    }
+    // if the sendDataFlag is true then copy the keyInfo array to the sendData array which gets sent by the onRequest function
     if (sendDataFlag) {
-        memcpy(sendData, keyInfo, sizeof(keyInfo));
+        memcpy(sendData, keyInfo, KEY_INFO_SIZE);
     }
 }
