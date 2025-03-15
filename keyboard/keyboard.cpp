@@ -158,16 +158,16 @@ unsigned long keyRepeatStart = 0;
 void onRequest()
 {
     if (sendDataFlag) {
-        Wire.write(sendData, sizeof(sendData));
+        Wire.write(sendData, KEY_INFO_SIZE);
         sendDataFlag = false;
         Serial.print("sendData : ");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < KEY_INFO_SIZE; i++) {
             Serial.print(sendData[i]);
             Serial.print(" ");
         }
         Serial.println();
     } else {
-        Wire.write(emptyData, sizeof(emptyData)); // Use the temporary array
+        Wire.write(emptyData, KEY_INFO_SIZE); // Use the temporary array
     }
 }
 
