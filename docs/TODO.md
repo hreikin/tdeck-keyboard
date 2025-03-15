@@ -1,10 +1,10 @@
 # TODO
 
-- [ ] create keymaps for different layouts:
+- [x] create keymaps for different layouts:
     - [x] default
     - [x] caps
     - [x] ctrl
-    - [ ] symbol_1 - symbol_n
+    - [x] symbol_1 - symbol_n
 - [x] create keymapIndex variable (int) to track which keymap to use
 - [x] create modifiers (bools) for alt, mic, speaker (may need to create bools for different tables or order the if statements in sendKeyInfo() ?)
 - [x] create keyInfo array with key_value and modifiers and implement in sendKeyInfo()
@@ -63,7 +63,8 @@
         - [x] SYM + BACKSPACE   
         - [x] RSHIFT (held)     
         - [x] RSHIFT + SPACE    
-    - [ ] test the functionality
+    - [x] held/repeated keys
+    - [x] test the functionality
     - [ ] test edge cases
-- [ ] Basic usage documentation
+- [x] Basic usage documentation
 - [x] Refactor T-Deck test firmware to use for testing the library (basic)
