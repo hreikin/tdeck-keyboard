@@ -15,7 +15,6 @@ uint8_t cols[] = {1, 4, 5, 11, 13};
 
 bool lastValue[COL_COUNT][ROW_COUNT];
 KeyState keyStates[COL_COUNT][ROW_COUNT];
-// TODO: Update special handling for $ key (new keymaps)
 // Keys wrapped in square brackets require special handling
 // default column in functionality.md
 // { q, w, [sym],           a, [alt], [space],    [mic] }
@@ -449,7 +448,7 @@ void sendKeyInfo()
                     // cycle symbol backward (sym + enter)
                     else if (keyHeld(0, 2)) {
                         if (keymapIndex == MIN_KEYMAP_INDEX) {
-                            keymapIndex = MAX_KEYMAP_INDEX;        // TODO: change this when more keymaps are added
+                            keymapIndex = MAX_KEYMAP_INDEX;
                         }
                         else {
                             keymapIndex--;
@@ -499,7 +498,7 @@ void sendKeyInfo()
                     // cycle symbol forward (sym + backspace)
                     else if (keyHeld(0, 2)) {
                         keymapIndex++;
-                        if (keymapIndex > MAX_KEYMAP_INDEX) {      // TODO: change this when more keymaps are added
+                        if (keymapIndex > MAX_KEYMAP_INDEX) {
                             keymapIndex = MIN_KEYMAP_INDEX;
                             symbolLock = false;  // reset symbol lock when all symbol keymaps have been cycled through
                         }
@@ -559,16 +558,24 @@ void sendKeyInfo()
                         keyInfo[0] = DOLLAR_SIGN;
                     }
                     // ¢
-                    else if (keymapIndex == 2) {
+                    else if (keymapIndex == 1) {
                         keyInfo[0] = CENT_SIGN;
                     }
                     // ₧
-                    else if (keymapIndex == 3) {
+                    else if (keymapIndex == 2) {
                         keyInfo[0] = PESETA_SIGN;
                     }
                     // ═
                     else if (keymapIndex == 6) {
                         keyInfo[0] = BOX_DRAWINGS_DOUBLE_HORIZONTAL;
+                    }
+                    // EOT
+                    else if (keymapIndex == 7) {
+                        keyInfo[0] = END_OF_TRANSMISSION;
+                    }
+                    // US
+                    else if (keymapIndex == 8) {
+                        keyInfo[0] = UNIT_SEPARATOR;
                     }
                 }
                 // rshift
