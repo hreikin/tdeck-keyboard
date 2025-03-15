@@ -141,4 +141,25 @@ void sendKeyInfo();
  */
 void setKeyboardBrightness(uint8_t command);
 
+/**
+ * @brief Handles resetting the keymap index.
+ */
+void autoResetKeymapIndex();
+
+/**
+ * @brief Sets keyInfo to the correct character for a specific key, from the default keymap only.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ */
+void setDefaultCharacter(int colIndex, int rowIndex);
+
+/**
+ * @brief Sets keyInfo to the correct character for a specific key, from the symbol keymaps only.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ */
+void setSymbolCharacter(int colIndex, int rowIndex);
+
 #endif // KEYBOARD_HPP
