@@ -27,6 +27,12 @@
 #define FUNCTION_DOWN                       0x02
 #define FUNCTION_UP                         0x03
 #define DEBOUNCE_DELAY                      50    // 50 milliseconds debounce delay
+#define KEY_REPEAT_DELAY                    100   // 100 milliseconds key repeat delay, should this be larger ?
+#define MIN_KEYMAP_INDEX                    0
+#define MAX_KEYMAP_INDEX                    3     // TODO: change this when more keymaps are added
+#define COL_COUNT                           5
+#define ROW_COUNT                           7
+#define KEY_INFO_SIZE                       6
 
 enum KeyState {
     NOT_PRESSED,
