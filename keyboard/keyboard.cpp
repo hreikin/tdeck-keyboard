@@ -9,9 +9,13 @@
 #include "keyboard.hpp"
 #include "keys.hpp"
 
+// TODO: Switch these around, rows should be columns and columns should be rows
 uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};
 uint8_t cols[] = {1, 4, 5, 11, 13};
 
+bool lastValue[COL_COUNT][ROW_COUNT];
+KeyState keyStates[COL_COUNT][ROW_COUNT];
+// TODO: Update special handling for $ key (new keymaps)
 // Keys wrapped in square brackets require special handling
 // default column in functionality.md
 // { q, w, [sym],           a, [alt], [space],    [mic] }
