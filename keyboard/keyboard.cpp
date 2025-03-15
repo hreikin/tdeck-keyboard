@@ -383,14 +383,14 @@ void setSymbolCharacter(int colIndex, int rowIndex)
 void readKeyMatrix()
 {
     // iterate the columns
-    for (int colIndex = 0; colIndex < colCount; colIndex++) {
+    for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
         // col: set to output to low
         uint8_t curCol = cols[colIndex];
         pinMode(curCol, OUTPUT);
         digitalWrite(curCol, LOW);
 
         // row: iterate through the rows
-        for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+        for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
             uint8_t rowCol = rows[rowIndex];
             pinMode(rowCol, INPUT_PULLUP);
             delay(1); // arduino is not fast enough to switch input/output modes so wait 1 ms
