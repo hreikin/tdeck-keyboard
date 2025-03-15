@@ -334,6 +334,50 @@ void setDefaultCharacter(int colIndex, int rowIndex)
 }
 
 /**
+ * @brief Sets the symbol character for a key.
+ * 
+ * @param colIndex The column index of the key.
+ * @param rowIndex The row index of the key.
+ */
+void setSymbolCharacter(int colIndex, int rowIndex)
+{
+    if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
+        keyInfo[0] = symbolKeymap1[colIndex][rowIndex];
+        autoResetKeymapIndex();
+    }
+    // symbol 2
+    else if (keymapIndex == 2 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap2)) {
+        keyInfo[0] = symbolKeymap2[colIndex][rowIndex];
+        autoResetKeymapIndex();
+    }
+    // symbol 3
+    else if (keymapIndex == 3 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap3)) {
+        keyInfo[0] = symbolKeymap3[colIndex][rowIndex];
+        autoResetKeymapIndex();
+    }
+    // // symbol 4
+    // else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
+    //     keyInfo[0] = symbolKeymap4[colIndex][rowIndex];
+    //     autoResetKeymapIndex();
+    // }
+    // // symbol 5
+    // else if (keymapIndex == 5 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap5)) {
+    //     keyInfo[0] = symbolKeymap5[colIndex][rowIndex];
+    //     autoResetKeymapIndex();
+    // }
+    // // symbol 6
+    // else if (keymapIndex == 6 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap6)) {
+    //     keyInfo[0] = symbolKeymap6[colIndex][rowIndex];
+    //     autoResetKeymapIndex();
+    // }
+    // // symbol 7
+    // else if (keymapIndex == 7 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap7)) {
+    //     keyInfo[0] = symbolKeymap7[colIndex][rowIndex];
+    //     autoResetKeymapIndex();
+    // }
+}
+
+/**
  * @brief Reads the key matrix and updates the key states.
  */
 void readKeyMatrix()
