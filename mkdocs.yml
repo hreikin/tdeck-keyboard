@@ -30,10 +30,28 @@ nav:
   - "Usage": "usage.md"
   - "Functionality": "functionality.md"
   - "Reference":
+    # - 'Links': 't-deck-keyboard/links.md'
+    # - 'Classes':
+    #     - 'Class List': 't-deck-keyboard/annotated.md'
+    #     - 'Class Index': 't-deck-keyboard/classes.md'
+    #     - 'Class Hierarchy': 't-deck-keyboard/hierarchy.md'
+    #     - 'Class Members': 't-deck-keyboard/class_members.md'
+    #     - 'Class Member Functions': 't-deck-keyboard/class_member_functions.md'
+    #     - 'Class Member Variables': 't-deck-keyboard/class_member_variables.md'
+    #     - 'Class Member Typedefs': 't-deck-keyboard/class_member_typedefs.md'
+    #     - 'Class Member Enumerations': 't-deck-keyboard/class_member_enums.md'
+    # - 'Namespaces':
+    #     - 'Namespace List': 't-deck-keyboard/namespaces.md'
+    #     - 'Namespace Members': 't-deck-keyboard/namespace_members.md'
+    #     - 'Namespace Member Functions': 't-deck-keyboard/namespace_member_functions.md'
+    #     - 'Namespace Member Variables': 't-deck-keyboard/namespace_member_variables.md'
+    #     - 'Namespace Member Typedefs': 't-deck-keyboard/namespace_member_typedefs.md'
+    #     - 'Namespace Member Enumerations': 't-deck-keyboard/namespace_member_enums.md'
     - 'Functions': 't-deck-keyboard/functions.md'
     - 'Variables': 't-deck-keyboard/variables.md'
     - 'Macros': 't-deck-keyboard/macros.md'
     - 'Files': 't-deck-keyboard/files.md'
+
   - "Contributing": "CONTRIBUTING.md"
 
 plugins:
