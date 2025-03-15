@@ -10,10 +10,7 @@
 #include "keys.hpp"
 
 uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};
-const int rowCount = sizeof(rows) / sizeof(rows[0]);
-
 uint8_t cols[] = {1, 4, 5, 11, 13};
-const int colCount = sizeof(cols) / sizeof(cols[0]);
 
 bool lastValue[5][7];
 KeyState keyStates[5][7];
