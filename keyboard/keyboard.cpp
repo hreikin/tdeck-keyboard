@@ -7,6 +7,7 @@
  * @date      2025-03-07
  */
 #include "keyboard.hpp"
+#include "keys.hpp"
 
 uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};
 const int rowCount = sizeof(rows) / sizeof(rows[0]);
