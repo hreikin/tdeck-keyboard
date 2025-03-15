@@ -44,8 +44,6 @@ enum KeyState {
 extern unsigned long keyRepeatStart;
 extern uint8_t currentBrightness;
 extern uint8_t rows[];
-extern const int rowCount;
-
 extern uint8_t cols[];
 extern bool lastValue[COL_COUNT][ROW_COUNT];
 extern char defaultKeymap[COL_COUNT][ROW_COUNT];
