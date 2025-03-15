@@ -24,10 +24,9 @@
 #define KEYBOARD_BRIGHTNESS_DEFAULT         119
 #define KEYBOARD_BRIGHTNESS_STEP            17
 #define FUNCTION_TOGGLE                     0x01
-#define FUNCTION_UP                         0x02
-#define FUNCTION_DOWN                       0x03
-
-#define DEBOUNCE_DELAY 50 // 50 milliseconds debounce delay
+#define FUNCTION_DOWN                       0x02
+#define FUNCTION_UP                         0x03
+#define DEBOUNCE_DELAY                      50    // 50 milliseconds debounce delay
 
 enum KeyState {
     NOT_PRESSED,
