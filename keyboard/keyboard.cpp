@@ -12,59 +12,127 @@
 uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};
 uint8_t cols[] = {1, 4, 5, 11, 13};
 
-bool lastValue[5][7];
-KeyState keyStates[5][7];
-// TODO: Ensure the keymaps match the tables in keyboard.md
-// TODO: defaultKeymap, symbolKeymap1, symbolKeymap2, symbolKeymap3, symbolKeymap4, symbolKeymap5, symbolKeymap6, symbolKeymap7
-// Keys wrapped in square brackets may require special handling due to mic/speaker functionality and other key combinations.
-char defaultKeymap[5][7] = {                      // index = 0
-    {0x71, 0x77, NULL, 0x61, NULL, NULL, NULL},   // { q, w, [sym],           a, [alt], [space],    [mic] }
-    {0x65, 0x73, 0x64, 0x70, 0x78, 0x7A, NULL},   // { e, s,     d,           p,     x,       z, [lshift] }
-    {0x72, 0x67, 0x74, NULL, 0x76, 0x63, 0x66},   // { r, g,     t,    [rshift],     v,       c,        f }
-    {0x75, 0x68, 0x79, NULL, 0x62, 0x6E, 0x6A},   // { u, h,     y,     [enter],     b,       n,        j }
-    {0x6F, 0x6C, 0x69, NULL, 0x24, 0x6D, 0x6B}    // { o, l,     i, [backspace],     $,       m,        k }
+// Keys wrapped in square brackets require special handling
+// default column in functionality.md
+// { q, w, [sym],           a, [alt], [space],    [mic] }
+// { e, s,     d,           p,     x,       z, [lshift] }
+// { r, g,     t,    [rshift],     v,       c,        f }
+// { u, h,     y,     [enter],     b,       n,        j }
+// { o, l,     i, [backspace],   [$],       m,        k }
+char defaultKeymap[COL_COUNT][ROW_COUNT] = {                                                                                  
+    {LATIN_SMALL_LETTER_Q, LATIN_SMALL_LETTER_W, NULL, LATIN_SMALL_LETTER_A, NULL, NULL, NULL},                                          
+    {LATIN_SMALL_LETTER_E, LATIN_SMALL_LETTER_S, LATIN_SMALL_LETTER_D, LATIN_SMALL_LETTER_P, LATIN_SMALL_LETTER_X, LATIN_SMALL_LETTER_Z, NULL},                     
+    {LATIN_SMALL_LETTER_R, LATIN_SMALL_LETTER_G, LATIN_SMALL_LETTER_T, NULL, LATIN_SMALL_LETTER_V, LATIN_SMALL_LETTER_C, LATIN_SMALL_LETTER_F},                     
+    {LATIN_SMALL_LETTER_U, LATIN_SMALL_LETTER_H, LATIN_SMALL_LETTER_Y, NULL, LATIN_SMALL_LETTER_B, LATIN_SMALL_LETTER_N, LATIN_SMALL_LETTER_J},                     
+    {LATIN_SMALL_LETTER_O, LATIN_SMALL_LETTER_L, LATIN_SMALL_LETTER_I, NULL, DOLLAR_SIGN, LATIN_SMALL_LETTER_M, LATIN_SMALL_LETTER_K}                  
 };
-// TODO: Add other symbol keymaps as needed
-char symbolKeymap1[5][7] = {                      // index = 1
-    {0x23, 0x31, NULL, 0x2A, NULL, NULL, 0x30},   // { #, 1, [sym],           *, [alt], [space],        0 }
-    {0x32, 0x34, 0x35, 0x40, 0x38, 0x37, NULL},   // { 2, 4,     5,           @,     8,       7, [lshift] }
-    {0x33, 0x2F, 0x28, NULL, 0x3F, 0x39, 0x36},   // { 3, /,     (,    [rshift],     ?,       9,        6 }
-    {0x5F, 0x3A, 0x29, NULL, 0x21, 0x2C, 0x3B},   // { _, :,     ),     [enter],     !,       ,,        ; }
-    {0x2B, 0x22, 0x2D, NULL, 0x9B, 0x2E, 0x27}    // { +, ",     -, [backspace],     ¢,       .,        ' }
+// symbol 1 column in functionality.md
+// { #, 1, [sym],           *, [alt], [space],      [0] }
+// { 2, 4,     5,           @,     8,       7, [lshift] }
+// { 3, /,     (,    [rshift],     ?,       9,        6 }
+// { _, :,     ),     [enter],     !,       ,,        ; }
+// { +, ",     -, [backspace],   [¢],       .,        ' }
+char symbolKeymap1[COL_COUNT][ROW_COUNT] = {                                                                                  
+    {NUMBER_SIGN, DIGIT_ONE, NULL, ASTERISK, NULL, NULL, DIGIT_ZERO},                                          
+    {DIGIT_TWO, DIGIT_FOUR, DIGIT_FIVE, COMMERCIAL_AT, DIGIT_EIGHT, DIGIT_SEVEN, NULL},                                             
+    {DIGIT_THREE, SOLIDUS, LEFT_PARENTHESIS, NULL, QUESTION_MARK, DIGIT_NINE, DIGIT_SIX},                        
+    {LOW_LINE, COLON, RIGHT_PARENTHESIS, NULL, EXCLAMATION_MARK, COMMA, SEMICOLON},   
+    {PLUS_SIGN, QUOTATION_MARK, HYPHEN_MINUS, NULL, CENT_SIGN, FULL_STOP, APOSTROPHE} 
 };
-char symbolKeymap2[5][7] = {                      // index = 2
-    {0x60, 0x25, NULL, 0xA6, NULL, NULL, 0xFF},   // { `, %, [sym],           ª, [alt], [space],     NBSP }
-    {0xDB, 0xA7, 0xA9, 0x3D, 0xEC, 0xE6, NULL},   // { &, º,     ⌐,           =,     ∞,       µ, [lshift] }
-    {0x9C, 0x5C, 0x7B, NULL, 0xA8, 0xFD, 0xAA},   // { £, \,     {,    [rshift],     ¿,       ²,        ¬ }
-    {0x5E, 0xAB, 0x7C, NULL, 0xAD, 0xEF, 0xAC},   // { ^, ½,     },     [enter],     ¡,       ∩,        ¼ }
-    {0x3E, 0xAF, 0x3C, NULL, 0x9E, 0x7E, 0xAE}    // { >, »,     <, [backspace],     ₧,       ~,        « }
+// symbol 2 column in functionality.md
+// { `, %, [sym],           ª, [alt], [space],   [NBSP] }
+// { &, º,     ⌐,           =,     ∞,       µ, [lshift] }
+// { £, \,     {,    [rshift],     ¿,       ²,        ¬ }
+// { ^, ½,     },     [enter],     ¡,       ∩,        ¼ }
+// { >, »,     <, [backspace],   [₧],       ~,        « }
+char symbolKeymap2[COL_COUNT][ROW_COUNT] = {
+    {GRAVE_ACCENT, PERCENT_SIGN, NULL, FEMININE_ORDINAL_INDICATOR, NULL, NULL, NO_BREAK_SPACE},
+    {AMPERSAND, MASCULINE_ORDINAL_INDICATOR, REVERSED_NOT_SIGN, EQUALS_SIGN, INFINITY, MICRO_SIGN, NULL},
+    {POUND_SIGN, REVERSE_SOLIDUS, LEFT_CURLY_BRACKET, NULL, INVERTED_QUESTION_MARK, SUPERSCRIPT_TWO, NOT_SIGN},
+    {CIRCUMFLEX_ACCENT, VULGAR_FRACTION_ONE_HALF, RIGHT_CURLY_BRACKET, NULL, INVERTED_EXCLAMATION_MARK, INTERSECTION, VULGAR_FRACTION_ONE_QUARTER},
+    {GREATER_THAN_SIGN, RIGHT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK, LESS_THAN_SIGN, NULL, PESETA_SIGN, TILDE, LEFT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK}
 };
-char symbolKeymap3[5][7] = {                      // index = 3
-    {0xDA, 0xD9, NULL, 0xF7, NULL, NULL, NULL},   // { ⌠,    ⌡, [sym],           ≈,  [alt], [space],    [mic] }
-    {0xF6, 0xF8, 0xF9, 0xF0, NULL, NULL, NULL},   // { ÷,    °,     ∙,           ≡,   NULL,    NULL, [lshift] }
-    {0xA5, 0xFB, 0x5B, NULL, NULL, 0xFC, 0xFA},   // { ¥,    √,     [,    [rshift],   NULL,       ⁿ,        · }
-    {0xB1, 0x5C, 0x5D, NULL, NULL, NULL, 0x9F},   // { ±,    \,     ],     [enter],   NULL,    NULL,        ƒ }
-    {0xF2, NULL, 0xF3, NULL, NULL, NULL, NULL}    // { ≥, NULL,     ≤, [backspace], [NULL],    NULL,     NULL }
+// symbol 3 column in functionality.md
+// { ⌠,    ⌡, [sym],           ≈,  [alt], [space],   [NULL] }
+// { ÷,    °,     ∙,           ≡,   NULL,    NULL, [lshift] }
+// { ¥,    √,     [,    [rshift],   NULL,       ⁿ,        · }
+// { ±,    \,     ],     [enter],   NULL,    NULL,        ƒ }
+// { ≥, NULL,     ≤, [backspace], [NULL],    NULL,     NULL }
+char symbolKeymap3[COL_COUNT][ROW_COUNT] = {
+    {TOP_HALF_INTEGRAL, BOTTOM_HALF_INTEGRAL, NULL, ALMOST_EQUAL_TO, NULL, NULL, NULL},
+    {DIVISION_SIGN, DEGREE_SIGN, BULLET_OPERATOR, IDENTICAL_TO, NULL, NULL, NULL},
+    {YEN_SIGN, SQUARE_ROOT, LEFT_SQUARE_BRACKET, NULL, NULL, SUPERSCRIPT_LATIN_SMALL_LETTER_N, MIDDLE_DOT},
+    {PLUS_MINUS_SIGN, REVERSE_SOLIDUS, RIGHT_SQUARE_BRACKET, NULL, NULL, NULL, LATIN_SMALL_LETTER_F_WITH_HOOK},
+    {GREATER_THAN_OR_EQUAL_TO, NULL, LESS_THAN_OR_EQUAL_TO, NULL, NULL, NULL, NULL}
 };
-/*
-Character List (CP437):
-0x00: NUL, 0x01: SOH, 0x02: STX, 0x03: ETX, 0x04: EOT, 0x05: ENQ, 0x06: ACK, 0x07: BEL, 0x08: BS,  0x09: HT,  0x0A: LF,  0x0B: VT,  0x0C: FF,  0x0D: CR,  0x0E: SO,  0x0F: SI,
-0x10: DLE, 0x11: DC1, 0x12: DC2, 0x13: DC3, 0x14: DC4, 0x15: NAK, 0x16: SYN, 0x17: ETB, 0x18: CAN, 0x19: EM,  0x1A: SUB, 0x1B: ESC, 0x1C: FS,  0x1D: GS,  0x1E: RS,  0x1F: US,
-0x20: SP,  0x21: !,   0x22: ",   0x23: #,   0x24: $,   0x25: %,   0x26: &,   0x27: ',   0x28: (,   0x29: ),   0x2A: *,   0x2B: +,   0x2C: ,,   0x2D: -,   0x2E: .,   0x2F: /,
-0x30: 0,   0x31: 1,   0x32: 2,   0x33: 3,   0x34: 4,   0x35: 5,   0x36: 6,   0x37: 7,   0x38: 8,   0x39: 9,   0x3A: :,   0x3B: ;,   0x3C: <,   0x3D: =,   0x3E: >,   0x3F: ?,
-0x40: @,   0x41: A,   0x42: B,   0x43: C,   0x44: D,   0x45: E,   0x46: F,   0x47: G,   0x48: H,   0x49: I,   0x4A: J,   0x4B: K,   0x4C: L,   0x4D: M,   0x4E: N,   0x4F: O,
-0x50: P,   0x51: Q,   0x52: R,   0x53: S,   0x54: T,   0x55: U,   0x56: V,   0x57: W,   0x58: X,   0x59: Y,   0x5A: Z,   0x5B: [,   0x5C: \,   0x5D: ],   0x5E: ^,   0x5F: _,
-0x60: `,   0x61: a,   0x62: b,   0x63: c,   0x64: d,   0x65: e,   0x66: f,   0x67: g,   0x68: h,   0x69: i,   0x6A: j,   0x6B: k,   0x6C: l,   0x6D: m,   0x6E: n,   0x6F: o,
-0x70: p,   0x71: q,   0x72: r,   0x73: s,   0x74: t,   0x75: u,   0x76: v,   0x77: w,   0x78: x,   0x79: y,   0x7A: z,   0x7B: {,   0x7C: |,   0x7D: },   0x7E: ~,   0x7F: DEL,
-0x80: Ç,   0x81: ü,   0x82: é,   0x83: â,   0x84: ä,   0x85: à,   0x86: å,   0x87: ç,   0x88: ê,   0x89: ë,   0x8A: è,   0x8B: ï,   0x8C: î,   0x8D: ì,   0x8E: Ä,   0x8F: Å,
-0x90: É,   0x91: æ,   0x92: Æ,   0x93: ô,   0x94: ö,   0x95: ò,   0x96: û,   0x97: ù,   0x98: ÿ,   0x99: Ö,   0x9A: Ü,   0x9B: ¢,   0x9C: £,   0x9D: ¥,   0x9E: ₧,   0x9F: ƒ,
-0xA0: á,   0xA1: í,   0xA2: ó,   0xA3: ú,   0xA4: ñ,   0xA5: Ñ,   0xA6: ª,   0xA7: º,   0xA8: ¿,   0xA9: ⌐,   0xAA: ¬,   0xAB: ½,   0xAC: ¼,   0xAD: ¡,   0xAE: «,   0xAF: »,
-0xB0: ░,   0xB1: ▒,   0xB2: ▓,   0xB3: │,   0xB4: ┤,   0xB5: ╡,   0xB6: ╢,   0xB7: ╖,   0xB8: ╕,   0xB9: ╣,   0xBA: ║,   0xBB: ╗,   0xBC: ╝,   0xBD: ╜,   0xBE: ╛,   0xBF: ┐,
-0xC0: └,   0xC1: ┴,   0xC2: ┬,   0xC3: ├,   0xC4: ─,   0xC5: ┼,   0xC6: ╞,   0xC7: ╟,   0xC8: ╚,   0xC9: ╔,   0xCA: ╩,   0xCB: ╦,   0xCC: ╠,   0xCD: ═,   0xCE: ╬,   0xCF: ╧,
-0xD0: ╨,   0xD1: ╤,   0xD2: ╥,   0xD3: ╙,   0xD4: ╘,   0xD5: ╒,   0xD6: ╓,   0xD7: ╫,   0xD8: ╪,   0xD9: ┘,   0xDA: ┌,   0xDB: █,   0xDC: ▄,   0xDD: ▌,   0xDE: ▐,   0xDF: ▀,
-0xE0: α,   0xE1: ß,   0xE2: Γ,   0xE3: π,   0xE4: Σ,   0xE5: σ,   0xE6: µ,   0xE7: τ,   0xE8: Φ,   0xE9: Θ,   0xEA: Ω,   0xEB: δ,   0xEC: ∞,   0xED: φ,   0xEE: ε,   0xEF: ∩,
-0xF0: ≡,   0xF1: ±,   0xF2: ≥,   0xF3: ≤,   0xF4: ⌠,   0xF5: ⌡,   0xF6: ÷,   0xF7: ≈,   0xF8: °,   0xF9: ∙,   0xFA: ·,   0xFB: √,   0xFC: ⁿ,   0xFD: ²,   0xFE: ■,   0xFF: NBSP
-*/
+// symbol 4 column in functionality.md
+// { â, ä, [sym],           Ç,  [alt], [space],   [NULL] }
+// { à, ß,     é,           ç,      í,       ì, [lshift] }
+// { å, ë,     á,    [rshift],      Ñ,       ñ,        ê }
+// { Å, è,     Ä,     [enter],      ô,       ö,        É }
+// { Æ, î,     æ, [backspace], [NULL],       ò,        ï }
+char symbolKeymap4[COL_COUNT][ROW_COUNT] = {
+    {LATIN_SMALL_LETTER_A_WITH_CIRCUMFLEX, LATIN_SMALL_LETTER_A_WITH_DIAERESIS, NULL, LATIN_CAPITAL_LETTER_C_WITH_CEDILLA, NULL, NULL, NULL},
+    {LATIN_SMALL_LETTER_A_WITH_GRAVE, LATIN_SMALL_LETTER_SHARP_S, LATIN_SMALL_LETTER_E_WITH_ACUTE, LATIN_SMALL_LETTER_C_WITH_CEDILLA, LATIN_SMALL_LETTER_I_WITH_ACUTE, LATIN_SMALL_LETTER_I_WITH_GRAVE, NULL},
+    {LATIN_SMALL_LETTER_A_WITH_RING_ABOVE, LATIN_SMALL_LETTER_E_WITH_DIAERESIS, LATIN_SMALL_LETTER_A_WITH_ACUTE, NULL, LATIN_CAPITAL_LETTER_N_WITH_TILDE, LATIN_SMALL_LETTER_N_WITH_TILDE, LATIN_SMALL_LETTER_E_WITH_CIRCUMFLEX},
+    {LATIN_CAPITAL_LETTER_A_WITH_RING_ABOVE, LATIN_SMALL_LETTER_E_WITH_GRAVE, LATIN_CAPITAL_LETTER_A_WITH_DIAERESIS, NULL, LATIN_SMALL_LETTER_O_WITH_CIRCUMFLEX, LATIN_SMALL_LETTER_O_WITH_DIAERESIS, LATIN_CAPITAL_LETTER_E_WITH_ACUTE},
+    {LATIN_CAPITAL_LIGATURE_AE, LATIN_SMALL_LETTER_I_WITH_CIRCUMFLEX, LATIN_SMALL_LIGATURE_AE, NULL, NULL, LATIN_SMALL_LETTER_O_WITH_GRAVE, LATIN_SMALL_LETTER_I_WITH_DIAERESIS}
+};
+// symbol 5 column in functionality.md
+// { Ö, ó, [sym],           π,  [alt], [space],   [NULL] }
+// { ü, Σ,     σ,           Γ,   NULL,       ε, [lshift] }
+// { û, Φ,     ù,    [rshift],   NULL,    NULL,        τ }
+// { ú, Θ,     Ü,     [enter],   NULL,    NULL,        Ω }
+// { α, φ,     ÿ, [backspace], [NULL],    NULL,        δ }
+char symbolKeymap5[COL_COUNT][ROW_COUNT] = {
+    {LATIN_CAPITAL_LETTER_O_WITH_DIAERESIS, LATIN_SMALL_LETTER_O_WITH_ACUTE, NULL, GREEK_SMALL_LETTER_PI, NULL, NULL, NULL},
+    {LATIN_SMALL_LETTER_U_WITH_DIAERESIS, GREEK_CAPITAL_LETTER_SIGMA, GREEK_SMALL_LETTER_SIGMA, GREEK_CAPITAL_LETTER_GAMMA, NULL, GREEK_SMALL_LETTER_EPSILON, NULL},
+    {LATIN_SMALL_LETTER_U_WITH_CIRCUMFLEX, GREEK_CAPITAL_LETTER_PHI, LATIN_SMALL_LETTER_U_WITH_GRAVE, NULL, NULL, NULL, GREEK_SMALL_LETTER_TAU},
+    {LATIN_SMALL_LETTER_U_WITH_ACUTE, GREEK_CAPITAL_LETTER_THETA, LATIN_CAPITAL_LETTER_U_WITH_DIAERESIS, NULL, NULL, NULL, GREEK_CAPITAL_LETTER_OMEGA},
+    {GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_PHI, LATIN_SMALL_LETTER_Y_WITH_DIAERESIS, NULL, NULL, NULL, GREEK_SMALL_LETTER_DELTA}
+};
+// symbol 6 column in functionality.md
+// { │, ┤, [sym],           ╜, [alt], [space],   [NULL] }
+// { ╡, ╛,     ┐,           ╝,     ╟,       ╞, [lshift] }
+// { ╢, ┴,     ╖,    [rshift],     ╔,       ╚,        └ }
+// { ╣, ┬,     ╕,     [enter],     ╩,       ╦,        ├ }
+// { ╗, ┼,     ║, [backspace],   [═],       ╠,        ─ }
+char symbolKeymap6[COL_COUNT][ROW_COUNT] = {
+    {BOX_DRAWINGS_LIGHT_VERTICAL, BOX_DRAWINGS_LIGHT_VERTICAL_AND_LEFT, NULL, BOX_DRAWINGS_UP_SINGLE_AND_HORIZONTAL_DOUBLE, NULL, NULL, NULL},
+    {BOX_DRAWINGS_VERTICAL_SINGLE_AND_LEFT_DOUBLE, BOX_DRAWINGS_UP_SINGLE_AND_HORIZONTAL_DOUBLE, BOX_DRAWINGS_LIGHT_DOWN_AND_LEFT, BOX_DRAWINGS_DOUBLE_UP_AND_LEFT, BOX_DRAWINGS_VERTICAL_DOUBLE_AND_RIGHT_SINGLE, BOX_DRAWINGS_VERTICAL_SINGLE_AND_RIGHT_DOUBLE, NULL},
+    {BOX_DRAWINGS_VERTICAL_DOUBLE_AND_LEFT_SINGLE, BOX_DRAWINGS_LIGHT_UP_AND_HORIZONTAL, BOX_DRAWINGS_DOWN_DOUBLE_AND_LEFT_SINGLE, NULL, BOX_DRAWINGS_DOUBLE_DOWN_AND_RIGHT, BOX_DRAWINGS_DOUBLE_UP_AND_RIGHT, BOX_DRAWINGS_LIGHT_UP_AND_RIGHT},
+    {BOX_DRAWINGS_DOUBLE_VERTICAL_AND_LEFT, BOX_DRAWINGS_LIGHT_DOWN_AND_HORIZONTAL, BOX_DRAWINGS_DOWN_SINGLE_AND_LEFT_DOUBLE, NULL, BOX_DRAWINGS_DOUBLE_UP_AND_HORIZONTAL, BOX_DRAWINGS_DOUBLE_DOWN_AND_HORIZONTAL, BOX_DRAWINGS_LIGHT_VERTICAL_AND_RIGHT},
+    {BOX_DRAWINGS_DOUBLE_DOWN_AND_LEFT, BOX_DRAWINGS_LIGHT_VERTICAL_AND_HORIZONTAL, BOX_DRAWINGS_DOUBLE_VERTICAL, NULL, BOX_DRAWINGS_DOUBLE_HORIZONTAL, BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, BOX_DRAWINGS_LIGHT_HORIZONTAL}
+};
+
+// symbol 7 column in functionality.md
+// { ╬, ╬, [sym],           ╪, [alt], [space],   [NULL] }
+// { ╨, ┘,     ┌,           ╫,     ▒,       ░, [lshift] }
+// { ╤, ▄,     ╥,    [rshift],   NUL,       ▓,        █ }
+// { ╘, ▌,     ╙,     [enter],   SOH,     STX,        ▐ }
+// { ╓, ■,     ╒, [backspace], [EOT],     ETX,        ▀ }
+char symbolKeymap7[COL_COUNT][ROW_COUNT] = {
+    {BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, NULL, BOX_DRAWINGS_VERTICAL_SINGLE_AND_HORIZONTAL_DOUBLE, NULL, NULL, NULL},
+    {BOX_DRAWINGS_UP_DOUBLE_AND_HORIZONTAL_SINGLE, BOX_DRAWINGS_LIGHT_UP_AND_LEFT, BOX_DRAWINGS_LIGHT_DOWN_AND_RIGHT, BOX_DRAWINGS_VERTICAL_DOUBLE_AND_HORIZONTAL_SINGLE, LIGHT_SHADE, MEDIUM_SHADE, NULL},
+    {BOX_DRAWINGS_DOWN_SINGLE_AND_HORIZONTAL_DOUBLE, LOWER_HALF_BLOCK, BOX_DRAWINGS_DOWN_DOUBLE_AND_HORIZONTAL_SINGLE, NULL, NULL, DARK_SHADE, FULL_BLOCK},
+    {BOX_DRAWINGS_UP_SINGLE_AND_RIGHT_DOUBLE, LEFT_HALF_BLOCK, BOX_DRAWINGS_UP_DOUBLE_AND_RIGHT_SINGLE, NULL, START_OF_HEADING, START_OF_TEXT, RIGHT_HALF_BLOCK},
+    {BOX_DRAWINGS_DOWN_DOUBLE_AND_RIGHT_SINGLE, BLACK_SQUARE, BOX_DRAWINGS_DOWN_SINGLE_AND_RIGHT_DOUBLE, NULL, END_OF_TRANSMISSION, END_OF_TEXT, UPPER_HALF_BLOCK}
+};
+
+// symbol 8 column in functionality.md
+// { ENQ, ACK, [sym],          SI, [alt], [space],   [NULL] }
+// { BEL, DLE,   DC1,          SO,    EM,     CAN, [lshift] }
+// {  BS, DC3,   TAB,    [rshift],   ESC,     SUB,      DC2 }
+// {  VT, DC4,    LF,     [enter],    FS,      GS,      NAK }
+// {  CR, ETB,    FF, [backspace],  [US],      RS,      SYN }
+char symbolKeymap8[COL_COUNT][ROW_COUNT] = {
+    {ENQUIRY, ACKNOWLEDGE, NULL, SHIFT_IN, NULL, NULL, NULL},
+    {BELL, DATA_LINK_ESCAPE, DEVICE_CONTROL_ONE, SHIFT_OUT, END_OF_MEDIUM, CANCEL, NULL},
+    {BACKSPACE, DEVICE_CONTROL_THREE, HORIZONTAL_TABULATION, NULL, ESCAPE, SUBSTITUTE, DEVICE_CONTROL_TWO},
+    {VERTICAL_TABULATION, DEVICE_CONTROL_FOUR, LINE_FEED, NULL, FILE_SEPARATOR, GROUP_SEPARATOR, NEGATIVE_ACKNOWLEDGE},
+    {CARRIAGE_RETURN, END_OF_TRANSMISSION_BLOCK, FORM_FEED, NULL, UNIT_SEPARATOR, RECORD_SEPARATOR, SYNCHRONOUS_IDLE}
+};
+
 bool altLock = false;
 bool ctrlLock = false;
 bool capsLock = false;
