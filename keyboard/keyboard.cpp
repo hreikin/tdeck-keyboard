@@ -143,10 +143,12 @@ bool capsLock = false;
 bool symbolLock = false;
 bool backlightState = true;
 bool sendDataFlag = false;
-uint8_t keymapIndex = 0;                                            // defaultKeymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
-uint8_t sendData[6] = {0x00, false, false, false, false, false};    // key_value, alt, ctrl, shift, mic, speaker
-uint8_t emptyData[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};        // empty array to send when no key is pressed
-uint8_t currentBrightness = 119;                                    // Default brightness level
+uint8_t keymapIndex = 0;                                                        // defaultKeymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
+uint8_t keyInfo[KEY_INFO_SIZE] = {0x00, false, false, false, false, false};     // key_value, alt, ctrl, shift, mic, speaker
+uint8_t sendData[KEY_INFO_SIZE] = {0x00, false, false, false, false, false};    // key_value, alt, ctrl, shift, mic, speaker
+uint8_t emptyData[KEY_INFO_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};        // empty array to send when no key is pressed
+uint8_t currentBrightness = 119;                                                // Default brightness level
+unsigned long keyRepeatStart = 0;
 
 /**
  * @brief Handles I2C requests.
