@@ -552,17 +552,17 @@ void sendKeyInfo()
                     // mic toggle (alt + mic)
                     if (keyHeld(0, 4)) {
                         keyInfo[0] = FUNCTION_TOGGLE;
-                        keyInfo[4] = true;
+                        keyInfo[5] = true;
                     }
                     // mic volume down (lshift + mic)
                     else if (keyHeld(1, 6)) {
                         keyInfo[0] = FUNCTION_DOWN;
-                        keyInfo[4] = true;
+                        keyInfo[5] = true;
                     }
                     // mic volume up (rshift + mic)
                     else if (keyHeld(2, 3)) {
                         keyInfo[0] = FUNCTION_UP;
-                        keyInfo[4] = true;
+                        keyInfo[5] = true;
                     }
                     // the below items are contained within the keymaps but appear here as well due to key combination usage
                     // 0
