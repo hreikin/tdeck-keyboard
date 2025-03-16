@@ -340,7 +340,7 @@ void setDefaultCharacter(int rowIndex, int colIndex)
 void setSymbolCharacter(int rowIndex, int colIndex)
 {
     // symbol 1
-    if (keymapIndex == 1 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap1)) {
+    if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap1)) {
         keyInfo[0] = symbolKeymap1[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
@@ -590,9 +590,14 @@ void sendKeyInfo()
                         setKeyboardBrightness(FUNCTION_TOGGLE);
                     }
                 }
-                // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock
-                else if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
-                    setDefaultCharacter(rowIndex, colIndex);
+                // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock, symbol (held)
+                else if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6) || keyHeld(0, 2)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
+                    if (keyHeld(0, 2)) {
+                        setSymbolCharacter(rowIndex, colIndex);
+                    }
+                    else {
+                        setDefaultCharacter(rowIndex, colIndex);
+                    }
                 }
                 // symbol
                 else if (keymapIndex > MIN_KEYMAP_INDEX) {
@@ -601,9 +606,14 @@ void sendKeyInfo()
             }
             // any printable key held
             else if (keyHeld(rowIndex, colIndex) && (millis() - keyRepeatStart > KEY_REPEAT_DELAY)) {
-                // a-z key
-                if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
-                    setDefaultCharacter(rowIndex, colIndex);
+                // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock, symbol (held)
+                if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6) || keyHeld(0, 2)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
+                    if (keyHeld(0, 2)) {
+                        setSymbolCharacter(rowIndex, colIndex);
+                    }
+                    else {
+                        setDefaultCharacter(rowIndex, colIndex);
+                    }
                 }
                 // symbol
                 else if (keymapIndex > MIN_KEYMAP_INDEX) {
