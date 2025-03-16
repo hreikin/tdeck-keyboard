@@ -9,7 +9,7 @@
 #ifndef KEYS_HPP
 #define KEYS_HPP
 
-#define NULL 0x00    // NUL
+#define NUL_CHAR 0x00    // NUL
 #define START_OF_HEADING 0x01    // SOH
 #define START_OF_TEXT 0x02    // STX
 #define END_OF_TEXT 0x03    // ETX
