@@ -29,9 +29,9 @@
 #define DEBOUNCE_DELAY                      50    // 50 milliseconds debounce delay
 #define KEY_REPEAT_DELAY                    200   // 200 milliseconds key repeat delay
 #define MIN_KEYMAP_INDEX                    0
-#define MAX_KEYMAP_INDEX                    8     // TODO: change this when more keymaps are added
-#define COL_COUNT                           7
+#define MAX_KEYMAP_INDEX                    8
 #define ROW_COUNT                           5
+#define COL_COUNT                           7
 #define KEY_INFO_SIZE                       6
 
 enum KeyState {
