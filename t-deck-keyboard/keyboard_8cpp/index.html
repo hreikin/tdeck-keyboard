@@ -1,0 +1,1468 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hreikin.github.io/tdeck-keyboard/t-deck-keyboard/keyboard_8cpp/">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>File keyboard.cpp - T-Deck Keyboard</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#file-keyboardcpp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="T-Deck Keyboard" class="md-header__button md-logo" aria-label="T-Deck Keyboard" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            T-Deck Keyboard
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              File keyboard.cpp
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hreikin/tdeck-keyboard" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hreikin/tdeck-keyboard
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="T-Deck Keyboard" class="md-nav__button md-logo" aria-label="T-Deck Keyboard" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    T-Deck Keyboard
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hreikin/tdeck-keyboard" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hreikin/tdeck-keyboard
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functionality/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functionality
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variables
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../macros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Macros
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Attributes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-attributes-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Attributes Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Attributes Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variable-altlock" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable altLock
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-backlightstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable backlightState
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-capslock" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable capsLock
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-cols" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable cols
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-ctrllock" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable ctrlLock
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-currentbrightness" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable currentBrightness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-defaultkeymap" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable defaultKeymap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-emptydata" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable emptyData
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-keyinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable keyInfo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-keyrepeatstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable keyRepeatStart
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-keystates" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable keyStates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-keymapindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable keymapIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-lastvalue" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable lastValue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable rows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-senddata" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable sendData
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-senddataflag" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable sendDataFlag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap1" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap2" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap3" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap4" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap4
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap5" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap6" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap6
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap7" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap7
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbolkeymap8" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolKeymap8
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-symbollock" class="md-nav__link">
+    <span class="md-ellipsis">
+      variable symbolLock
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-functions-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Public Functions Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Public Functions Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-autoresetkeymapindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      function autoResetKeymapIndex
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-doeskeyexistinkeymap" class="md-nav__link">
+    <span class="md-ellipsis">
+      function doesKeyExistInKeymap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-handlecharacter" class="md-nav__link">
+    <span class="md-ellipsis">
+      function handleCharacter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-keyheld" class="md-nav__link">
+    <span class="md-ellipsis">
+      function keyHeld
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-keynotpressed" class="md-nav__link">
+    <span class="md-ellipsis">
+      function keyNotPressed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-keypressed" class="md-nav__link">
+    <span class="md-ellipsis">
+      function keyPressed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-keyreleased" class="md-nav__link">
+    <span class="md-ellipsis">
+      function keyReleased
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-onrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      function onRequest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-printkeyinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      function printKeyInfo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-readkeymatrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      function readKeyMatrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-sendkeyinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      function sendKeyInfo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setdefaultcharacter" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setDefaultCharacter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setkeyboardbrightness" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setKeyboardBrightness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-setsymbolcharacter" class="md-nav__link">
+    <span class="md-ellipsis">
+      function setSymbolCharacter
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="file-keyboardcpp">File keyboard.cpp</h1>
+<p><a href="../files/"><strong>FileList</strong></a> <strong>&gt;</strong> <a href="../dir_fb0b1e2663c8abb876623317aa8e6792/"><strong>keyboard</strong></a> <strong>&gt;</strong> <a href="./"><strong>keyboard.cpp</strong></a></p>
+<p><a href="../keyboard_8cpp_source/">Go to the source code of this file</a></p>
+<p><em>Implementation of keyboard functions and keymaps.</em> <a href="#detailed-description">More...</a></p>
+<ul>
+<li><code>#include "keyboard.hpp"</code></li>
+<li><code>#include "keys.hpp"</code></li>
+</ul>
+<h2 id="public-attributes">Public Attributes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-altlock"><strong>altLock</strong></a>   = <code>false</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-backlightstate"><strong>backlightState</strong></a>   = <code>true</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-capslock"><strong>capsLock</strong></a>   = <code>false</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#variable-cols"><strong>cols</strong></a>   = <code>{0, 3, 19, 12, 18, 6, 7}</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-ctrllock"><strong>ctrlLock</strong></a>   = <code>false</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#variable-currentbrightness"><strong>currentBrightness</strong></a>   = <code>119</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-defaultkeymap"><strong>defaultKeymap</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#variable-emptydata"><strong>emptyData</strong></a>   = <code>{0x00, false, false, false, false, false, false}</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#variable-keyinfo"><strong>keyInfo</strong></a>   = <code>{0x00, false, false, false, false, false, false}</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">unsigned long</td>
+<td style="text-align: left;"><a href="#variable-keyrepeatstart"><strong>keyRepeatStart</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">KeyState</td>
+<td style="text-align: left;"><a href="#variable-keystates"><strong>keyStates</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#variable-keymapindex"><strong>keymapIndex</strong></a>   = <code>0</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-lastvalue"><strong>lastValue</strong></a>  <br></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#variable-rows"><strong>rows</strong></a>   = <code>{1, 4, 5, 11, 13}</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">uint8_t</td>
+<td style="text-align: left;"><a href="#variable-senddata"><strong>sendData</strong></a>   = <code>{0x00, false, false, false, false, false, false}</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-senddataflag"><strong>sendDataFlag</strong></a>   = <code>false</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap1"><strong>symbolKeymap1</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap2"><strong>symbolKeymap2</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap3"><strong>symbolKeymap3</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap4"><strong>symbolKeymap4</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap5"><strong>symbolKeymap5</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap6"><strong>symbolKeymap6</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap7"><strong>symbolKeymap7</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">char</td>
+<td style="text-align: left;"><a href="#variable-symbolkeymap8"><strong>symbolKeymap8</strong></a>   = <code>/* multi line expression */</code><br></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#variable-symbollock"><strong>symbolLock</strong></a>   = <code>false</code><br></td>
+</tr>
+</tbody>
+</table>
+<h2 id="public-functions">Public Functions</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Type</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-autoresetkeymapindex"><strong>autoResetKeymapIndex</strong></a> () <br><em>Handles resetting the keymap index.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-doeskeyexistinkeymap"><strong>doesKeyExistInKeymap</strong></a> (int rowIndex, int colIndex, char keymap) <br><em>Checks if a key exists in the keymap.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-handlecharacter"><strong>handleCharacter</strong></a> (int rowIndex, int colIndex) <br><em>Handles the character for a specific key.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-keyheld"><strong>keyHeld</strong></a> (int rowIndex, int colIndex) <br><em>Checks if a key is being held.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-keynotpressed"><strong>keyNotPressed</strong></a> (int rowIndex, int colIndex) <br><em>Checks if a key is not pressed.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-keypressed"><strong>keyPressed</strong></a> (int rowIndex, int colIndex) <br><em>Checks if a key was pressed.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">bool</td>
+<td style="text-align: left;"><a href="#function-keyreleased"><strong>keyReleased</strong></a> (int rowIndex, int colIndex) <br><em>Checks if a key was released.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-onrequest"><strong>onRequest</strong></a> () <br><em>Handles I2C requests.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-printkeyinfo"><strong>printKeyInfo</strong></a> (uint8_t data) <br><em>Prints the key information.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-readkeymatrix"><strong>readKeyMatrix</strong></a> () <br><em>Reads the key matrix and updates the key states.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-sendkeyinfo"><strong>sendKeyInfo</strong></a> () <br><em>Sends the key information over I2C.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-setdefaultcharacter"><strong>setDefaultCharacter</strong></a> (int rowIndex, int colIndex) <br><em>Sets the default character for a key.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-setkeyboardbrightness"><strong>setKeyboardBrightness</strong></a> (uint8_t command) <br><em>Sets the keyboard backlight brightness.</em></td>
+</tr>
+<tr>
+<td style="text-align: right;">void</td>
+<td style="text-align: left;"><a href="#function-setsymbolcharacter"><strong>setSymbolCharacter</strong></a> (int rowIndex, int colIndex) <br><em>Sets the symbol character for a key.</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="detailed-description">Detailed Description</h2>
+<p><strong>Author:</strong></p>
+<p>hreikin (<a href="mailto:hreikin@gmail.com">hreikin@gmail.com</a>) @license MIT </p>
+<p><strong>Copyright:</strong></p>
+<p>Copyright (c) 2025 hreikin (<a href="mailto:hreikin@gmail.com">hreikin@gmail.com</a>) </p>
+<p><strong>Date:</strong></p>
+<p>2025-03-07 </p>
+<h2 id="public-attributes-documentation">Public Attributes Documentation</h2>
+<h3 id="variable-altlock">variable altLock</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">altLock</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-backlightstate">variable backlightState</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">backlightState</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-capslock">variable capsLock</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">capsLock</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-cols">variable cols</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">cols</span><span class="p">[];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-ctrllock">variable ctrlLock</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">ctrlLock</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-currentbrightness">variable currentBrightness</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">currentBrightness</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-defaultkeymap">variable defaultKeymap</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">defaultKeymap</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-emptydata">variable emptyData</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">emptyData</span><span class="p">[</span><span class="n">KEY_INFO_SIZE</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-keyinfo">variable keyInfo</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">keyInfo</span><span class="p">[</span><span class="n">KEY_INFO_SIZE</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-keyrepeatstart">variable keyRepeatStart</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">keyRepeatStart</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-keystates">variable keyStates</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">KeyState</span><span class="w"> </span><span class="n">keyStates</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-keymapindex">variable keymapIndex</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">keymapIndex</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-lastvalue">variable lastValue</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">lastValue</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-rows">variable rows</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">rows</span><span class="p">[];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-senddata">variable sendData</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sendData</span><span class="p">[</span><span class="n">KEY_INFO_SIZE</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-senddataflag">variable sendDataFlag</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">sendDataFlag</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap1">variable symbolKeymap1</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap1</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap2">variable symbolKeymap2</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap2</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap3">variable symbolKeymap3</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap3</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap4">variable symbolKeymap4</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap4</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap5">variable symbolKeymap5</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap5</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap6">variable symbolKeymap6</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap6</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap7">variable symbolKeymap7</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap7</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbolkeymap8">variable symbolKeymap8</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">char</span><span class="w"> </span><span class="n">symbolKeymap8</span><span class="p">[</span><span class="n">ROW_COUNT</span><span class="p">][</span><span class="n">COL_COUNT</span><span class="p">];</span>
+</span></code></pre></div>
+<hr>
+
+<h3 id="variable-symbollock">variable symbolLock</h3>
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">symbolLock</span><span class="p">;</span>
+</span></code></pre></div>
+<hr>
+<h2 id="public-functions-documentation">Public Functions Documentation</h2>
+<h3 id="function-autoresetkeymapindex">function autoResetKeymapIndex</h3>
+<p><em>Handles resetting the keymap index.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">autoResetKeymapIndex</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</span></code></pre></div></p>
+<hr>
+
+<h3 id="function-doeskeyexistinkeymap">function doesKeyExistInKeymap</h3>
+<p><em>Checks if a key exists in the keymap.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">doesKeyExistInKeymap</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span><span class="p">,</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">keymap</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+<li><code>keymap</code> The keymap to check. </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>true if the key exists in the keymap, false otherwise. </p>
+<hr>
+
+<h3 id="function-handlecharacter">function handleCharacter</h3>
+<p><em>Handles the character for a specific key.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">handleCharacter</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+</ul>
+<hr>
+
+<h3 id="function-keyheld">function keyHeld</h3>
+<p><em>Checks if a key is being held.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">keyHeld</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>true if the key is being held, false otherwise. </p>
+<hr>
+
+<h3 id="function-keynotpressed">function keyNotPressed</h3>
+<p><em>Checks if a key is not pressed.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">keyNotPressed</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>true if the key is not pressed, false otherwise. </p>
+<hr>
+
+<h3 id="function-keypressed">function keyPressed</h3>
+<p><em>Checks if a key was pressed.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">keyPressed</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>true if the key was pressed, false otherwise. </p>
+<hr>
+
+<h3 id="function-keyreleased">function keyReleased</h3>
+<p><em>Checks if a key was released.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kt">bool</span><span class="w"> </span><span class="n">keyReleased</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>true if the key was released, false otherwise. </p>
+<hr>
+
+<h3 id="function-onrequest">function onRequest</h3>
+<p><em>Handles I2C requests.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">onRequest</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p>Sends the key data over I2C when requested. </p>
+<hr>
+
+<h3 id="function-printkeyinfo">function printKeyInfo</h3>
+<p><em>Prints the key information.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">printKeyInfo</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">data</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>data</code> The key data array. </li>
+</ul>
+<hr>
+
+<h3 id="function-readkeymatrix">function readKeyMatrix</h3>
+<p><em>Reads the key matrix and updates the key states.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">readKeyMatrix</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</span></code></pre></div></p>
+<hr>
+
+<h3 id="function-sendkeyinfo">function sendKeyInfo</h3>
+<p><em>Sends the key information over I2C.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">sendKeyInfo</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+</span></code></pre></div></p>
+<hr>
+
+<h3 id="function-setdefaultcharacter">function setDefaultCharacter</h3>
+<p><em>Sets the default character for a key.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">setDefaultCharacter</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span>
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p>Sets keyInfo to the correct character for a specific key, from the default keymap only.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+</ul>
+<hr>
+
+<h3 id="function-setkeyboardbrightness">function setKeyboardBrightness</h3>
+<p><em>Sets the keyboard backlight brightness.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">setKeyboardBrightness</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">command</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>command</code> The command to set the brightness (toggle, up, down). </li>
+</ul>
+<hr>
+
+<h3 id="function-setsymbolcharacter">function setSymbolCharacter</h3>
+<p><em>Sets the symbol character for a key.</em> 
+<div class="language-C++ highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">setSymbolCharacter</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rowIndex</span><span class="p">,</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">colIndex</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="p">)</span><span class="w"> </span>
+</span></code></pre></div></p>
+<p>Sets keyInfo to the correct character for a specific key, from the symbol keymaps only.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>rowIndex</code> The row index of the key. </li>
+<li><code>colIndex</code> The column index of the key. </li>
+</ul>
+<hr>
+
+<hr />
+<p>The documentation for this class was generated from the following file <code>keyboard/keyboard.cpp</code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      MIT License
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

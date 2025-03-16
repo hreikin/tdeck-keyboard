@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_fb0b1e2663c8abb876623317aa8e6792" kind="dir">
+    <compoundname>keyboard</compoundname>
+    <innerfile refid="keyboard_8cpp">keyboard.cpp</innerfile>
+    <innerfile refid="keyboard_8hpp">keyboard.hpp</innerfile>
+    <innerfile refid="keys_8hpp">keys.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="keyboard/"/>
+  </compounddef>
+</doxygen>
