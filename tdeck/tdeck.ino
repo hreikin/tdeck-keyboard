@@ -69,7 +69,12 @@ void loop()
     if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00 || keyInfo[5] != 0x00)
     {
         Serial.print("char: ");
-        Serial.println(keyInfo[0]);
+        // print keyInfo[0] as a character, number and hex value
+        Serial.print((char)keyInfo[0]);
+        Serial.print(" ");
+        Serial.print(keyInfo[0]);
+        Serial.print(" 0x");
+        Serial.println(keyInfo[0], HEX);
         Serial.print("alt: ");
         Serial.println(keyInfo[1]);
         Serial.print("ctrl: ");
