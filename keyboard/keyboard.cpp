@@ -286,10 +286,12 @@ void printKeyInfo(uint8_t data[KEY_INFO_SIZE])
     Serial.println(data[2]);
     Serial.print("shift: ");
     Serial.println(data[3]);
-    Serial.print("mic: ");
+    Serial.print("sym: ");
     Serial.println(data[4]);
-    Serial.print("speaker: ");
+    Serial.print("mic: ");
     Serial.println(data[5]);
+    Serial.print("speaker: ");
+    Serial.println(data[6]);
     Serial.println("************************************");
 }
 
