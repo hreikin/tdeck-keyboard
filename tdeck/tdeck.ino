@@ -17,9 +17,9 @@
 #define BOARD_I2C_SDA 18
 #define BOARD_I2C_SCL 8
 
-#define KEY_INFO_SIZE 6
+#define KEY_INFO_SIZE 7
 
-uint8_t keyInfo[KEY_INFO_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, shift, mic, speaker
+uint8_t keyInfo[KEY_INFO_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, shift, sym, mic, speaker
 
 /**
  * @brief Setup function to initialize serial communication, power on the board, and check the keyboard.
@@ -68,7 +68,7 @@ void loop()
     {
         keyInfo[i] = Wire.read();
     }
-    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00 || keyInfo[5] != 0x00)
+    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00 || keyInfo[5] != 0x00 || keyInfo[6] != 0x00)
     {
         Serial.print("char: ");
         // print keyInfo[0] as a character, number and hex value
@@ -83,10 +83,12 @@ void loop()
         Serial.println(keyInfo[2]);
         Serial.print("shift: ");
         Serial.println(keyInfo[3]);
-        Serial.print("mic: ");
+        Serial.print("sym: ");
         Serial.println(keyInfo[4]);
-        Serial.print("speaker: ");
+        Serial.print("mic: ");
         Serial.println(keyInfo[5]);
+        Serial.print("speaker: ");
+        Serial.println(keyInfo[6]);
         Serial.println("************************************");
     }
     delay(5);
