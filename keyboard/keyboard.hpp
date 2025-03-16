@@ -162,4 +162,12 @@ void setDefaultCharacter(int rowIndex, int colIndex);
  */
 void setSymbolCharacter(int rowIndex, int colIndex);
 
+/**
+ * @brief Handles the character for a specific key.
+ * 
+ * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
+ */
+void handleCharacter(int rowIndex, int colIndex);
+
 #endif // KEYBOARD_HPP
