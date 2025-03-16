@@ -9,9 +9,8 @@
 #include "keyboard.hpp"
 #include "keys.hpp"
 
-// TODO: Fix symbol held functionality
-uint8_t cols[] = {0, 3, 19, 12, 18, 6, 7};
 uint8_t rows[] = {1, 4, 5, 11, 13};
+uint8_t cols[] = {0, 3, 19, 12, 18, 6, 7};
 
 bool lastValue[ROW_COUNT][COL_COUNT];
 KeyState keyStates[ROW_COUNT][COL_COUNT];
@@ -340,7 +339,8 @@ void setDefaultCharacter(int rowIndex, int colIndex)
  */
 void setSymbolCharacter(int rowIndex, int colIndex)
 {
-    if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap1)) {
+    // symbol 1
+    if (keymapIndex == 1 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap1)) {
         keyInfo[0] = symbolKeymap1[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
@@ -594,7 +594,7 @@ void sendKeyInfo()
                 else if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
                     setDefaultCharacter(rowIndex, colIndex);
                 }
-                // symbol 1
+                // symbol
                 else if (keymapIndex > MIN_KEYMAP_INDEX) {
                     setSymbolCharacter(rowIndex, colIndex);
                 }
@@ -605,7 +605,7 @@ void sendKeyInfo()
                 if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
                     setDefaultCharacter(rowIndex, colIndex);
                 }
-                // symbol 1
+                // symbol
                 else if (keymapIndex > MIN_KEYMAP_INDEX) {
                     setSymbolCharacter(rowIndex, colIndex);
                 }
