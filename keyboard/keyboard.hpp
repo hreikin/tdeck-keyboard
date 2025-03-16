@@ -32,7 +32,7 @@
 #define MAX_KEYMAP_INDEX                    8
 #define ROW_COUNT                           5
 #define COL_COUNT                           7
-#define KEY_INFO_SIZE                       6
+#define KEY_INFO_SIZE                       7
 
 enum KeyState {
     NOT_PRESSED,
@@ -62,8 +62,8 @@ extern bool capsLock;
 extern bool symbolLock;
 extern bool backlightState;
 extern bool sendDataFlag;
-extern uint8_t keyInfo[KEY_INFO_SIZE];     // keyValue, alt, ctrl, shift, mic, speaker
-extern uint8_t sendData[KEY_INFO_SIZE];    // keyValue, alt, ctrl, shift, mic, speaker
+extern uint8_t keyInfo[KEY_INFO_SIZE];     // keyValue, alt, ctrl, shift, sym, mic, speaker
+extern uint8_t sendData[KEY_INFO_SIZE];    // keyValue, alt, ctrl, shift, sym, mic, speaker
 extern uint8_t emptyData[KEY_INFO_SIZE];   // empty array to send when no key is pressed
 
 /**
