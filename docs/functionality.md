@@ -30,11 +30,10 @@ The keyboard supports a variety of key combinations to enhance its functionality
 | LSHIFT + SPACE       | Toggle the Caps Lock, subsequent key presses will follow the same functionality as holding the `lshift` key |
 | LSHIFT + MIC         | Mic function 2, recommended for decreasing the microphone volume                                            |
 | LSHIFT + $           | Speaker function 2, recommended for decreasing the speaker volume                                           |
-| SYM + [a-z]          | Access symbols from Symbol Keymap 1                                                                         |
 | SYM + BACKSPACE      | Cycle forward through the symbol keymaps                                                                    |
 | SYM + ENTER          | Cycle backward through the symbol keymaps                                                                   |
 | SYM + SPACE          | Toggle the Symbol lock, subsequent key presses will send keys from the relevant symbol keymap               |
-| RSHIFT (held)        | Send the character being pressed along with a bool representing the `ctrl` key                              |
+| RSHIFT + [a-z]       | Send the character being pressed along with a bool representing the `ctrl` key                              |
 | RSHIFT + SPACE       | Toggle the Ctrl lock, subsequent key presses will follow the same functionality as holding the `rshift` key |
 | RSHIFT + MIC         | Mic function 3, recommended for increasing the microphone volume                                            |
 | RSHIFT + $           | Speaker function 3, recommended for increasing the speaker volume                                           |
