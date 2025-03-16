@@ -24,7 +24,7 @@ The keyboard supports a variety of key combinations to enhance its functionality
 | ALT + RSHIFT         | Toggle the backlight on or off                                                                              |
 | ALT + MIC            | Mic function 1, recommended for toggling the microphone on or off                                           |
 | ALT + $              | Speaker function 1, recommended for toggling the speaker on or off                                          |
-| LSHIFT (held)        | Type uppercase letters                                                                                      |
+| LSHIFT + [a-z]       | Type uppercase letters                                                                                      |
 | LSHIFT + BACKSPACE   | Sends the delete character                                                                                  |
 | LSHIFT + ENTER       | Sends the tab character                                                                                     |
 | LSHIFT + SPACE       | Toggle the Caps Lock, subsequent key presses will follow the same functionality as holding the `lshift` key |
