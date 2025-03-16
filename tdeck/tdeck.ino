@@ -17,7 +17,9 @@
 #define BOARD_I2C_SDA 18
 #define BOARD_I2C_SCL 8
 
-uint8_t keyInfo[6] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, shift, mic, speaker
+#define KEY_INFO_SIZE 6
+
+uint8_t keyInfo[KEY_INFO_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, shift, mic, speaker
 
 /**
  * @brief Setup function to initialize serial communication, power on the board, and check the keyboard.
@@ -61,8 +63,8 @@ void setup()
 void loop()
 {
     // Read key value from esp32c3
-    Wire.requestFrom(LILYGO_KB_SLAVE_ADDRESS, 6);
-    for (int i = 0; i < 6 && Wire.available() > 0; i++)
+    Wire.requestFrom(LILYGO_KB_SLAVE_ADDRESS, KEY_INFO_SIZE);
+    for (int i = 0; i < KEY_INFO_SIZE && Wire.available() > 0; i++)
     {
         keyInfo[i] = Wire.read();
     }
