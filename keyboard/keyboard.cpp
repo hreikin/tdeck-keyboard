@@ -376,10 +376,20 @@ void setSymbolCharacter(int rowIndex, int colIndex)
         keyInfo[0] = symbolKeymap7[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
+    // symbol 7 special handling for NUL character
+    else if (keymapIndex == 7 && (keyHeld(2, 4) || keyPressed(2, 4))) {
+        keyInfo[0] = symbolKeymap7[rowIndex][colIndex];
+        autoResetKeymapIndex();
+        keyInfo[4] = true;  // set the symbol flag if it is the NUL character (not NULL from an empty space)
+    }
     // symbol 8
     else if (keymapIndex == 8 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap8)) {
         keyInfo[0] = symbolKeymap8[rowIndex][colIndex];
         autoResetKeymapIndex();
+    }
+    // set the symbol flag if the character isnt NULL (special handling above for NUL character)
+    if (keyInfo[0] != NULL) {
+        keyInfo[4] = true;
     }
 }
 
