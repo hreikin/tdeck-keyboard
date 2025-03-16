@@ -213,8 +213,8 @@ void setKeyboardBrightness(uint8_t command)
 /**
  * @brief Checks if a key was released.
  * 
- * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
  * @return true if the key was released, false otherwise.
  */
 bool keyReleased(int rowIndex, int colIndex)
@@ -225,8 +225,8 @@ bool keyReleased(int rowIndex, int colIndex)
 /**
  * @brief Checks if a key is being held.
  * 
- * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
  * @return true if the key is being held, false otherwise.
  */
 bool keyHeld(int rowIndex, int colIndex)
@@ -237,8 +237,8 @@ bool keyHeld(int rowIndex, int colIndex)
 /**
  * @brief Checks if a key was pressed.
  * 
- * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
  * @return true if the key was pressed, false otherwise.
  */
 bool keyPressed(int rowIndex, int colIndex)
@@ -249,8 +249,8 @@ bool keyPressed(int rowIndex, int colIndex)
 /**
  * @brief Checks if a key is not pressed.
  * 
- * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
  * @return true if the key is not pressed, false otherwise.
  */
 bool keyNotPressed(int rowIndex, int colIndex)
@@ -261,8 +261,8 @@ bool keyNotPressed(int rowIndex, int colIndex)
 /**
  * @brief Checks if a key exists in the keymap.
  * 
- * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
  * @param keymap The keymap to check.
  * @return true if the key exists in the keymap, false otherwise.
  */
@@ -307,8 +307,8 @@ void autoResetKeymapIndex()
 /**
  * @brief Sets the default character for a key.
  * 
- * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
  */
 void setDefaultCharacter(int rowIndex, int colIndex)
 {
@@ -335,8 +335,8 @@ void setDefaultCharacter(int rowIndex, int colIndex)
 /**
  * @brief Sets the symbol character for a key.
  * 
- * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
+ * @param colIndex The column index of the key.
  */
 void setSymbolCharacter(int rowIndex, int colIndex)
 {
