@@ -579,17 +579,17 @@ void sendKeyInfo()
                     // speaker toggle (alt + $)
                     if (keyHeld(0, 4)) {
                         keyInfo[0] = FUNCTION_TOGGLE;
-                        keyInfo[5] = true;
+                        keyInfo[6] = true;
                     }
                     // speaker volume down (lshift + $)
                     else if (keyHeld(1, 6)) {
                         keyInfo[0] = FUNCTION_DOWN;
-                        keyInfo[5] = true;
+                        keyInfo[6] = true;
                     }
                     // speaker volume up (rshift + $)
                     else if (keyHeld(2, 3)) {
                         keyInfo[0] = FUNCTION_UP;
-                        keyInfo[5] = true;
+                        keyInfo[6] = true;
                     }
                     // the below items are contained within the keymaps but appear here as well due to key combination usage
                     // $
