@@ -9,12 +9,12 @@
 #include "keyboard.hpp"
 #include "keys.hpp"
 
-// TODO: Switch these around, rows should be columns and columns should be rows
-uint8_t rows[] = {0, 3, 19, 12, 18, 6, 7};
-uint8_t cols[] = {1, 4, 5, 11, 13};
+// TODO: Fix symbol held functionality
+uint8_t cols[] = {0, 3, 19, 12, 18, 6, 7};
+uint8_t rows[] = {1, 4, 5, 11, 13};
 
-bool lastValue[COL_COUNT][ROW_COUNT];
-KeyState keyStates[COL_COUNT][ROW_COUNT];
+bool lastValue[ROW_COUNT][COL_COUNT];
+KeyState keyStates[ROW_COUNT][COL_COUNT];
 // Keys wrapped in square brackets require special handling
 // default column in functionality.md
 // { q, w, [sym],           a, [alt], [space],    [mic] }
@@ -22,7 +22,7 @@ KeyState keyStates[COL_COUNT][ROW_COUNT];
 // { r, g,     t,    [rshift],     v,       c,        f }
 // { u, h,     y,     [enter],     b,       n,        j }
 // { o, l,     i, [backspace],   [$],       m,        k }
-char defaultKeymap[COL_COUNT][ROW_COUNT] = {                                                                                  
+char defaultKeymap[ROW_COUNT][COL_COUNT] = {                                                                                  
     {LATIN_SMALL_LETTER_Q, LATIN_SMALL_LETTER_W, NULL, LATIN_SMALL_LETTER_A, NULL, NULL, NULL},                                          
     {LATIN_SMALL_LETTER_E, LATIN_SMALL_LETTER_S, LATIN_SMALL_LETTER_D, LATIN_SMALL_LETTER_P, LATIN_SMALL_LETTER_X, LATIN_SMALL_LETTER_Z, NULL},                     
     {LATIN_SMALL_LETTER_R, LATIN_SMALL_LETTER_G, LATIN_SMALL_LETTER_T, NULL, LATIN_SMALL_LETTER_V, LATIN_SMALL_LETTER_C, LATIN_SMALL_LETTER_F},                     
@@ -35,7 +35,7 @@ char defaultKeymap[COL_COUNT][ROW_COUNT] = {
 // { 3, /,     (,    [rshift],     ?,       9,        6 }
 // { _, :,     ),     [enter],     !,       ,,        ; }
 // { +, ",     -, [backspace],   [¢],       .,        ' }
-char symbolKeymap1[COL_COUNT][ROW_COUNT] = {                                                                                  
+char symbolKeymap1[ROW_COUNT][COL_COUNT] = {                                                                                  
     {NUMBER_SIGN, DIGIT_ONE, NULL, ASTERISK, NULL, NULL, DIGIT_ZERO},                                          
     {DIGIT_TWO, DIGIT_FOUR, DIGIT_FIVE, COMMERCIAL_AT, DIGIT_EIGHT, DIGIT_SEVEN, NULL},                                             
     {DIGIT_THREE, SOLIDUS, LEFT_PARENTHESIS, NULL, QUESTION_MARK, DIGIT_NINE, DIGIT_SIX},                        
@@ -48,7 +48,7 @@ char symbolKeymap1[COL_COUNT][ROW_COUNT] = {
 // { £, \,     {,    [rshift],     ¿,       ²,        ¬ }
 // { ^, ½,     },     [enter],     ¡,       ∩,        ¼ }
 // { >, »,     <, [backspace],   [₧],       ~,        « }
-char symbolKeymap2[COL_COUNT][ROW_COUNT] = {
+char symbolKeymap2[ROW_COUNT][COL_COUNT] = {
     {GRAVE_ACCENT, PERCENT_SIGN, NULL, FEMININE_ORDINAL_INDICATOR, NULL, NULL, NO_BREAK_SPACE},
     {AMPERSAND, MASCULINE_ORDINAL_INDICATOR, REVERSED_NOT_SIGN, EQUALS_SIGN, INFINITY, MICRO_SIGN, NULL},
     {POUND_SIGN, REVERSE_SOLIDUS, LEFT_CURLY_BRACKET, NULL, INVERTED_QUESTION_MARK, SUPERSCRIPT_TWO, NOT_SIGN},
@@ -61,7 +61,7 @@ char symbolKeymap2[COL_COUNT][ROW_COUNT] = {
 // { ¥,    √,     [,    [rshift],   NULL,       ⁿ,        · }
 // { ±,    \,     ],     [enter],   NULL,    NULL,        ƒ }
 // { ≥, NULL,     ≤, [backspace], [NULL],    NULL,     NULL }
-char symbolKeymap3[COL_COUNT][ROW_COUNT] = {
+char symbolKeymap3[ROW_COUNT][COL_COUNT] = {
     {TOP_HALF_INTEGRAL, BOTTOM_HALF_INTEGRAL, NULL, ALMOST_EQUAL_TO, NULL, NULL, NULL},
     {DIVISION_SIGN, DEGREE_SIGN, BULLET_OPERATOR, IDENTICAL_TO, NULL, NULL, NULL},
     {YEN_SIGN, SQUARE_ROOT, LEFT_SQUARE_BRACKET, NULL, NULL, SUPERSCRIPT_LATIN_SMALL_LETTER_N, MIDDLE_DOT},
@@ -74,7 +74,7 @@ char symbolKeymap3[COL_COUNT][ROW_COUNT] = {
 // { å, ë,     á,    [rshift],      Ñ,       ñ,        ê }
 // { Å, è,     Ä,     [enter],      ô,       ö,        É }
 // { Æ, î,     æ, [backspace], [NULL],       ò,        ï }
-char symbolKeymap4[COL_COUNT][ROW_COUNT] = {
+char symbolKeymap4[ROW_COUNT][COL_COUNT] = {
     {LATIN_SMALL_LETTER_A_WITH_CIRCUMFLEX, LATIN_SMALL_LETTER_A_WITH_DIAERESIS, NULL, LATIN_CAPITAL_LETTER_C_WITH_CEDILLA, NULL, NULL, NULL},
     {LATIN_SMALL_LETTER_A_WITH_GRAVE, LATIN_SMALL_LETTER_SHARP_S, LATIN_SMALL_LETTER_E_WITH_ACUTE, LATIN_SMALL_LETTER_C_WITH_CEDILLA, LATIN_SMALL_LETTER_I_WITH_ACUTE, LATIN_SMALL_LETTER_I_WITH_GRAVE, NULL},
     {LATIN_SMALL_LETTER_A_WITH_RING_ABOVE, LATIN_SMALL_LETTER_E_WITH_DIAERESIS, LATIN_SMALL_LETTER_A_WITH_ACUTE, NULL, LATIN_CAPITAL_LETTER_N_WITH_TILDE, LATIN_SMALL_LETTER_N_WITH_TILDE, LATIN_SMALL_LETTER_E_WITH_CIRCUMFLEX},
@@ -87,7 +87,7 @@ char symbolKeymap4[COL_COUNT][ROW_COUNT] = {
 // { û, Φ,     ù,    [rshift],   NULL,    NULL,        τ }
 // { ú, Θ,     Ü,     [enter],   NULL,    NULL,        Ω }
 // { α, φ,     ÿ, [backspace], [NULL],    NULL,        δ }
-char symbolKeymap5[COL_COUNT][ROW_COUNT] = {
+char symbolKeymap5[ROW_COUNT][COL_COUNT] = {
     {LATIN_CAPITAL_LETTER_O_WITH_DIAERESIS, LATIN_SMALL_LETTER_O_WITH_ACUTE, NULL, GREEK_SMALL_LETTER_PI, NULL, NULL, NULL},
     {LATIN_SMALL_LETTER_U_WITH_DIAERESIS, GREEK_CAPITAL_LETTER_SIGMA, GREEK_SMALL_LETTER_SIGMA, GREEK_CAPITAL_LETTER_GAMMA, NULL, GREEK_SMALL_LETTER_EPSILON, NULL},
     {LATIN_SMALL_LETTER_U_WITH_CIRCUMFLEX, GREEK_CAPITAL_LETTER_PHI, LATIN_SMALL_LETTER_U_WITH_GRAVE, NULL, NULL, NULL, GREEK_SMALL_LETTER_TAU},
@@ -100,7 +100,7 @@ char symbolKeymap5[COL_COUNT][ROW_COUNT] = {
 // { ╢, ┴,     ╖,    [rshift],     ╔,       ╚,        └ }
 // { ╣, ┬,     ╕,     [enter],     ╩,       ╦,        ├ }
 // { ╗, ┼,     ║, [backspace],   [═],       ╠,        ─ }
-char symbolKeymap6[COL_COUNT][ROW_COUNT] = {
+char symbolKeymap6[ROW_COUNT][COL_COUNT] = {
     {BOX_DRAWINGS_LIGHT_VERTICAL, BOX_DRAWINGS_LIGHT_VERTICAL_AND_LEFT, NULL, BOX_DRAWINGS_UP_SINGLE_AND_HORIZONTAL_DOUBLE, NULL, NULL, NULL},
     {BOX_DRAWINGS_VERTICAL_SINGLE_AND_LEFT_DOUBLE, BOX_DRAWINGS_UP_SINGLE_AND_HORIZONTAL_DOUBLE, BOX_DRAWINGS_LIGHT_DOWN_AND_LEFT, BOX_DRAWINGS_DOUBLE_UP_AND_LEFT, BOX_DRAWINGS_VERTICAL_DOUBLE_AND_RIGHT_SINGLE, BOX_DRAWINGS_VERTICAL_SINGLE_AND_RIGHT_DOUBLE, NULL},
     {BOX_DRAWINGS_VERTICAL_DOUBLE_AND_LEFT_SINGLE, BOX_DRAWINGS_LIGHT_UP_AND_HORIZONTAL, BOX_DRAWINGS_DOWN_DOUBLE_AND_LEFT_SINGLE, NULL, BOX_DRAWINGS_DOUBLE_DOWN_AND_RIGHT, BOX_DRAWINGS_DOUBLE_UP_AND_RIGHT, BOX_DRAWINGS_LIGHT_UP_AND_RIGHT},
@@ -114,7 +114,7 @@ char symbolKeymap6[COL_COUNT][ROW_COUNT] = {
 // { ╤, ▄,     ╥,    [rshift],   NUL,       ▓,        █ }
 // { ╘, ▌,     ╙,     [enter],   SOH,     STX,        ▐ }
 // { ╓, ■,     ╒, [backspace], [EOT],     ETX,        ▀ }
-char symbolKeymap7[COL_COUNT][ROW_COUNT] = {
+char symbolKeymap7[ROW_COUNT][COL_COUNT] = {
     {BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, NULL, BOX_DRAWINGS_VERTICAL_SINGLE_AND_HORIZONTAL_DOUBLE, NULL, NULL, NULL},
     {BOX_DRAWINGS_UP_DOUBLE_AND_HORIZONTAL_SINGLE, BOX_DRAWINGS_LIGHT_UP_AND_LEFT, BOX_DRAWINGS_LIGHT_DOWN_AND_RIGHT, BOX_DRAWINGS_VERTICAL_DOUBLE_AND_HORIZONTAL_SINGLE, LIGHT_SHADE, MEDIUM_SHADE, NULL},
     {BOX_DRAWINGS_DOWN_SINGLE_AND_HORIZONTAL_DOUBLE, LOWER_HALF_BLOCK, BOX_DRAWINGS_DOWN_DOUBLE_AND_HORIZONTAL_SINGLE, NULL, NULL, DARK_SHADE, FULL_BLOCK},
@@ -128,7 +128,7 @@ char symbolKeymap7[COL_COUNT][ROW_COUNT] = {
 // {  BS, DC3,   TAB,    [rshift],   ESC,     SUB,      DC2 }
 // {  VT, DC4,    LF,     [enter],    FS,      GS,      NAK }
 // {  CR, ETB,    FF, [backspace],  [US],      RS,      SYN }
-char symbolKeymap8[COL_COUNT][ROW_COUNT] = {
+char symbolKeymap8[ROW_COUNT][COL_COUNT] = {
     {ENQUIRY, ACKNOWLEDGE, NULL, SHIFT_IN, NULL, NULL, NULL},
     {BELL, DATA_LINK_ESCAPE, DEVICE_CONTROL_ONE, SHIFT_OUT, END_OF_MEDIUM, CANCEL, NULL},
     {BACKSPACE, DEVICE_CONTROL_THREE, HORIZONTAL_TABULATION, NULL, ESCAPE, SUBSTITUTE, DEVICE_CONTROL_TWO},
@@ -217,9 +217,9 @@ void setKeyboardBrightness(uint8_t command)
  * @param rowIndex The row index of the key.
  * @return true if the key was released, false otherwise.
  */
-bool keyReleased(int colIndex, int rowIndex)
+bool keyReleased(int rowIndex, int colIndex)
 {
-    return keyStates[colIndex][rowIndex] == RELEASED;
+    return keyStates[rowIndex][colIndex] == RELEASED;
 }
 
 /**
@@ -229,9 +229,9 @@ bool keyReleased(int colIndex, int rowIndex)
  * @param rowIndex The row index of the key.
  * @return true if the key is being held, false otherwise.
  */
-bool keyHeld(int colIndex, int rowIndex)
+bool keyHeld(int rowIndex, int colIndex)
 {
-    return keyStates[colIndex][rowIndex] == HELD;
+    return keyStates[rowIndex][colIndex] == HELD;
 }
 
 /**
@@ -241,9 +241,9 @@ bool keyHeld(int colIndex, int rowIndex)
  * @param rowIndex The row index of the key.
  * @return true if the key was pressed, false otherwise.
  */
-bool keyPressed(int colIndex, int rowIndex)
+bool keyPressed(int rowIndex, int colIndex)
 {
-    return keyStates[colIndex][rowIndex] == PRESSED;
+    return keyStates[rowIndex][colIndex] == PRESSED;
 }
 
 /**
@@ -253,9 +253,9 @@ bool keyPressed(int colIndex, int rowIndex)
  * @param rowIndex The row index of the key.
  * @return true if the key is not pressed, false otherwise.
  */
-bool keyNotPressed(int colIndex, int rowIndex)
+bool keyNotPressed(int rowIndex, int colIndex)
 {
-    return keyStates[colIndex][rowIndex] == NOT_PRESSED;
+    return keyStates[rowIndex][colIndex] == NOT_PRESSED;
 }
 
 /**
@@ -266,9 +266,9 @@ bool keyNotPressed(int colIndex, int rowIndex)
  * @param keymap The keymap to check.
  * @return true if the key exists in the keymap, false otherwise.
  */
-bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[COL_COUNT][ROW_COUNT])
+bool doesKeyExistInKeymap(int rowIndex, int colIndex, char keymap[ROW_COUNT][COL_COUNT])
 {
-    return keymap[colIndex][rowIndex] != NULL;
+    return keymap[rowIndex][colIndex] != NULL;
 }
 
 /**
@@ -310,7 +310,7 @@ void autoResetKeymapIndex()
  * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
  */
-void setDefaultCharacter(int colIndex, int rowIndex)
+void setDefaultCharacter(int rowIndex, int colIndex)
 {
     // modifiers, alt, ctrl, shift
     if (altLock || keyHeld(0, 4)) {
@@ -325,10 +325,10 @@ void setDefaultCharacter(int colIndex, int rowIndex)
     }
     // key value
     if (capsLock || keyHeld(1, 6)) {
-        keyInfo[0] = defaultKeymap[colIndex][rowIndex] - 32;
+        keyInfo[0] = defaultKeymap[rowIndex][colIndex] - 32;
     }
     else {
-        keyInfo[0] = defaultKeymap[colIndex][rowIndex];
+        keyInfo[0] = defaultKeymap[rowIndex][colIndex];
     }
 }
 
@@ -338,40 +338,45 @@ void setDefaultCharacter(int colIndex, int rowIndex)
  * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
  */
-void setSymbolCharacter(int colIndex, int rowIndex)
+void setSymbolCharacter(int rowIndex, int colIndex)
 {
-    if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap1)) {
-        keyInfo[0] = symbolKeymap1[colIndex][rowIndex];
+    if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap1)) {
+        keyInfo[0] = symbolKeymap1[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
     // symbol 2
-    else if (keymapIndex == 2 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap2)) {
-        keyInfo[0] = symbolKeymap2[colIndex][rowIndex];
+    else if (keymapIndex == 2 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap2)) {
+        keyInfo[0] = symbolKeymap2[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
     // symbol 3
-    else if (keymapIndex == 3 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap3)) {
-        keyInfo[0] = symbolKeymap3[colIndex][rowIndex];
+    else if (keymapIndex == 3 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap3)) {
+        keyInfo[0] = symbolKeymap3[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
     // symbol 4
-    else if (keymapIndex == 4 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap4)) {
-        keyInfo[0] = symbolKeymap4[colIndex][rowIndex];
+    else if (keymapIndex == 4 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap4)) {
+        keyInfo[0] = symbolKeymap4[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
     // symbol 5
-    else if (keymapIndex == 5 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap5)) {
-        keyInfo[0] = symbolKeymap5[colIndex][rowIndex];
+    else if (keymapIndex == 5 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap5)) {
+        keyInfo[0] = symbolKeymap5[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
     // symbol 6
-    else if (keymapIndex == 6 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap6)) {
-        keyInfo[0] = symbolKeymap6[colIndex][rowIndex];
+    else if (keymapIndex == 6 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap6)) {
+        keyInfo[0] = symbolKeymap6[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
     // symbol 7
-    else if (keymapIndex == 7 && doesKeyExistInKeymap(colIndex, rowIndex, symbolKeymap7)) {
-        keyInfo[0] = symbolKeymap7[colIndex][rowIndex];
+    else if (keymapIndex == 7 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap7)) {
+        keyInfo[0] = symbolKeymap7[rowIndex][colIndex];
+        autoResetKeymapIndex();
+    }
+    // symbol 8
+    else if (keymapIndex == 8 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap8)) {
+        keyInfo[0] = symbolKeymap8[rowIndex][colIndex];
         autoResetKeymapIndex();
     }
 }
@@ -382,45 +387,45 @@ void setSymbolCharacter(int colIndex, int rowIndex)
 void readKeyMatrix()
 {
     // iterate the columns
-    for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
+    for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
         // col: set to output to low
-        uint8_t curCol = cols[colIndex];
-        pinMode(curCol, OUTPUT);
-        digitalWrite(curCol, LOW);
+        uint8_t curRow = rows[rowIndex];
+        pinMode(curRow, OUTPUT);
+        digitalWrite(curRow, LOW);
 
         // row: iterate through the rows
-        for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
-            uint8_t rowCol = rows[rowIndex];
-            pinMode(rowCol, INPUT_PULLUP);
+        for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
+            uint8_t curCol = cols[colIndex];
+            pinMode(curCol, INPUT_PULLUP);
             delay(1); // arduino is not fast enough to switch input/output modes so wait 1 ms
 
-            bool buttonPressed = (digitalRead(rowCol) == LOW);
+            bool buttonPressed = (digitalRead(curCol) == LOW);
 
             // Debounce logic so keys don't trigger multiple times
-            if (buttonPressed != lastValue[colIndex][rowIndex]) {
+            if (buttonPressed != lastValue[rowIndex][colIndex]) {
                 delay(DEBOUNCE_DELAY); // Wait for debounce delay
-                buttonPressed = (digitalRead(rowCol) == LOW); // Read the button state again
+                buttonPressed = (digitalRead(curCol) == LOW); // Read the button state again
             }
 
             if (buttonPressed) {
-                if (keyNotPressed(colIndex, rowIndex) || keyReleased(colIndex, rowIndex)) {
-                    keyStates[colIndex][rowIndex] = PRESSED;
+                if (keyNotPressed(rowIndex, colIndex) || keyReleased(rowIndex, colIndex)) {
+                    keyStates[rowIndex][colIndex] = PRESSED;
                 } else {
-                    keyStates[colIndex][rowIndex] = HELD;
+                    keyStates[rowIndex][colIndex] = HELD;
                 }
             } else {
-                if (keyPressed(colIndex, rowIndex) || keyHeld(colIndex, rowIndex)) {
-                    keyStates[colIndex][rowIndex] = RELEASED;
+                if (keyPressed(rowIndex, colIndex) || keyHeld(rowIndex, colIndex)) {
+                    keyStates[rowIndex][colIndex] = RELEASED;
                 } else {
-                    keyStates[colIndex][rowIndex] = NOT_PRESSED;
+                    keyStates[rowIndex][colIndex] = NOT_PRESSED;
                 }
             }
 
-            lastValue[colIndex][rowIndex] = buttonPressed;
-            pinMode(rowCol, INPUT);
+            lastValue[rowIndex][colIndex] = buttonPressed;
+            pinMode(curCol, INPUT);
         }
         // disable the column
-        pinMode(curCol, INPUT);
+        pinMode(curRow, INPUT);
     }
 }
 
@@ -433,7 +438,7 @@ void sendKeyInfo()
     for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
         for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
             // any key released
-            if (keyPressed(colIndex, rowIndex)) {
+            if (keyPressed(rowIndex, colIndex)) {
                 keyRepeatStart = millis(); // Set the keyRepeatStart to the current time
                 // enter
                 if (keyPressed(3, 3)) {
@@ -586,23 +591,23 @@ void sendKeyInfo()
                     }
                 }
                 // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock
-                else if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
-                    setDefaultCharacter(colIndex, rowIndex);
+                else if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
+                    setDefaultCharacter(rowIndex, colIndex);
                 }
                 // symbol 1
                 else if (keymapIndex > MIN_KEYMAP_INDEX) {
-                    setSymbolCharacter(colIndex, rowIndex);
+                    setSymbolCharacter(rowIndex, colIndex);
                 }
             }
             // any printable key held
-            else if (keyHeld(colIndex, rowIndex) && (millis() - keyRepeatStart > KEY_REPEAT_DELAY)) {
+            else if (keyHeld(rowIndex, colIndex) && (millis() - keyRepeatStart > KEY_REPEAT_DELAY)) {
                 // a-z key
-                if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(colIndex, rowIndex, defaultKeymap)) {
-                    setDefaultCharacter(colIndex, rowIndex);
+                if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
+                    setDefaultCharacter(rowIndex, colIndex);
                 }
                 // symbol 1
                 else if (keymapIndex > MIN_KEYMAP_INDEX) {
-                    setSymbolCharacter(colIndex, rowIndex);
+                    setSymbolCharacter(rowIndex, colIndex);
                 }
             }
         }

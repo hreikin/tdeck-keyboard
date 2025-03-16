@@ -29,9 +29,9 @@
 #define DEBOUNCE_DELAY                      50    // 50 milliseconds debounce delay
 #define KEY_REPEAT_DELAY                    100   // 100 milliseconds key repeat delay, should this be larger ?
 #define MIN_KEYMAP_INDEX                    0
-#define MAX_KEYMAP_INDEX                    3     // TODO: change this when more keymaps are added
-#define COL_COUNT                           5
-#define ROW_COUNT                           7
+#define MAX_KEYMAP_INDEX                    8     // TODO: change this when more keymaps are added
+#define COL_COUNT                           7
+#define ROW_COUNT                           5
 #define KEY_INFO_SIZE                       6
 
 enum KeyState {
@@ -45,16 +45,16 @@ extern unsigned long keyRepeatStart;
 extern uint8_t currentBrightness;
 extern uint8_t rows[];
 extern uint8_t cols[];
-extern bool lastValue[COL_COUNT][ROW_COUNT];
-extern char defaultKeymap[COL_COUNT][ROW_COUNT];
-extern char symbolKeymap1[COL_COUNT][ROW_COUNT];
-extern char symbolKeymap2[COL_COUNT][ROW_COUNT];
-extern char symbolKeymap3[COL_COUNT][ROW_COUNT];
-extern char symbolKeymap4[COL_COUNT][ROW_COUNT];
-extern char symbolKeymap5[COL_COUNT][ROW_COUNT];
-extern char symbolKeymap6[COL_COUNT][ROW_COUNT];
-extern char symbolKeymap7[COL_COUNT][ROW_COUNT];
-extern KeyState keyStates[COL_COUNT][ROW_COUNT];
+extern bool lastValue[ROW_COUNT][COL_COUNT];
+extern char defaultKeymap[ROW_COUNT][COL_COUNT];
+extern char symbolKeymap1[ROW_COUNT][COL_COUNT];
+extern char symbolKeymap2[ROW_COUNT][COL_COUNT];
+extern char symbolKeymap3[ROW_COUNT][COL_COUNT];
+extern char symbolKeymap4[ROW_COUNT][COL_COUNT];
+extern char symbolKeymap5[ROW_COUNT][COL_COUNT];
+extern char symbolKeymap6[ROW_COUNT][COL_COUNT];
+extern char symbolKeymap7[ROW_COUNT][COL_COUNT];
+extern KeyState keyStates[ROW_COUNT][COL_COUNT];
 extern uint8_t keymapIndex;
 extern bool altLock;
 extern bool ctrlLock;
@@ -78,7 +78,7 @@ void onRequest();
  * @param rowIndex The row index of the key.
  * @return true if the key was released, false otherwise.
  */
-bool keyReleased(int colIndex, int rowIndex);
+bool keyReleased(int rowIndex, int colIndex);
 
 /**
  * @brief Checks if a key is being held.
@@ -87,7 +87,7 @@ bool keyReleased(int colIndex, int rowIndex);
  * @param rowIndex The row index of the key.
  * @return true if the key is being held, false otherwise.
  */
-bool keyHeld(int colIndex, int rowIndex);
+bool keyHeld(int rowIndex, int colIndex);
 
 /**
  * @brief Checks if a key was pressed.
@@ -96,7 +96,7 @@ bool keyHeld(int colIndex, int rowIndex);
  * @param rowIndex The row index of the key.
  * @return true if the key was pressed, false otherwise.
  */
-bool keyPressed(int colIndex, int rowIndex);
+bool keyPressed(int rowIndex, int colIndex);
 
 /**
  * @brief Checks if a key is not pressed.
@@ -105,7 +105,7 @@ bool keyPressed(int colIndex, int rowIndex);
  * @param rowIndex The row index of the key.
  * @return true if the key is not pressed, false otherwise.
  */
-bool keyNotPressed(int colIndex, int rowIndex);
+bool keyNotPressed(int rowIndex, int colIndex);
 
 /**
  * @brief Checks if a key exists in the keymap.
@@ -115,7 +115,7 @@ bool keyNotPressed(int colIndex, int rowIndex);
  * @param keymap The keymap to check.
  * @return true if the key exists in the keymap, false otherwise.
  */
-bool doesKeyExistInKeymap(int colIndex, int rowIndex, char keymap[COL_COUNT][ROW_COUNT]);
+bool doesKeyExistInKeymap(int rowIndex, int colIndex, char keymap[ROW_COUNT][COL_COUNT]);
 
 /**
  * @brief Prints the key information.
@@ -152,7 +152,7 @@ void autoResetKeymapIndex();
  * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
  */
-void setDefaultCharacter(int colIndex, int rowIndex);
+void setDefaultCharacter(int rowIndex, int colIndex);
 
 /**
  * @brief Sets keyInfo to the correct character for a specific key, from the symbol keymaps only.
@@ -160,6 +160,6 @@ void setDefaultCharacter(int colIndex, int rowIndex);
  * @param colIndex The column index of the key.
  * @param rowIndex The row index of the key.
  */
-void setSymbolCharacter(int colIndex, int rowIndex);
+void setSymbolCharacter(int rowIndex, int colIndex);
 
 #endif // KEYBOARD_HPP
