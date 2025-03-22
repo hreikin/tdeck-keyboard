@@ -124,7 +124,7 @@ void printKeyInfo(uint8_t data[KEY_INFO_SIZE]);
 
 /**
  * @brief Checks if a key was released.
- * 
+ *
  * @param rowIndex The row index of the key.
  * @param colIndex The column index of the key.
  * @return true if the key was released, false otherwise.
@@ -133,7 +133,7 @@ bool keyReleased(int rowIndex, int colIndex);
 
 /**
  * @brief Checks if a key is being held.
- * 
+ *
  * @param rowIndex The row index of the key.
  * @param colIndex The column index of the key.
  * @return true if the key is being held, false otherwise.
@@ -142,7 +142,7 @@ bool keyHeld(int rowIndex, int colIndex);
 
 /**
  * @brief Checks if a key was pressed.
- * 
+ *
  * @param rowIndex The row index of the key.
  * @param colIndex The column index of the key.
  * @return true if the key was pressed, false otherwise.
@@ -151,7 +151,7 @@ bool keyPressed(int rowIndex, int colIndex);
 
 /**
  * @brief Checks if a key is not pressed.
- * 
+ *
  * @param rowIndex The row index of the key.
  * @param colIndex The column index of the key.
  * @return true if the key is not pressed, false otherwise.
