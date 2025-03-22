@@ -85,13 +85,28 @@ void setKeyboardBrightness(int command)
     ledcWrite(KEYBOARD_BRIGHTNESS_CH, currentBrightness);
 }
 
-/**
- * @brief Checks if a key was released.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- * @return true if the key was released, false otherwise.
- */
+void printKeyInfo(uint8_t data[KEY_INFO_SIZE])
+{
+    // print all the keyInfo array values
+    Serial.print("modifier masks: ");
+    Serial.println(data[0]);
+    Serial.print("reserved byte: ");
+    Serial.println(data[1]);
+    Serial.print("keycode 1: ");
+    Serial.println(data[2]);
+    Serial.print("keycode 2: ");
+    Serial.println(data[3]);
+    Serial.print("keycode 3: ");
+    Serial.println(data[4]);
+    Serial.print("keycode 4: ");
+    Serial.println(data[5]);
+    Serial.print("keycode 5: ");
+    Serial.println(data[6]);
+    Serial.print("keycode 6: ");
+    Serial.println(data[7]);
+    Serial.println("************************************");
+}
+
 bool keyReleased(int rowIndex, int colIndex)
 {
     return keyStates[rowIndex][colIndex] == RELEASED;
