@@ -29,7 +29,8 @@ void setup()
     setCpuFrequencyMhz(80);
     Serial.begin(115200);
     Serial.setDebugOutput(true);
-    Wire.onRequest(onRequest);
+    Wire.onRequest(sendKeyInfo);
+    Wire.onReceive(setKeyboardBrightness);
     Wire.begin((uint8_t)I2C_DEV_ADDR, SDA, SCL, 100000UL);
     Serial.println("Starting keyboard work!");
     ledcSetup(KEYBOARD_BRIGHTNESS_CH, KEYBOARD_BRIGHTNESS_FREQ, KEYBOARD_BRIGHTNESS_RES);
