@@ -176,40 +176,4 @@ void readKeyMatrix();
  */
 void sendKeyInfo();
 
-/**
- * @brief Sets the keyboard backlight brightness.
- * 
- * @param command The command to set the brightness (toggle, up, down).
- */
-void setKeyboardBrightness(uint8_t command);
-
-/**
- * @brief Handles resetting the keymap index.
- */
-void autoResetKeymapIndex();
-
-/**
- * @brief Sets keyInfo to the correct character for a specific key, from the default keymap only.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- */
-void setDefaultCharacter(int rowIndex, int colIndex);
-
-/**
- * @brief Sets keyInfo to the correct character for a specific key, from the symbol keymaps only.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- */
-void setSymbolCharacter(int rowIndex, int colIndex);
-
-/**
- * @brief Handles the character for a specific key.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- */
-void handleCharacter(int rowIndex, int colIndex);
-
 #endif // KEYBOARD_HPP
