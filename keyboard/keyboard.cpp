@@ -7,19 +7,30 @@
  * @date      2025-03-07
  */
 #include "keyboard.hpp"
-#include "keys.hpp"
 
+unsigned long keyRepeatStart = 0;
+bool backlightState = true;
+bool sendFlag = false;
+uint8_t modifierState = EMPTY;
+uint8_t currentBrightness = KEYBOARD_BRIGHTNESS_DEFAULT; // Default brightness level
 uint8_t rows[] = {1, 4, 5, 11, 13};
 uint8_t cols[] = {0, 3, 19, 12, 18, 6, 7};
-
+uint8_t keyInfo[KEY_INFO_SIZE] = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY};   // modifier masks, reserved byte, keycode 1, keycode 2, keycode 3, keycode 4, keycode 5, keycode 6
+uint8_t emptyData[KEY_INFO_SIZE] = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY}; // empty array to send when no key is pressed, also used to reset the keyInfo array
 bool lastValue[ROW_COUNT][COL_COUNT];
 KeyState keyStates[ROW_COUNT][COL_COUNT];
-// Keys wrapped in square brackets require special handling
-// default column in functionality.md
 // { q, w, [sym],           a, [alt], [space],    [mic] }
 // { e, s,     d,           p,     x,       z, [lshift] }
 // { r, g,     t,    [rshift],     v,       c,        f }
 // { u, h,     y,     [enter],     b,       n,        j }
+// { o, l,     i, [backspace],     $,       m,        k }
+char defaultKeymap[ROW_COUNT][COL_COUNT] = {
+    {KEY_Q, KEY_W, MODIFIER_SYM, KEY_A, MODIFIER_ALT, KEY_SPACE, KEY_MIC},
+    {KEY_E, KEY_S, KEY_D, KEY_P, KEY_X, KEY_Z, MODIFIER_SHIFT},
+    {KEY_R, KEY_G, KEY_T, MODIFIER_CTRL, KEY_V, KEY_C, KEY_F},
+    {KEY_U, KEY_H, KEY_Y, KEY_ENTER, KEY_B, KEY_N, KEY_J},
+    {KEY_O, KEY_L, KEY_I, KEY_BACKSPACE, KEY_DOLLAR_SIGN, KEY_M, KEY_K}};
+
 void setKeyboardBrightness(int command)
 {
     if (command == FUNCTION_TOGGLE)
