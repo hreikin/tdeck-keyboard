@@ -254,11 +254,18 @@ void readKeyMatrix()
         sendFlag = true;
     }
 }
+
+void sendKeyInfo()
+{
+    if (sendFlag)
+    {
+        Wire.write(keyInfo, KEY_INFO_SIZE);
+        sendFlag = false;
         printKeyInfo(keyInfo);
-        sendDataFlag = true;
     }
-    // if the sendDataFlag is true then copy the keyInfo array to the sendData array which gets sent by the onRequest function
-    if (sendDataFlag) {
-        memcpy(sendData, keyInfo, KEY_INFO_SIZE);
+    else
+    {
+        Wire.write(emptyData, KEY_INFO_SIZE); // Use the temporary array or do nothing ?
     }
+    memcpy(keyInfo, emptyData, KEY_INFO_SIZE); // clear the keyInfo array
 }
