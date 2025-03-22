@@ -87,6 +87,9 @@
 #define KEY_X 0x1b           // Keyboard x and X
 #define KEY_Y 0x1c           // Keyboard y and Y
 #define KEY_Z 0x1d           // Keyboard z and Z
+
+enum KeyState
+{
     NOT_PRESSED,
     PRESSED,
     HELD,
@@ -94,9 +97,14 @@
 };
 
 extern unsigned long keyRepeatStart;
+extern bool backlightState;
+extern bool sendFlag;
+extern uint8_t modifierState;
 extern uint8_t currentBrightness;
-extern uint8_t rows[];
-extern uint8_t cols[];
+extern uint8_t rows[ROW_COUNT];
+extern uint8_t cols[COL_COUNT];
+extern uint8_t keyInfo[KEY_INFO_SIZE];   // modifier masks, reserved byte, keycode 1, keycode 2, keycode 3, keycode 4, keycode 5, keycode 6
+extern uint8_t emptyData[KEY_INFO_SIZE]; // empty array to send when no key is pressed, also used to reset the keyInfo array
 extern bool lastValue[ROW_COUNT][COL_COUNT];
 extern char defaultKeymap[ROW_COUNT][COL_COUNT];
 extern char symbolKeymap1[ROW_COUNT][COL_COUNT];
