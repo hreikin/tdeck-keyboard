@@ -16,10 +16,10 @@
 #define BOARD_POWERON 10
 #define BOARD_I2C_SDA 18
 #define BOARD_I2C_SCL 8
+#define KEY_INFO_SIZE 8
+#define EMPTY 0x00
 
-#define KEY_INFO_SIZE 7
-
-uint8_t keyInfo[KEY_INFO_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; // key_value, alt, ctrl, shift, sym, mic, speaker
+uint8_t keyInfo[KEY_INFO_SIZE] = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY}; // modifier masks, reserved byte, keycode 1, keycode 2, keycode 3, keycode 4, keycode 5, keycode 6
 
 /**
  * @brief Setup function to initialize serial communication, power on the board, and check the keyboard.
