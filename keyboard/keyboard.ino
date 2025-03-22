@@ -7,7 +7,7 @@
  * @date      2025-03-07
  */
 
-#define CONFIG_IDF_TARGET_ESP32C3       // This can be removed if using esp.idf and setting a build flag instead
+#define CONFIG_IDF_TARGET_ESP32C3 // This can be removed if using esp.idf and setting a build flag instead
 
 #ifdef CONFIG_IDF_TARGET_ESP32C3
 #include <Arduino.h>
@@ -16,16 +16,16 @@
 
 /**
  * @brief Initializes the keyboard.
- * 
+ *
  * Sets up the CPU frequency, serial communication, I2C communication, and keyboard backlight.
  */
 void setup()
 {
     // Reduce operating power consumption arduino esp32 core version must >= 2.0.17
     /*
-    * 10MHZ can also run normally, but for stable operation, change the frequency to 80MHZ to prevent it from failing to run due to crystal oscillator problems
-    * setCpuFrequencyMhz(10);
-    * */
+     * 10MHZ can also run normally, but for stable operation, change the frequency to 80MHZ to prevent it from failing to run due to crystal oscillator problems
+     * setCpuFrequencyMhz(10);
+     * */
     setCpuFrequencyMhz(80);
     Serial.begin(115200);
     Serial.setDebugOutput(true);
@@ -37,12 +37,16 @@ void setup()
     ledcAttachPin(KEYBOARD_BACKLIGHT_PIN, KEYBOARD_BRIGHTNESS_CH);
     ledcWrite(KEYBOARD_BRIGHTNESS_CH, KEYBOARD_BRIGHTNESS_DEFAULT);
     Serial.println("************************************");
-    for (int x = 0; x < ROW_COUNT; x++) {
-        Serial.print(rows[x]); Serial.println(" as input-pullup");
+    for (int x = 0; x < ROW_COUNT; x++)
+    {
+        Serial.print(rows[x]);
+        Serial.println(" as input-pullup");
         pinMode(rows[x], INPUT);
     }
-    for (int x = 0; x < COL_COUNT; x++) {
-        Serial.print(cols[x]); Serial.println(" as input");
+    for (int x = 0; x < COL_COUNT; x++)
+    {
+        Serial.print(cols[x]);
+        Serial.println(" as input");
         pinMode(cols[x], INPUT_PULLUP);
     }
     Serial.println("************************************");
@@ -50,7 +54,7 @@ void setup()
 
 /**
  * @brief Reads the key matrix and sends key information.
- * 
+ *
  * These functions are called repeatedly in the main loop to read the state of the key matrix
  * and send the key information over I2C.
  */
