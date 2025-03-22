@@ -112,203 +112,72 @@ bool keyReleased(int rowIndex, int colIndex)
     return keyStates[rowIndex][colIndex] == RELEASED;
 }
 
-/**
- * @brief Checks if a key is being held.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- * @return true if the key is being held, false otherwise.
- */
 bool keyHeld(int rowIndex, int colIndex)
 {
     return keyStates[rowIndex][colIndex] == HELD;
 }
 
-/**
- * @brief Checks if a key was pressed.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- * @return true if the key was pressed, false otherwise.
- */
 bool keyPressed(int rowIndex, int colIndex)
 {
     return keyStates[rowIndex][colIndex] == PRESSED;
 }
 
-/**
- * @brief Checks if a key is not pressed.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- * @return true if the key is not pressed, false otherwise.
- */
 bool keyNotPressed(int rowIndex, int colIndex)
 {
     return keyStates[rowIndex][colIndex] == NOT_PRESSED;
 }
 
-/**
- * @brief Checks if a key exists in the keymap.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- * @param keymap The keymap to check.
- * @return true if the key exists in the keymap, false otherwise.
- */
-bool doesKeyExistInKeymap(int rowIndex, int colIndex, char keymap[ROW_COUNT][COL_COUNT])
+void keyDownEvent(int rowIndex, int colIndex)
 {
-    return keymap[rowIndex][colIndex] != NULL;
-}
-
-/**
- * @brief Prints the key information.
- * 
- * @param data The key data array.
- */
-void printKeyInfo(uint8_t data[KEY_INFO_SIZE])
-{
-    // print all the keyInfo array values
-    Serial.print("char: ");
-    Serial.println(data[0]);
-    Serial.print("alt: ");
-    Serial.println(data[1]);
-    Serial.print("ctrl: ");
-    Serial.println(data[2]);
-    Serial.print("shift: ");
-    Serial.println(data[3]);
-    Serial.print("sym: ");
-    Serial.println(data[4]);
-    Serial.print("mic: ");
-    Serial.println(data[5]);
-    Serial.print("speaker: ");
-    Serial.println(data[6]);
-    Serial.println("************************************");
-}
-
-/**
- * @brief Handles resetting the keymap index.
- */
-void autoResetKeymapIndex()
-{
-    if (symbolLock == false) {
-        keymapIndex = MIN_KEYMAP_INDEX;
+    if (rowIndex == CTRL_ROW && colIndex == CTRL_COL)
+    {
+        keyInfo[0] |= MODIFIER_CTRL;
     }
-}
-
-/**
- * @brief Sets the default character for a key.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- */
-void setDefaultCharacter(int rowIndex, int colIndex)
-{
-    // modifiers, alt, ctrl, shift
-    if (altLock || keyHeld(0, 4)) {
-        keyInfo[1] = true;
+    else if (rowIndex == SHIFT_ROW && colIndex == SHIFT_COL)
+    {
+        keyInfo[0] |= MODIFIER_SHIFT;
     }
-    if (ctrlLock || keyHeld(2, 3)) {
-        keyInfo[2] = true;
+    else if (rowIndex == ALT_ROW && colIndex == ALT_COL)
+    {
+        keyInfo[0] |= MODIFIER_ALT;
     }
-    // shift is not applied when caps lock is on unlike the others, this is intended so the host can differentiate between the two
-    if (keyHeld(1, 6)) {
-        keyInfo[3] = true;
+    else if (rowIndex == SYM_ROW && colIndex == SYM_COL)
+    {
+        keyInfo[0] |= MODIFIER_SYM;
     }
-    // key value
-    if (capsLock || keyHeld(1, 6)) {
-        keyInfo[0] = defaultKeymap[rowIndex][colIndex] - 32;
-    }
-    else {
-        keyInfo[0] = defaultKeymap[rowIndex][colIndex];
-    }
-}
-
-/**
- * @brief Sets the symbol character for a key.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- */
-void setSymbolCharacter(int rowIndex, int colIndex)
-{
-    // symbol 1
-    if ((keymapIndex == 1 || keyHeld(0, 2)) && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap1)) {
-        keyInfo[0] = symbolKeymap1[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // symbol 2
-    else if (keymapIndex == 2 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap2)) {
-        keyInfo[0] = symbolKeymap2[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // symbol 3
-    else if (keymapIndex == 3 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap3)) {
-        keyInfo[0] = symbolKeymap3[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // symbol 4
-    else if (keymapIndex == 4 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap4)) {
-        keyInfo[0] = symbolKeymap4[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // symbol 5
-    else if (keymapIndex == 5 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap5)) {
-        keyInfo[0] = symbolKeymap5[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // symbol 6
-    else if (keymapIndex == 6 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap6)) {
-        keyInfo[0] = symbolKeymap6[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // symbol 7
-    else if (keymapIndex == 7 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap7)) {
-        keyInfo[0] = symbolKeymap7[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // symbol 7 special handling for NUL character
-    else if (keymapIndex == 7 && (keyHeld(2, 4) || keyPressed(2, 4))) {
-        keyInfo[0] = symbolKeymap7[rowIndex][colIndex];
-        autoResetKeymapIndex();
-        keyInfo[4] = true;  // set the symbol flag if it is the NUL character (not NULL from an empty space)
-    }
-    // symbol 8
-    else if (keymapIndex == 8 && doesKeyExistInKeymap(rowIndex, colIndex, symbolKeymap8)) {
-        keyInfo[0] = symbolKeymap8[rowIndex][colIndex];
-        autoResetKeymapIndex();
-    }
-    // set the symbol flag if the character isnt NULL (special handling above for NUL character)
-    if (keyInfo[0] != NULL) {
-        keyInfo[4] = true;
-    }
-}
-
-/**
- * @brief Handles the character for a specific key.
- * 
- * @param rowIndex The row index of the key.
- * @param colIndex The column index of the key.
- */
-void handleCharacter(int rowIndex, int colIndex) {
-    // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock, symbol (held)
-    if ((keymapIndex == MIN_KEYMAP_INDEX || altLock || keyHeld(0, 4) || ctrlLock || keyHeld(2, 3) || capsLock || keyHeld(1, 6) || keyHeld(0, 2)) && doesKeyExistInKeymap(rowIndex, colIndex, defaultKeymap)) {
-        if (keyHeld(0, 2)) {
-            setSymbolCharacter(rowIndex, colIndex);
+    else
+    {
+        // TODO: implement logic to maintain order of key presses ?
+        // handle key overflow by filling all spaces with an error value (except modifier mask and reserved byte)
+        if (keyInfo[KEY_INFO_SIZE - 1] != EMPTY)
+        {
+            for (int i = 2; i < KEY_INFO_SIZE; i++)
+            {
+                // set all keycodes to an error value
+                keyInfo[i] = ERROR;
+            }
         }
-        else {
-            setDefaultCharacter(rowIndex, colIndex);
+        else
+        {
+            // set the keycode in the keyInfo array
+            for (int i = 2; i < KEY_INFO_SIZE; i++)
+            {
+                // if the keycode is already set then break the loop
+                if (keyInfo[i] == defaultKeymap[rowIndex][colIndex])
+                {
+                    break;
+                }
+                // find the first empty space in the keyInfo array and set the keycode then break the loop
+                else if (keyInfo[i] == EMPTY)
+                {
+                    keyInfo[i] = defaultKeymap[rowIndex][colIndex];
+                    break;
+                }
+            }
         }
     }
-    // symbol
-    else if (keymapIndex > MIN_KEYMAP_INDEX) {
-        setSymbolCharacter(rowIndex, colIndex);
-    }
 }
 
-/**
- * @brief Reads the key matrix and updates the key states.
- */
 void readKeyMatrix()
 {
     // iterate the columns
