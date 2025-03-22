@@ -159,14 +159,12 @@ bool keyPressed(int rowIndex, int colIndex);
 bool keyNotPressed(int rowIndex, int colIndex);
 
 /**
- * @brief Checks if a key exists in the keymap.
- * 
+ * @brief Sets the modifiers and keycodes in the keyInfo array.
+ *
  * @param rowIndex The row index of the key.
  * @param colIndex The column index of the key.
- * @param keymap The keymap to check.
- * @return true if the key exists in the keymap, false otherwise.
  */
-bool doesKeyExistInKeymap(int rowIndex, int colIndex, char keymap[ROW_COUNT][COL_COUNT]);
+void keyDownEvent(int rowIndex, int colIndex);
 
 /**
  * @brief Prints the key information.
