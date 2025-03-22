@@ -180,224 +180,80 @@ void keyDownEvent(int rowIndex, int colIndex)
 
 void readKeyMatrix()
 {
+    // update the states of the keys
     // iterate the columns
-    for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
+    for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++)
+    {
         // col: set to output to low
         uint8_t curRow = rows[rowIndex];
         pinMode(curRow, OUTPUT);
         digitalWrite(curRow, LOW);
-
         // row: iterate through the rows
-        for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
+        for (int colIndex = 0; colIndex < COL_COUNT; colIndex++)
+        {
             uint8_t curCol = cols[colIndex];
             pinMode(curCol, INPUT_PULLUP);
-            delay(1); // arduino is not fast enough to switch input/output modes so wait 1 ms
-
             bool buttonPressed = (digitalRead(curCol) == LOW);
-
             // Debounce logic so keys don't trigger multiple times
-            if (buttonPressed != lastValue[rowIndex][colIndex]) {
-                delay(DEBOUNCE_DELAY); // Wait for debounce delay
+            if (buttonPressed != lastValue[rowIndex][colIndex])
+            {
+                delay(DEBOUNCE_DELAY);                        // Wait for debounce delay
                 buttonPressed = (digitalRead(curCol) == LOW); // Read the button state again
             }
-
-            if (buttonPressed) {
-                if (keyNotPressed(rowIndex, colIndex) || keyReleased(rowIndex, colIndex)) {
+            if (buttonPressed)
+            {
+                if (keyNotPressed(rowIndex, colIndex) || keyReleased(rowIndex, colIndex))
+                {
                     keyStates[rowIndex][colIndex] = PRESSED;
-                } else {
+                }
+                else
+                {
                     keyStates[rowIndex][colIndex] = HELD;
                 }
-            } else {
-                if (keyPressed(rowIndex, colIndex) || keyHeld(rowIndex, colIndex)) {
+            }
+            else
+            {
+                if (keyPressed(rowIndex, colIndex) || keyHeld(rowIndex, colIndex))
+                {
                     keyStates[rowIndex][colIndex] = RELEASED;
-                } else {
+                }
+                else
+                {
                     keyStates[rowIndex][colIndex] = NOT_PRESSED;
                 }
             }
-
             lastValue[rowIndex][colIndex] = buttonPressed;
             pinMode(curCol, INPUT);
         }
         // disable the column
         pinMode(curRow, INPUT);
     }
-}
-
-/**
- * @brief Sends the key information over I2C.
- */
-void sendKeyInfo()
-{
-    memcpy(keyInfo, emptyData, KEY_INFO_SIZE); // clear the keyInfo array
-    for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++) {
-        for (int colIndex = 0; colIndex < COL_COUNT; colIndex++) {
-            // any key released
-            if (keyPressed(rowIndex, colIndex)) {
-                keyRepeatStart = millis(); // Set the keyRepeatStart to the current time
-                // enter
-                if (keyPressed(3, 3)) {
-                    // backlight down (alt + enter)
-                    if (keyHeld(0, 4)) {
-                        setKeyboardBrightness(FUNCTION_DOWN);
-                    }
-                    // tab (lshift + enter)
-                    else if (keyHeld(1, 6)) {
-                        keyInfo[0] = HORIZONTAL_TABULATION;
-                    }
-                    // cycle symbol backward (sym + enter)
-                    else if (keyHeld(0, 2)) {
-                        if (keymapIndex == MIN_KEYMAP_INDEX) {
-                            keymapIndex = MAX_KEYMAP_INDEX;
-                        }
-                        else {
-                            keymapIndex--;
-                        }
-                    }
-                    // enter
-                    else {
-                        keyInfo[0] = CARRIAGE_RETURN;
-                    }
-                }
-                // space
-                else if (keyPressed(0, 5)) {
-                    // alt lock (alt + space)
-                    if (keyHeld(0, 4)) {
-                        altLock = !altLock;
-                    }
-                    // ctrl lock (rshift + space)
-                    else if (keyHeld(2, 3)) {
-                        ctrlLock = !ctrlLock;
-                    }
-                    // caps lock (lshift + space)
-                    else if (keyHeld(1, 6)) {
-                        capsLock = !capsLock;
-                    }
-                    // symbol lock (sym + space)
-                    else if (keyHeld(0, 2)) {
-                        symbolLock = !symbolLock;
-                        if (keymapIndex > MIN_KEYMAP_INDEX && symbolLock == false) {
-                            keymapIndex = MIN_KEYMAP_INDEX;
-                        }
-                    }
-                    // space
-                    else {
-                        keyInfo[0] = 0x20;
-                    }
-                }
-                // backspace
-                else if (keyPressed(4, 3)) {
-                    // backlight up (alt + backspace)
-                    if (keyHeld(0, 4)) {
-                        setKeyboardBrightness(FUNCTION_UP);
-                    }
-                    // del (lshift + backspace)
-                    else if (keyHeld(1, 6)) {
-                        keyInfo[0] = 0x7F;
-                    }
-                    // cycle symbol forward (sym + backspace)
-                    else if (keyHeld(0, 2)) {
-                        keymapIndex++;
-                        if (keymapIndex > MAX_KEYMAP_INDEX) {
-                            keymapIndex = MIN_KEYMAP_INDEX;
-                            symbolLock = false;  // reset symbol lock when all symbol keymaps have been cycled through
-                        }
-                    }
-                    // backspace
-                    else {
-                        keyInfo[0] = BACKSPACE;
-                    }
-                }
-                // mic/0
-                else if (keyPressed(0, 6)) {
-                    // mic toggle (alt + mic)
-                    if (keyHeld(0, 4)) {
-                        keyInfo[0] = FUNCTION_TOGGLE;
-                        keyInfo[5] = true;
-                    }
-                    // mic volume down (lshift + mic)
-                    else if (keyHeld(1, 6)) {
-                        keyInfo[0] = FUNCTION_DOWN;
-                        keyInfo[5] = true;
-                    }
-                    // mic volume up (rshift + mic)
-                    else if (keyHeld(2, 3)) {
-                        keyInfo[0] = FUNCTION_UP;
-                        keyInfo[5] = true;
-                    }
-                    // the below items are contained within the keymaps but appear here as well due to key combination usage
-                    // 0
-                    else if (keymapIndex == 1) {
-                        keyInfo[0] = DIGIT_ZERO;
-                    }
-                    // nbsp
-                    else if (keymapIndex == 2) {
-                        keyInfo[0] = NO_BREAK_SPACE;
-                    }
-                }
-                // $/speaker
-                else if (keyPressed(4, 4)) {
-                    // speaker toggle (alt + $)
-                    if (keyHeld(0, 4)) {
-                        keyInfo[0] = FUNCTION_TOGGLE;
-                        keyInfo[6] = true;
-                    }
-                    // speaker volume down (lshift + $)
-                    else if (keyHeld(1, 6)) {
-                        keyInfo[0] = FUNCTION_DOWN;
-                        keyInfo[6] = true;
-                    }
-                    // speaker volume up (rshift + $)
-                    else if (keyHeld(2, 3)) {
-                        keyInfo[0] = FUNCTION_UP;
-                        keyInfo[6] = true;
-                    }
-                    // the below items are contained within the keymaps but appear here as well due to key combination usage
-                    // $
-                    else if (keymapIndex == 0) {
-                        keyInfo[0] = DOLLAR_SIGN;
-                    }
-                    // ¢
-                    else if (keymapIndex == 1) {
-                        keyInfo[0] = CENT_SIGN;
-                    }
-                    // ₧
-                    else if (keymapIndex == 2) {
-                        keyInfo[0] = PESETA_SIGN;
-                    }
-                    // ═
-                    else if (keymapIndex == 6) {
-                        keyInfo[0] = BOX_DRAWINGS_DOUBLE_HORIZONTAL;
-                    }
-                    // EOT
-                    else if (keymapIndex == 7) {
-                        keyInfo[0] = END_OF_TRANSMISSION;
-                    }
-                    // US
-                    else if (keymapIndex == 8) {
-                        keyInfo[0] = UNIT_SEPARATOR;
-                    }
-                }
-                // rshift
-                else if (keyPressed(2, 3)) {
-                    // backlight toggle (alt + rshift)
-                    if (keyHeld(0, 4)) {
-                        setKeyboardBrightness(FUNCTION_TOGGLE);
-                    }
-                }
-                // a-z key, alt, ctrl, shift, alt lock, ctrl lock, caps lock, symbol (held)
-                else {
-                    handleCharacter(rowIndex, colIndex);
-                }
+    // update the keyInfo array
+    // iterate the columns
+    for (int rowIndex = 0; rowIndex < ROW_COUNT; rowIndex++)
+    {
+        // iterate through the rows
+        for (int colIndex = 0; colIndex < COL_COUNT; colIndex++)
+        {
+            // any key pressed
+            if (keyPressed(rowIndex, colIndex))
+            {
+                keyRepeatStart = millis(); // Set keyRepeatStart to the current time
+                keyDownEvent(rowIndex, colIndex);
             }
-            // a-z key (held), alt, ctrl, shift, alt lock, ctrl lock, caps lock, symbol (held)
-            else if (keyHeld(rowIndex, colIndex) && (millis() - keyRepeatStart > KEY_REPEAT_DELAY)) {
-                handleCharacter(rowIndex, colIndex);
+            // any key held
+            else if (keyHeld(rowIndex, colIndex) && (millis() - keyRepeatStart > KEY_REPEAT_DELAY))
+            {
+                keyDownEvent(rowIndex, colIndex);
             }
         }
     }
-    // if keyInfo array is not empty, print the data over serial
-    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00 || keyInfo[5] != 0x00 || keyInfo[6] != 0x00)
+    // check if any key is pressed, dont check the reserved byte, if any key is pressed set the send flag
+    if (keyInfo[0] != EMPTY || keyInfo[2] != EMPTY || keyInfo[3] != EMPTY || keyInfo[4] != EMPTY || keyInfo[5] != EMPTY || keyInfo[6] != EMPTY || keyInfo[7] != EMPTY)
     {
+        sendFlag = true;
+    }
+}
         printKeyInfo(keyInfo);
         sendDataFlag = true;
     }
