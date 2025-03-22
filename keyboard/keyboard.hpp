@@ -107,29 +107,20 @@ extern uint8_t keyInfo[KEY_INFO_SIZE];   // modifier masks, reserved byte, keyco
 extern uint8_t emptyData[KEY_INFO_SIZE]; // empty array to send when no key is pressed, also used to reset the keyInfo array
 extern bool lastValue[ROW_COUNT][COL_COUNT];
 extern char defaultKeymap[ROW_COUNT][COL_COUNT];
-extern char symbolKeymap1[ROW_COUNT][COL_COUNT];
-extern char symbolKeymap2[ROW_COUNT][COL_COUNT];
-extern char symbolKeymap3[ROW_COUNT][COL_COUNT];
-extern char symbolKeymap4[ROW_COUNT][COL_COUNT];
-extern char symbolKeymap5[ROW_COUNT][COL_COUNT];
-extern char symbolKeymap6[ROW_COUNT][COL_COUNT];
-extern char symbolKeymap7[ROW_COUNT][COL_COUNT];
-extern KeyState keyStates[ROW_COUNT][COL_COUNT];
-extern uint8_t keymapIndex;
-extern bool altLock;
-extern bool ctrlLock;
-extern bool capsLock;
-extern bool symbolLock;
-extern bool backlightState;
-extern bool sendDataFlag;
-extern uint8_t keyInfo[KEY_INFO_SIZE];     // keyValue, alt, ctrl, shift, sym, mic, speaker
-extern uint8_t sendData[KEY_INFO_SIZE];    // keyValue, alt, ctrl, shift, sym, mic, speaker
-extern uint8_t emptyData[KEY_INFO_SIZE];   // empty array to send when no key is pressed
 
 /**
- * @brief Handles I2C requests.
+ * @brief Sets the keyboard backlight brightness.
+ *
+ * @param command The command to set the brightness (toggle, up, down).
  */
-void onRequest();
+void setKeyboardBrightness(int command);
+
+/**
+ * @brief Prints the key information.
+ *
+ * @param data The key data array.
+ */
+void printKeyInfo(uint8_t data[KEY_INFO_SIZE]);
 
 /**
  * @brief Checks if a key was released.
