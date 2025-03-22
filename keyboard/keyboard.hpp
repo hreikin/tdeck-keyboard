@@ -167,14 +167,7 @@ bool keyNotPressed(int rowIndex, int colIndex);
 void keyDownEvent(int rowIndex, int colIndex);
 
 /**
- * @brief Prints the key information.
- * 
- * @param data The key data array.
- */
-void printKeyInfo(uint8_t data[KEY_INFO_SIZE]);
-
-/**
- * @brief Reads the key matrix and updates the key states.
+ * @brief Reads the key matrix, updates the key states and handles the key down events.
  */
 void readKeyMatrix();
 
