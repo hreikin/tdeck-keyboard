@@ -12,7 +12,6 @@
 #define LILYGO_KB_SLAVE_ADDRESS 0x55
 #define LILYGO_KB_BRIGHTNESS_CMD 0x01
 #define LILYGO_KB_ALT_B_BRIGHTNESS_CMD 0x02
-
 #define BOARD_POWERON 10
 #define BOARD_I2C_SDA 18
 #define BOARD_I2C_SCL 8
@@ -68,27 +67,26 @@ void loop()
     {
         keyInfo[i] = Wire.read();
     }
-    if (keyInfo[0] != 0x00 || keyInfo[1] != 0x00 || keyInfo[2] != 0x00 || keyInfo[3] != 0x00 || keyInfo[4] != 0x00 || keyInfo[5] != 0x00 || keyInfo[6] != 0x00)
+    // check if any key is pressed, dont check the reserved byte
+    if (keyInfo[0] != EMPTY || keyInfo[2] != EMPTY || keyInfo[3] != EMPTY || keyInfo[4] != EMPTY || keyInfo[5] != EMPTY || keyInfo[6] != EMPTY || keyInfo[7] != EMPTY)
     {
-        Serial.print("char: ");
-        // print keyInfo[0] as a character, number and hex value
-        Serial.print((char)keyInfo[0]);
-        Serial.print(" ");
-        Serial.print(keyInfo[0]);
-        Serial.print(" 0x");
-        Serial.println(keyInfo[0], HEX);
-        Serial.print("alt: ");
+        // print all the keyInfo array values
+        Serial.print("modifier masks: ");
+        Serial.println(keyInfo[0]);
+        Serial.print("reserved byte: ");
         Serial.println(keyInfo[1]);
-        Serial.print("ctrl: ");
+        Serial.print("keycode 1: ");
         Serial.println(keyInfo[2]);
-        Serial.print("shift: ");
+        Serial.print("keycode 2: ");
         Serial.println(keyInfo[3]);
-        Serial.print("sym: ");
+        Serial.print("keycode 3: ");
         Serial.println(keyInfo[4]);
-        Serial.print("mic: ");
+        Serial.print("keycode 4: ");
         Serial.println(keyInfo[5]);
-        Serial.print("speaker: ");
+        Serial.print("keycode 5: ");
         Serial.println(keyInfo[6]);
+        Serial.print("keycode 6: ");
+        Serial.println(keyInfo[7]);
         Serial.println("************************************");
     }
     delay(5);
