@@ -20,190 +20,55 @@ KeyState keyStates[ROW_COUNT][COL_COUNT];
 // { e, s,     d,           p,     x,       z, [lshift] }
 // { r, g,     t,    [rshift],     v,       c,        f }
 // { u, h,     y,     [enter],     b,       n,        j }
-// { o, l,     i, [backspace],   [$],       m,        k }
-char defaultKeymap[ROW_COUNT][COL_COUNT] = {                                                                                  
-    {LATIN_SMALL_LETTER_Q, LATIN_SMALL_LETTER_W, NULL, LATIN_SMALL_LETTER_A, NULL, NULL, NULL},                                          
-    {LATIN_SMALL_LETTER_E, LATIN_SMALL_LETTER_S, LATIN_SMALL_LETTER_D, LATIN_SMALL_LETTER_P, LATIN_SMALL_LETTER_X, LATIN_SMALL_LETTER_Z, NULL},                     
-    {LATIN_SMALL_LETTER_R, LATIN_SMALL_LETTER_G, LATIN_SMALL_LETTER_T, NULL, LATIN_SMALL_LETTER_V, LATIN_SMALL_LETTER_C, LATIN_SMALL_LETTER_F},                     
-    {LATIN_SMALL_LETTER_U, LATIN_SMALL_LETTER_H, LATIN_SMALL_LETTER_Y, NULL, LATIN_SMALL_LETTER_B, LATIN_SMALL_LETTER_N, LATIN_SMALL_LETTER_J},                     
-    {LATIN_SMALL_LETTER_O, LATIN_SMALL_LETTER_L, LATIN_SMALL_LETTER_I, NULL, DOLLAR_SIGN, LATIN_SMALL_LETTER_M, LATIN_SMALL_LETTER_K}                  
-};
-// symbol 1 column in functionality.md
-// { #, 1, [sym],           *, [alt], [space],      [0] }
-// { 2, 4,     5,           @,     8,       7, [lshift] }
-// { 3, /,     (,    [rshift],     ?,       9,        6 }
-// { _, :,     ),     [enter],     !,       ,,        ; }
-// { +, ",     -, [backspace],   [¢],       .,        ' }
-char symbolKeymap1[ROW_COUNT][COL_COUNT] = {                                                                                  
-    {NUMBER_SIGN, DIGIT_ONE, NULL, ASTERISK, NULL, NULL, DIGIT_ZERO},                                          
-    {DIGIT_TWO, DIGIT_FOUR, DIGIT_FIVE, COMMERCIAL_AT, DIGIT_EIGHT, DIGIT_SEVEN, NULL},                                             
-    {DIGIT_THREE, SOLIDUS, LEFT_PARENTHESIS, NULL, QUESTION_MARK, DIGIT_NINE, DIGIT_SIX},                        
-    {LOW_LINE, COLON, RIGHT_PARENTHESIS, NULL, EXCLAMATION_MARK, COMMA, SEMICOLON},   
-    {PLUS_SIGN, QUOTATION_MARK, HYPHEN_MINUS, NULL, CENT_SIGN, FULL_STOP, APOSTROPHE} 
-};
-// symbol 2 column in functionality.md
-// { `, %, [sym],           ª, [alt], [space],   [NBSP] }
-// { &, º,     ⌐,           =,     ∞,       µ, [lshift] }
-// { £, \,     {,    [rshift],     ¿,       ²,        ¬ }
-// { ^, ½,     },     [enter],     ¡,       ∩,        ¼ }
-// { >, »,     <, [backspace],   [₧],       ~,        « }
-char symbolKeymap2[ROW_COUNT][COL_COUNT] = {
-    {GRAVE_ACCENT, PERCENT_SIGN, NULL, FEMININE_ORDINAL_INDICATOR, NULL, NULL, NO_BREAK_SPACE},
-    {AMPERSAND, MASCULINE_ORDINAL_INDICATOR, REVERSED_NOT_SIGN, EQUALS_SIGN, INFINITY, MICRO_SIGN, NULL},
-    {POUND_SIGN, REVERSE_SOLIDUS, LEFT_CURLY_BRACKET, NULL, INVERTED_QUESTION_MARK, SUPERSCRIPT_TWO, NOT_SIGN},
-    {CIRCUMFLEX_ACCENT, VULGAR_FRACTION_ONE_HALF, RIGHT_CURLY_BRACKET, NULL, INVERTED_EXCLAMATION_MARK, INTERSECTION, VULGAR_FRACTION_ONE_QUARTER},
-    {GREATER_THAN_SIGN, RIGHT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK, LESS_THAN_SIGN, NULL, PESETA_SIGN, TILDE, LEFT_POINTING_DOUBLE_ANGLE_QUOTATION_MARK}
-};
-// symbol 3 column in functionality.md
-// { ⌠,    ⌡, [sym],           ≈,  [alt], [space],   [NULL] }
-// { ÷,    °,     ∙,           ≡,   NULL,    NULL, [lshift] }
-// { ¥,    √,     [,    [rshift],   NULL,       ⁿ,        · }
-// { ±,    \,     ],     [enter],   NULL,    NULL,        ƒ }
-// { ≥, NULL,     ≤, [backspace], [NULL],    NULL,     NULL }
-char symbolKeymap3[ROW_COUNT][COL_COUNT] = {
-    {TOP_HALF_INTEGRAL, BOTTOM_HALF_INTEGRAL, NULL, ALMOST_EQUAL_TO, NULL, NULL, NULL},
-    {DIVISION_SIGN, DEGREE_SIGN, BULLET_OPERATOR, IDENTICAL_TO, NULL, NULL, NULL},
-    {YEN_SIGN, SQUARE_ROOT, LEFT_SQUARE_BRACKET, NULL, NULL, SUPERSCRIPT_LATIN_SMALL_LETTER_N, MIDDLE_DOT},
-    {PLUS_MINUS_SIGN, REVERSE_SOLIDUS, RIGHT_SQUARE_BRACKET, NULL, NULL, NULL, LATIN_SMALL_LETTER_F_WITH_HOOK},
-    {GREATER_THAN_OR_EQUAL_TO, NULL, LESS_THAN_OR_EQUAL_TO, NULL, NULL, NULL, NULL}
-};
-// symbol 4 column in functionality.md
-// { â, ä, [sym],           Ç,  [alt], [space],   [NULL] }
-// { à, ß,     é,           ç,      í,       ì, [lshift] }
-// { å, ë,     á,    [rshift],      Ñ,       ñ,        ê }
-// { Å, è,     Ä,     [enter],      ô,       ö,        É }
-// { Æ, î,     æ, [backspace], [NULL],       ò,        ï }
-char symbolKeymap4[ROW_COUNT][COL_COUNT] = {
-    {LATIN_SMALL_LETTER_A_WITH_CIRCUMFLEX, LATIN_SMALL_LETTER_A_WITH_DIAERESIS, NULL, LATIN_CAPITAL_LETTER_C_WITH_CEDILLA, NULL, NULL, NULL},
-    {LATIN_SMALL_LETTER_A_WITH_GRAVE, LATIN_SMALL_LETTER_SHARP_S, LATIN_SMALL_LETTER_E_WITH_ACUTE, LATIN_SMALL_LETTER_C_WITH_CEDILLA, LATIN_SMALL_LETTER_I_WITH_ACUTE, LATIN_SMALL_LETTER_I_WITH_GRAVE, NULL},
-    {LATIN_SMALL_LETTER_A_WITH_RING_ABOVE, LATIN_SMALL_LETTER_E_WITH_DIAERESIS, LATIN_SMALL_LETTER_A_WITH_ACUTE, NULL, LATIN_CAPITAL_LETTER_N_WITH_TILDE, LATIN_SMALL_LETTER_N_WITH_TILDE, LATIN_SMALL_LETTER_E_WITH_CIRCUMFLEX},
-    {LATIN_CAPITAL_LETTER_A_WITH_RING_ABOVE, LATIN_SMALL_LETTER_E_WITH_GRAVE, LATIN_CAPITAL_LETTER_A_WITH_DIAERESIS, NULL, LATIN_SMALL_LETTER_O_WITH_CIRCUMFLEX, LATIN_SMALL_LETTER_O_WITH_DIAERESIS, LATIN_CAPITAL_LETTER_E_WITH_ACUTE},
-    {LATIN_CAPITAL_LIGATURE_AE, LATIN_SMALL_LETTER_I_WITH_CIRCUMFLEX, LATIN_SMALL_LIGATURE_AE, NULL, NULL, LATIN_SMALL_LETTER_O_WITH_GRAVE, LATIN_SMALL_LETTER_I_WITH_DIAERESIS}
-};
-// symbol 5 column in functionality.md
-// { Ö, ó, [sym],           π,  [alt], [space],   [NULL] }
-// { ü, Σ,     σ,           Γ,   NULL,       ε, [lshift] }
-// { û, Φ,     ù,    [rshift],   NULL,    NULL,        τ }
-// { ú, Θ,     Ü,     [enter],   NULL,    NULL,        Ω }
-// { α, φ,     ÿ, [backspace], [NULL],    NULL,        δ }
-char symbolKeymap5[ROW_COUNT][COL_COUNT] = {
-    {LATIN_CAPITAL_LETTER_O_WITH_DIAERESIS, LATIN_SMALL_LETTER_O_WITH_ACUTE, NULL, GREEK_SMALL_LETTER_PI, NULL, NULL, NULL},
-    {LATIN_SMALL_LETTER_U_WITH_DIAERESIS, GREEK_CAPITAL_LETTER_SIGMA, GREEK_SMALL_LETTER_SIGMA, GREEK_CAPITAL_LETTER_GAMMA, NULL, GREEK_SMALL_LETTER_EPSILON, NULL},
-    {LATIN_SMALL_LETTER_U_WITH_CIRCUMFLEX, GREEK_CAPITAL_LETTER_PHI, LATIN_SMALL_LETTER_U_WITH_GRAVE, NULL, NULL, NULL, GREEK_SMALL_LETTER_TAU},
-    {LATIN_SMALL_LETTER_U_WITH_ACUTE, GREEK_CAPITAL_LETTER_THETA, LATIN_CAPITAL_LETTER_U_WITH_DIAERESIS, NULL, NULL, NULL, GREEK_CAPITAL_LETTER_OMEGA},
-    {GREEK_SMALL_LETTER_ALPHA, GREEK_SMALL_LETTER_PHI, LATIN_SMALL_LETTER_Y_WITH_DIAERESIS, NULL, NULL, NULL, GREEK_SMALL_LETTER_DELTA}
-};
-// symbol 6 column in functionality.md
-// { │, ┤, [sym],           ╜, [alt], [space],   [NULL] }
-// { ╡, ╛,     ┐,           ╝,     ╟,       ╞, [lshift] }
-// { ╢, ┴,     ╖,    [rshift],     ╔,       ╚,        └ }
-// { ╣, ┬,     ╕,     [enter],     ╩,       ╦,        ├ }
-// { ╗, ┼,     ║, [backspace],   [═],       ╠,        ─ }
-char symbolKeymap6[ROW_COUNT][COL_COUNT] = {
-    {BOX_DRAWINGS_LIGHT_VERTICAL, BOX_DRAWINGS_LIGHT_VERTICAL_AND_LEFT, NULL, BOX_DRAWINGS_UP_SINGLE_AND_HORIZONTAL_DOUBLE, NULL, NULL, NULL},
-    {BOX_DRAWINGS_VERTICAL_SINGLE_AND_LEFT_DOUBLE, BOX_DRAWINGS_UP_SINGLE_AND_HORIZONTAL_DOUBLE, BOX_DRAWINGS_LIGHT_DOWN_AND_LEFT, BOX_DRAWINGS_DOUBLE_UP_AND_LEFT, BOX_DRAWINGS_VERTICAL_DOUBLE_AND_RIGHT_SINGLE, BOX_DRAWINGS_VERTICAL_SINGLE_AND_RIGHT_DOUBLE, NULL},
-    {BOX_DRAWINGS_VERTICAL_DOUBLE_AND_LEFT_SINGLE, BOX_DRAWINGS_LIGHT_UP_AND_HORIZONTAL, BOX_DRAWINGS_DOWN_DOUBLE_AND_LEFT_SINGLE, NULL, BOX_DRAWINGS_DOUBLE_DOWN_AND_RIGHT, BOX_DRAWINGS_DOUBLE_UP_AND_RIGHT, BOX_DRAWINGS_LIGHT_UP_AND_RIGHT},
-    {BOX_DRAWINGS_DOUBLE_VERTICAL_AND_LEFT, BOX_DRAWINGS_LIGHT_DOWN_AND_HORIZONTAL, BOX_DRAWINGS_DOWN_SINGLE_AND_LEFT_DOUBLE, NULL, BOX_DRAWINGS_DOUBLE_UP_AND_HORIZONTAL, BOX_DRAWINGS_DOUBLE_DOWN_AND_HORIZONTAL, BOX_DRAWINGS_LIGHT_VERTICAL_AND_RIGHT},
-    {BOX_DRAWINGS_DOUBLE_DOWN_AND_LEFT, BOX_DRAWINGS_LIGHT_VERTICAL_AND_HORIZONTAL, BOX_DRAWINGS_DOUBLE_VERTICAL, NULL, BOX_DRAWINGS_DOUBLE_HORIZONTAL, BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, BOX_DRAWINGS_LIGHT_HORIZONTAL}
-};
-
-// symbol 7 column in functionality.md
-// { ╬, ╬, [sym],           ╪, [alt], [space],   [NULL] }
-// { ╨, ┘,     ┌,           ╫,     ▒,       ░, [lshift] }
-// { ╤, ▄,     ╥,    [rshift],   NUL,       ▓,        █ }
-// { ╘, ▌,     ╙,     [enter],   SOH,     STX,        ▐ }
-// { ╓, ■,     ╒, [backspace], [EOT],     ETX,        ▀ }
-char symbolKeymap7[ROW_COUNT][COL_COUNT] = {
-    {BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, BOX_DRAWINGS_DOUBLE_VERTICAL_AND_HORIZONTAL, NULL, BOX_DRAWINGS_VERTICAL_SINGLE_AND_HORIZONTAL_DOUBLE, NULL, NULL, NULL},
-    {BOX_DRAWINGS_UP_DOUBLE_AND_HORIZONTAL_SINGLE, BOX_DRAWINGS_LIGHT_UP_AND_LEFT, BOX_DRAWINGS_LIGHT_DOWN_AND_RIGHT, BOX_DRAWINGS_VERTICAL_DOUBLE_AND_HORIZONTAL_SINGLE, LIGHT_SHADE, MEDIUM_SHADE, NULL},
-    {BOX_DRAWINGS_DOWN_SINGLE_AND_HORIZONTAL_DOUBLE, LOWER_HALF_BLOCK, BOX_DRAWINGS_DOWN_DOUBLE_AND_HORIZONTAL_SINGLE, NUL_CHAR, NULL, DARK_SHADE, FULL_BLOCK},
-    {BOX_DRAWINGS_UP_SINGLE_AND_RIGHT_DOUBLE, LEFT_HALF_BLOCK, BOX_DRAWINGS_UP_DOUBLE_AND_RIGHT_SINGLE, NULL, START_OF_HEADING, START_OF_TEXT, RIGHT_HALF_BLOCK},
-    {BOX_DRAWINGS_DOWN_DOUBLE_AND_RIGHT_SINGLE, BLACK_SQUARE, BOX_DRAWINGS_DOWN_SINGLE_AND_RIGHT_DOUBLE, NULL, END_OF_TRANSMISSION, END_OF_TEXT, UPPER_HALF_BLOCK}
-};
-
-// symbol 8 column in functionality.md
-// { ENQ, ACK, [sym],          SI, [alt], [space],   [NULL] }
-// { BEL, DLE,   DC1,          SO,    EM,     CAN, [lshift] }
-// {  BS, DC3,   TAB,    [rshift],   ESC,     SUB,      DC2 }
-// {  VT, DC4,    LF,     [enter],    FS,      GS,      NAK }
-// {  CR, ETB,    FF, [backspace],  [US],      RS,      SYN }
-char symbolKeymap8[ROW_COUNT][COL_COUNT] = {
-    {ENQUIRY, ACKNOWLEDGE, NULL, SHIFT_IN, NULL, NULL, NULL},
-    {BELL, DATA_LINK_ESCAPE, DEVICE_CONTROL_ONE, SHIFT_OUT, END_OF_MEDIUM, CANCEL, NULL},
-    {BACKSPACE, DEVICE_CONTROL_THREE, HORIZONTAL_TABULATION, NULL, ESCAPE, SUBSTITUTE, DEVICE_CONTROL_TWO},
-    {VERTICAL_TABULATION, DEVICE_CONTROL_FOUR, LINE_FEED, NULL, FILE_SEPARATOR, GROUP_SEPARATOR, NEGATIVE_ACKNOWLEDGE},
-    {CARRIAGE_RETURN, END_OF_TRANSMISSION_BLOCK, FORM_FEED, NULL, UNIT_SEPARATOR, RECORD_SEPARATOR, SYNCHRONOUS_IDLE}
-};
-
-bool altLock = false;
-bool ctrlLock = false;
-bool capsLock = false;
-bool symbolLock = false;
-bool backlightState = true;
-bool sendDataFlag = false;
-uint8_t keymapIndex = 0;                                                               // defaultKeymap = 0, symbolKeymap1 = 1, symbol_keymap2 = 2, etc.
-uint8_t keyInfo[KEY_INFO_SIZE] = {0x00, false, false, false, false, false, false};     // key_value, alt, ctrl, shift, sym, mic, speaker
-uint8_t sendData[KEY_INFO_SIZE] = {0x00, false, false, false, false, false, false};    // key_value, alt, ctrl, shift, sym, mic, speaker
-uint8_t emptyData[KEY_INFO_SIZE] = {0x00, false, false, false, false, false, false};   // empty array to send when no key is pressed
-uint8_t currentBrightness = 119;                                                       // Default brightness level
-unsigned long keyRepeatStart = 0;
-
-/**
- * @brief Handles I2C requests.
- * 
- * Sends the key data over I2C when requested.
- */
-void onRequest()
+void setKeyboardBrightness(int command)
 {
-    if (sendDataFlag) {
-        Wire.write(sendData, KEY_INFO_SIZE);
-        sendDataFlag = false;
-        Serial.print("sendData : ");
-        for (int i = 0; i < KEY_INFO_SIZE; i++) {
-            Serial.print(sendData[i]);
-            Serial.print(" ");
-        }
-        Serial.println();
-    } else {
-        Wire.write(emptyData, KEY_INFO_SIZE); // Use the temporary array
-    }
-}
-
-/**
- * @brief Sets the keyboard backlight brightness.
- * 
- * @param command The command to set the brightness (toggle, up, down).
- */
-void setKeyboardBrightness(uint8_t command)
-{
-    if (command == FUNCTION_TOGGLE) {
-        if (backlightState) {
+    if (command == FUNCTION_TOGGLE)
+    {
+        if (backlightState)
+        {
             currentBrightness = KEYBOARD_BRIGHTNESS_MIN;
-        } else {
+        }
+        else
+        {
             currentBrightness = KEYBOARD_BRIGHTNESS_DEFAULT;
         }
-    } else if (command == FUNCTION_UP) {
-        if (currentBrightness < KEYBOARD_BRIGHTNESS_MAX) {
-            if (currentBrightness >= KEYBOARD_BRIGHTNESS_MAX - KEYBOARD_BRIGHTNESS_STEP) {
+    }
+    else if (command == FUNCTION_UP)
+    {
+        if (currentBrightness < KEYBOARD_BRIGHTNESS_MAX)
+        {
+            if (currentBrightness >= KEYBOARD_BRIGHTNESS_MAX - KEYBOARD_BRIGHTNESS_STEP)
+            {
                 currentBrightness = KEYBOARD_BRIGHTNESS_MAX;
-            } else {
+            }
+            else
+            {
                 currentBrightness += KEYBOARD_BRIGHTNESS_STEP;
             }
         }
-    } else if (command == FUNCTION_DOWN) {
-        if (currentBrightness > KEYBOARD_BRIGHTNESS_MIN) {
-            if (currentBrightness <= KEYBOARD_BRIGHTNESS_MIN + KEYBOARD_BRIGHTNESS_STEP) {
+    }
+    else if (command == FUNCTION_DOWN)
+    {
+        if (currentBrightness > KEYBOARD_BRIGHTNESS_MIN)
+        {
+            if (currentBrightness <= KEYBOARD_BRIGHTNESS_MIN + KEYBOARD_BRIGHTNESS_STEP)
+            {
                 currentBrightness = KEYBOARD_BRIGHTNESS_MIN;
-            } else {
+            }
+            else
+            {
                 currentBrightness -= KEYBOARD_BRIGHTNESS_STEP;
             }
         }
     }
-    // If the toggle is on/off and the user increments/decrements the brightness then ensure 
+    // If the toggle is on/off and the user increments/decrements the brightness then ensure
     // the backlight state is set correctly
-    if (currentBrightness > KEYBOARD_BRIGHTNESS_MIN) {
+    if (currentBrightness > KEYBOARD_BRIGHTNESS_MIN)
+    {
         backlightState = true;
-    } else {
+    }
+    else
+    {
         backlightState = false;
     }
     ledcWrite(KEYBOARD_BRIGHTNESS_CH, currentBrightness);
